@@ -14,3 +14,5 @@ The `hostname` option is used to explicitly define the container hostname otherw
 ### Client connect for setup
 
 `docker run -it --network mysql-bridge-network --rm mysql mysql -hweight-db-host -u root -p`
+
+`create table weight_entries( entry_date date not null, entry_value float not null, unique key(entry_date));`
