@@ -10,10 +10,18 @@ import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 
 import com.flores.dev.batch.weight.model.WeightEntry;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Configuration
 @EnableBatchProcessing
 public class Config {
 
@@ -25,12 +33,17 @@ public class Config {
 
 	@Bean
 	@StepScope
-	public FlatFileItemReader<WeightEntry> getCsvReader() {
+	public FlatFileItemReader<WeightEntry> getCsvReader(@Value("#{jobParameters['inputFile']}") String inputFile) {
+		log.trace("Initializing reader...");
+
+		Resource resource = new FileSystemResource(inputFile);
 		
 		String[] fieldNames = {"Date", "Weight"};
 
 		return new FlatFileItemReaderBuilder<WeightEntry>()
-				.resource(null)
+				.name("weightCsvReader")
+				.resource(resource)
+				.linesToSkip(1)
 				.delimited()
 				.names(fieldNames)
 				.targetType(WeightEntry.class)
@@ -40,6 +53,7 @@ public class Config {
 	@Bean
 	@StepScope
 	public ItemWriter<WeightEntry> getWriter() {
+		log.trace("Initializing writer...");
 		return (c) -> {
 			c.forEach(System.out::println);
 		};
@@ -49,7 +63,7 @@ public class Config {
 	public Step step() {
 		return stepBuilder.get("weightCsvReadStep")
 				.<WeightEntry, WeightEntry>chunk(25)
-				.reader(getCsvReader())
+				.reader(getCsvReader(null))
 				.writer(getWriter())
 				.build();
 	}
