@@ -9,12 +9,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 
-import com.mysql.jdbc.Driver;
-
 @Configuration
 public class DataSourceConfig {
 
-	
 	@Bean
 	@Primary
 	public DataSource hsql() {
@@ -25,7 +22,7 @@ public class DataSourceConfig {
         dataSource.setPassword("");
         return dataSource;
 	}
-	
+
 	@Bean
 	public SimpleDriverDataSource mysql() throws SQLException {
 		
@@ -41,6 +38,5 @@ public class DataSourceConfig {
 		catch (SQLException e) {
 			throw e;
 		}
-		
 	}
 }
