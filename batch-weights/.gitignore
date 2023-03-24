@@ -1,8 +1,0 @@
-.DS_store
-
-.classpath
-.project
-.settings/
-target/
-
-*-out.csv
