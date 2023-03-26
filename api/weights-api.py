@@ -1,4 +1,20 @@
-import argparse
+import os
+import logging, argparse
+
+def initialize_logger(name: str = __name__):
+    '''
+    initialize logger
+    '''
+
+    FORMAT = '[%(levelname)s]:%(asctime)s %(message)s'
+    logging.basicConfig(format = FORMAT)
+    logger = logging.getLogger(name)
+    logger.setLevel(os.getenv('LOGGING_LEVEL', 'DEBUG'))
+    return logger
+
+
+logger = initialize_logger()
+
 
 def request_handler(path: str, req_payload: dict):
 
@@ -19,7 +35,10 @@ def request_handler(path: str, req_payload: dict):
 
 
 def get_data_by_year(year: int):
-    pass
+    logger.debug(f'Collecting data for year {year}')
+    
+    return {}
+
 
 if __name__ == '__main__':
 
