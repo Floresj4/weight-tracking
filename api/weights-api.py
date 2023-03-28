@@ -1,4 +1,4 @@
-import os
+import os, re
 import logging, argparse
 
 import MySQLdb
@@ -24,10 +24,13 @@ def request_handler(path: str, req_payload: dict):
 
     try:
 
-        dbconnect = MySQLdb.connect(host = '127.0.0.1', user = 'root', passwd = '1234', db = 'weight_tracking')
+        # initialize connection
+        dbconnect = MySQLdb.connect(host = '127.0.0.1', 
+                user = 'root', 
+                passwd = '1234', 
+                db = 'weight_tracking')
 
         if(path == '/'):
-
             return {}
 
         # not sure this is the endpoint I want yet
@@ -53,7 +56,11 @@ def get_data_by_year(connection, year: int):
     logger.debug(f'Collecting data for year {year}')
     
     cursor = connection.cursor()
-    cursor.execute(f'select * from weight_entries where year(entry_date) = {year}')
+    cursor.execute(f'''
+        select * 
+        from weight_entries 
+        where year(entry_date) = {year}
+        ''')
 
     yearly_data = []
     for _date, _value in cursor.fetchall():
