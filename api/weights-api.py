@@ -34,24 +34,15 @@ def request_handler(path: str, req_payload: dict):
                 db = 'weight_tracking')
 
         if(match_result := path_data_by_year_month.fullmatch(path)):
-            logger.debug(match_result)
-
-            year = match_result.group(1)
-            month = match_result.group(2)
-            data = get_data_by_year_month(dbconnect, year, month)
+            data = get_data_by_year_month(dbconnect, match_result)
             return data
 
         if(match_result := path_data_by_year_monthly_avg.fullmatch(path)):
-
-            year = match_result.group(1)
-            data = get_monthly_avg_by_year(dbconnect, year)
+            data = get_monthly_avg_by_year(dbconnect, match_result)
             return data
 
         if(match_result := path_data_by_year.fullmatch(path)):
-            logger.debug(match_result)
-
-            year = match_result.group(1)
-            data = get_data_by_year(dbconnect, year)
+            data = get_data_by_year(dbconnect, match_result)
             return data
 
     finally:
@@ -63,11 +54,15 @@ def request_handler(path: str, req_payload: dict):
     return {}
 
 
-def get_monthly_avg_by_year(connection, year: int):
+def get_monthly_avg_by_year(connection, match_result):
     '''
     Collect monthly averages by year
+
+    e.g., /year/2022?avg
     '''
-    logger.debug(f'Collecting average for year {year}')
+    year = match_result.group(1)
+
+    logger.debug(f'Collecting monthly average for year {year}.')
 
     cursor = connection.cursor()
     cursor.execute(f'''
@@ -92,11 +87,16 @@ def get_monthly_avg_by_year(connection, year: int):
     }
 
 
-def get_data_by_year_month(connection, year: int, month: int):
+def get_data_by_year_month(connection, match_result):
     '''
-    Collect data for a single month and year
+    Collect data for a single month and year.
+
+    e.g., /year/2022/month/02
     '''
-    logger.debug(f'Collecting data for year {year}, {month}')
+    year = match_result.group(1)
+    month = match_result.group(2)
+
+    logger.debug(f'Collecting data for year {year}.')
 
     cursor = connection.cursor()
     cursor.execute(f'''
@@ -120,10 +120,14 @@ def get_data_by_year_month(connection, year: int, month: int):
     }
 
 
-def get_data_by_year(connection, year: int):
+def get_data_by_year(connection, match_result):
     '''
     Collect data for a given year
+
+    e.g., /year/2021
     '''
+    year = match_result.group(1)
+
     logger.debug(f'Collecting data for year {year}')
     
     cursor = connection.cursor()
@@ -153,7 +157,7 @@ if __name__ == '__main__':
     parser.add_argument('--indent', default = None, type = int)
     args = parser.parse_args()
 
-    # test path and response
+    # verify path and response
     response = request_handler(args.path, {})
     json.dump(response, sys.stdout
               , indent = args.indent
