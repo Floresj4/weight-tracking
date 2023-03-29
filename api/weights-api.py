@@ -56,6 +56,21 @@ def request_handler(path: str, req_payload: dict):
     return {}
 
 
+def get_monthly_avg_by_year(connection, year: int):
+    '''
+    Collect monthly averages by year
+    '''
+    logger.debug(f'Collecting average for year {year}')
+
+    cursor = connection.cursor()
+    cursor.execute(f'''
+        select month(entry_date), truncate(avg(entry_value),2) 
+        from weight_entries 
+        where year(entry_date) = {year} 
+        group by month(entry_date);
+    ''')
+
+
 def get_data_by_year_month(connection, year: int, month: int):
     '''
     Collect data for a single month and year
