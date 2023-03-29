@@ -1,0 +1,20 @@
+# Weight Tracking API
+
+Database interactions by request routes.
+
+## Execution
+
+List the options available for execution.
+
+`python weights-api.py --help`
+
+E.g.,
+
+`python weights-api.py /year/2022/month/02`
+
+<br/>
+
+## Related Projects
+
+- [Batch](../batch/)
+- [Weight Tracking](..)
