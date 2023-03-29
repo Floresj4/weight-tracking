@@ -31,18 +31,11 @@ def request_handler(path: str, req_payload: dict):
                 passwd = '1234', 
                 db = 'weight_tracking')
 
-        match_result = path_data_by_year.match(path)
-        logger.debug(match_result)
-
-        if(path == '/'):
-            return {}
-
-        # not sure this is the endpoint I want yet
-        elif(match_result):
+        if(match_result := path_data_by_year.match(path)):
+            logger.debug(match_result)
 
             year = match_result.group(1)
             data = get_data_by_year(dbconnect, year)
-
             return data
 
     finally:
