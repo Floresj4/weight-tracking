@@ -152,9 +152,9 @@ def get_data_by_year(connection, match_result):
 
 if __name__ == '__main__':
 
-    parser = argparse.ArgumentParser(prog = 'Weight Tracking Access', description='Database interactions')
-    parser.add_argument('path', default = '/', type = str)
-    parser.add_argument('--indent', default = None, type = int)
+    parser = argparse.ArgumentParser(prog = 'Weight Tracking Access', description='Database interactions routing by request path.')
+    parser.add_argument('path', default = '/', type = str, help = 'Path to execute. e.g., /year/2023')
+    parser.add_argument('--indent', default = None, type = int, help = 'Indentation size on json pretty print.  Default None to be less verbose during dev/test.')
     args = parser.parse_args()
 
     # verify path and response
