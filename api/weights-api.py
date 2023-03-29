@@ -18,6 +18,7 @@ def initialize_logger(name: str = __name__):
 logger = initialize_logger()
 
 path_data_by_year_month = re.compile(r'\/year\/(\d{4})\/month\/(\d{2})')
+path_data_by_year_monthly_avg = re.compile(r'\/year\/(\d{4})\?avg')
 path_data_by_year = re.compile(r'\/year\/(\d{4})')
 
 def request_handler(path: str, req_payload: dict):
@@ -38,6 +39,12 @@ def request_handler(path: str, req_payload: dict):
             year = match_result.group(1)
             month = match_result.group(2)
             data = get_data_by_year_month(dbconnect, year, month)
+            return data
+
+        if(match_result := path_data_by_year_monthly_avg.fullmatch(path)):
+
+            year = match_result.group(1)
+            data = get_monthly_avg_by_year(dbconnect, year)
             return data
 
         if(match_result := path_data_by_year.fullmatch(path)):
@@ -64,11 +71,25 @@ def get_monthly_avg_by_year(connection, year: int):
 
     cursor = connection.cursor()
     cursor.execute(f'''
-        select month(entry_date), truncate(avg(entry_value),2) 
+        select 
+            month(entry_date)
+            , truncate(avg(entry_value),2) 
         from weight_entries 
         where year(entry_date) = {year} 
         group by month(entry_date);
     ''')
+
+    month_data = []
+    for _date, _value in cursor.fetchall():
+        month_data.append({
+            'entry_date': _date,
+            'entry_value': _value
+            })
+
+    return {
+        'year': year,
+        'data': month_data
+    }
 
 
 def get_data_by_year_month(connection, year: int, month: int):
