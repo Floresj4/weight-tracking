@@ -17,6 +17,7 @@ def initialize_logger(name: str = __name__):
 
 logger = initialize_logger()
 
+path_data_by_year_month = re.compile(r'\/year\/(\d{0,4})\/month\/(\d{0,2})')
 path_data_by_year = re.compile(r'\/year\/(\d{0,4})')
 
 def request_handler(path: str, req_payload: dict):
@@ -31,6 +32,14 @@ def request_handler(path: str, req_payload: dict):
                 passwd = '1234', 
                 db = 'weight_tracking')
 
+        if(match_result := path_data_by_year_month.match(path)):
+            logger.debug(match_result)
+
+            year = match_result.group(1)
+            month = match_result.group(2)
+            data = get_data_by_year_month(dbconnect, year, month)
+            return data
+
         if(match_result := path_data_by_year.match(path)):
             logger.debug(match_result)
 
@@ -44,6 +53,34 @@ def request_handler(path: str, req_payload: dict):
             dbconnect.close()
 
     return {}
+
+
+def get_data_by_year_month(connection, year: int, month: int):
+    '''
+    Collect data for a single month and year
+    '''
+    logger.debug(f'Collecting data for year {year}, {month}')
+
+    cursor = connection.cursor()
+    cursor.execute(f'''
+        select *
+        from weight_entries
+        where year(entry_date) = {year}
+            and month(entry_date) = {month}
+    ''')
+
+    month_data = []
+    for _date, _value in cursor.fetchall():
+        month_data.append({
+            'entry_date': _date,
+            'entry_value': _value
+            })
+
+    return {
+        'year': year,
+        'month': month,
+        'data': month_data
+    }
 
 
 def get_data_by_year(connection, year: int):
