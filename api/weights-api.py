@@ -17,8 +17,8 @@ def initialize_logger(name: str = __name__):
 
 logger = initialize_logger()
 
-path_data_by_year_month = re.compile(r'\/year\/(\d{0,4})\/month\/(\d{0,2})')
-path_data_by_year = re.compile(r'\/year\/(\d{0,4})')
+path_data_by_year_month = re.compile(r'\/year\/(\d{4})\/month\/(\d{2})')
+path_data_by_year = re.compile(r'\/year\/(\d{4})')
 
 def request_handler(path: str, req_payload: dict):
 
@@ -32,7 +32,7 @@ def request_handler(path: str, req_payload: dict):
                 passwd = '1234', 
                 db = 'weight_tracking')
 
-        if(match_result := path_data_by_year_month.match(path)):
+        if(match_result := path_data_by_year_month.fullmatch(path)):
             logger.debug(match_result)
 
             year = match_result.group(1)
@@ -40,7 +40,7 @@ def request_handler(path: str, req_payload: dict):
             data = get_data_by_year_month(dbconnect, year, month)
             return data
 
-        if(match_result := path_data_by_year.match(path)):
+        if(match_result := path_data_by_year.fullmatch(path)):
             logger.debug(match_result)
 
             year = match_result.group(1)
