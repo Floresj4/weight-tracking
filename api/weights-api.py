@@ -1,4 +1,4 @@
-import os, re
+import os, re, json, sys
 import logging, argparse
 
 import MySQLdb
@@ -82,4 +82,4 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     response = request_handler(args.path, {})
-    print(response)
+    json.dump(response, sys.stdout, indent = 4, default = str)
