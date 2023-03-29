@@ -17,6 +17,7 @@ def initialize_logger(name: str = __name__):
 
 logger = initialize_logger()
 
+path_data_by_year = re.compile(r'\/year\/(\d{0,4})')
 
 def request_handler(path: str, req_payload: dict):
 
@@ -30,13 +31,16 @@ def request_handler(path: str, req_payload: dict):
                 passwd = '1234', 
                 db = 'weight_tracking')
 
+        match_result = path_data_by_year.match(path)
+        logger.debug(match_result)
+
         if(path == '/'):
             return {}
 
         # not sure this is the endpoint I want yet
-        elif(path == '/year'):
+        elif(match_result):
 
-            year = 2023
+            year = match_result.group(1)
             data = get_data_by_year(dbconnect, year)
 
             return data
@@ -82,4 +86,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     response = request_handler(args.path, {})
-    json.dump(response, sys.stdout, indent = 4, default = str)
+    json.dump(response, sys.stdout
+            #   , indent = 4
+              , default = str)
