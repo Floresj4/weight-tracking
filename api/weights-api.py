@@ -52,6 +52,7 @@ def request_handler(path: str, req_payload: dict):
         if dbconnect:
             dbconnect.close()
 
+    logger.warning('No paths matched.')
     return {}
 
 
