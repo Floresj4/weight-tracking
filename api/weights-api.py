@@ -83,9 +83,11 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(prog = 'Weight Tracking Access', description='Database interactions')
     parser.add_argument('path', default = '/', type = str)
+    parser.add_argument('--indent', default = None, type = int)
     args = parser.parse_args()
 
+    # test path and response
     response = request_handler(args.path, {})
     json.dump(response, sys.stdout
-            #   , indent = 4
+              , indent = args.indent
               , default = str)
