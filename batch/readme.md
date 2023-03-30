@@ -33,6 +33,7 @@ The MySQL container can be used as a client to configure the database.
 `docker run -it --network mysql-bridge-network --rm mysql mysql -hweight-db-host -u root -p`
 
 <br/>
+
 Create and select a database to use.
 
 `create database weight_tracking` <br/>
