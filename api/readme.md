@@ -16,5 +16,5 @@ E.g.,
 
 <br/>
 
-- [Weight Tracking](../)
+- [Weight Tracking](../readme.md)
 - [Batch](../batch/)
