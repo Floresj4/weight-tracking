@@ -46,7 +46,8 @@ create table weight_entries(
   entry_date date not null
   , entry_value float not null
   , unique key(entry_date)
-);```
+);
+```
 
 <br/>
 
