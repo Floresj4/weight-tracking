@@ -47,3 +47,8 @@ create table weight_entries(
   , entry_value float not null
   , unique key(entry_date)
 );```
+
+<br/>
+
+- [Weight Tracking](../readme.md)
+- [API](../api/)
