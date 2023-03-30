@@ -2,6 +2,8 @@
 
 Database interactions by request routes.
 
+<br/>
+
 ## Execution
 
 List the options available for execution.
@@ -14,7 +16,5 @@ E.g.,
 
 <br/>
 
-## Related Projects
-
-- [Batch](../batch/)
 - [Weight Tracking](..)
+- [Batch](../batch/)
