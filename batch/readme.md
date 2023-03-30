@@ -40,6 +40,7 @@ Create and select a database to use.
 `use weight_tracking`
 
 <br/>
+
 Table setup
 
 ```
