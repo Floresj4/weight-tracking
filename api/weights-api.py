@@ -68,7 +68,11 @@ def get_data_by_year_min_max(connection, match_result):
     min_max = match_result.group(2)
 
     cursor = connection.cursor()
+
+    # reset sql_mode to allow columns outside aggregate
     cursor.execute('set sql_mode = \'\'')
+
+    # query together
     cursor.execute(f'''
         with year_data as (
             select *
