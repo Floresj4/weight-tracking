@@ -79,9 +79,11 @@ def get_data_by_year_min_max(connection, match_result):
             from weight_entries
             where year(entry_date) = {year}
         )
-        select 'min', entry_date, min(entry_value) from year_data
-        union all
-        select 'max', entry_date, max(entry_value) from year_data
+        select distinct * from (
+            select 'min', entry_date, min(entry_value) from year_data
+            union all
+            select 'max', entry_date, max(entry_value) from year_data
+        ) a
     ''')
 
     aggregates = {}
