@@ -18,6 +18,7 @@ def initialize_logger(name: str = __name__):
 logger = initialize_logger()
 
 path_data_by_year_month = re.compile(r'\/year\/(\d{4})\/month\/(\d{2})')
+path_data_by_year_min_max = re.compile(r'\/year\/(\d{4})\?(min|max)')
 path_data_by_year_monthly_avg = re.compile(r'\/year\/(\d{4})\?avg')
 path_data_by_year = re.compile(r'\/year\/(\d{4})')
 
@@ -31,14 +32,19 @@ def request_handler(path: str, req_payload: dict):
         dbconnect = MySQLdb.connect(host = '127.0.0.1', 
                 user = 'root', 
                 passwd = '1234', 
-                db = 'weight_tracking')
+                db = 'weight_tracking',
+                sql_mode = None)
 
         if(match_result := path_data_by_year_month.fullmatch(path)):
             data = get_data_by_year_month(dbconnect, match_result)
             return data
 
+        if(match_result := path_data_by_year_min_max.fullmatch(path)):
+            data = get_data_by_year_min_max(dbconnect, match_result)
+            return data
+
         if(match_result := path_data_by_year_monthly_avg.fullmatch(path)):
-            data = get_monthly_avg_by_year(dbconnect, match_result)
+            data = get_data_monthly_avg_by_year(dbconnect, match_result)
             return data
 
         if(match_result := path_data_by_year.fullmatch(path)):
@@ -54,7 +60,40 @@ def request_handler(path: str, req_payload: dict):
     return {}
 
 
-def get_monthly_avg_by_year(connection, match_result):
+def get_data_by_year_min_max(connection, match_result):
+    '''
+    Collect the min or max value for the year
+    '''
+    year = match_result.group(1)
+    min_max = match_result.group(2)
+
+    cursor = connection.cursor()
+    cursor.execute('set sql_mode = \'\'')
+    cursor.execute(f'''
+        with year_data as (
+            select *
+            from weight_entries
+            where year(entry_date) = {year}
+        )
+        select 'min', entry_date, min(entry_value) from year_data
+        union all
+        select 'max', entry_date, max(entry_value) from year_data
+    ''')
+
+    aggregates = {}
+    for agg, _date, _value in cursor.fetchall():
+        aggregates[agg] = {
+            'entry_date': _date,
+            'entry_value': _value
+        }
+
+    return {
+        'year': year,
+        'data': aggregates
+    }
+
+
+def get_data_monthly_avg_by_year(connection, match_result):
     '''
     Collect monthly averages by year
 
