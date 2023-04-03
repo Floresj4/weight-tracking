@@ -78,22 +78,22 @@ def get_data_by_year_min_max(connection, match_result):
             select *
             from weight_entries
             where year(entry_date) = 2022
+        ),
+        max_year as (
+            select max(entry_value) as x from year_data
+        ),
+        min_year as (
+            select min(entry_value) as x from year_data
         )
         select 'max', entry_date, entry_value
-        from year_data
-        where entry_value = (
-            select max(entry_value)
-            from year_data
-        )
+        from year_data y
+        where y.entry_value = (table max_year)
 
         union all
 
         select 'min', entry_date, entry_value
         from year_data
-        where entry_value = (
-            select min(entry_value)
-            from year_data
-        )
+        where entry_value = (table min_year)
     ''')
 
     aggregates = {}
