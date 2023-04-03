@@ -85,6 +85,15 @@ def get_data_by_year_min_max(connection, match_result):
             select max(entry_value)
             from year_data
         )
+
+        union all
+
+        select 'min', entry_date, entry_value
+        from year_data
+        where entry_value = (
+            select min(entry_value)
+            from year_data
+        )
     ''')
 
     aggregates = {}
