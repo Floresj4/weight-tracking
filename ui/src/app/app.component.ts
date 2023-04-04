@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ui';
+
+  year = 2023;
+  averageWeight = 159.82
+  
 }
