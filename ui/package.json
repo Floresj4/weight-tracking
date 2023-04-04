@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "stubby": "stubby -d ./mock/api.yml -w",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
