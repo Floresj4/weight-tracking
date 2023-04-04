@@ -18,3 +18,4 @@ E.g.,
 
 - [Weight Tracking](../readme.md)
 - [Batch](../batch/)
+- [UI](../ui/)

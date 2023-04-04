@@ -55,3 +55,4 @@ create table weight_entries(
 
 - [Weight Tracking](../readme.md)
 - [API](../api/)
+- [UI](../ui/)
