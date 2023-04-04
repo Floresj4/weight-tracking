@@ -1,5 +1,7 @@
 .DS_store
 
+.vscode/
+
 .classpath
 .project
 .settings/
@@ -8,3 +10,4 @@ target/
 *-out.csv
 
 batch-weights/
+
