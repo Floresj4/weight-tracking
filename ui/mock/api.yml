@@ -1,0 +1,9 @@
+- request:
+    url: ^/years$
+    method: GET
+  response:
+    status: 200
+    latency: 300
+    headers:
+      content-type: application/json
+    body: [2022, 2023]
