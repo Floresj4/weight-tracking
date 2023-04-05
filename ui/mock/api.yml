@@ -6,4 +6,5 @@
     latency: 300
     headers:
       content-type: application/json
-    body: [2022, 2023]
+      Access-Control-Allow-Origin: '*'
+    body: [2021, 2022, 2023]

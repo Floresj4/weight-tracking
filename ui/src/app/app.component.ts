@@ -11,9 +11,12 @@ export class AppComponent {
   title = 'ui';
 
   year = 2023;
+  years: number[] = []
   averageWeight = 159.82
   
   constructor(private data: DataService) {
-    
+    data.getYears().subscribe((response) => {
+      this.years = response
+    })
   }
 }
