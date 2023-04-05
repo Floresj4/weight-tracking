@@ -1,7 +1,11 @@
 <div>
   <ul>
-    <li>{{ years }}</li>
-    <li>{{ year }}</li>
-    <li>{{ trend }}</li>
+    <li>Years: {{ years }}</li>
+    <li>Select year: {{ year }}</li>
+    <!-- <li>trend: {{ trend }}</li> -->
   </ul>
+
+  <app-trend-display *ngIf="displayTrend"
+    [trend]="trend"></app-trend-display>
+
 </div>

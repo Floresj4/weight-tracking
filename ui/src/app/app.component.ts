@@ -15,7 +15,8 @@ export class AppComponent {
   years: number[] = []
   entries: number[] = []
   trend: Trend = <Trend>{}
-  
+  displayTrend: boolean = false
+
   constructor(private data: DataService) {
 
     this.getAvailableYears()
@@ -38,8 +39,8 @@ export class AppComponent {
 
   getTrendForYear(year: number) {
     this.data.getTrendForYear(year).subscribe((response: Trend) => {
-      console.log(response)
       this.trend = response
+      this.displayTrend = true
     })
   }
 }
