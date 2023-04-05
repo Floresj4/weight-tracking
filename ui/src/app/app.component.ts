@@ -11,7 +11,7 @@ import { DataService } from './services/data.service';
 export class AppComponent {
   title = 'ui';
 
-  year = 2023;
+  year: number = 0
   years: number[] = []
   entries: number[] = []
   trend: Trend = <Trend>{}
@@ -25,19 +25,19 @@ export class AppComponent {
 
   getAvailableYears() {
       //collect years available to review
-      this.data.getYearsAvailable().subscribe((response) => {
+      this.data.getYearsAvailable().subscribe((response: number[]) => {
         this.years = response
       })
   }
 
   getEntriesForYear(year: number) {
-    this.data.getEntriesForYear(year).subscribe((response) => {
+    this.data.getEntriesForYear(year).subscribe((response: number[]) => {
       this.entries = response
     })
   }
 
   getTrendForYear(year: number) {
-    this.data.getTrendForYear(year).subscribe((response) => {
+    this.data.getTrendForYear(year).subscribe((response: Trend) => {
       console.log(response)
       this.trend = response
     })
