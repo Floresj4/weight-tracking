@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Trend } from './model/trend.model';
 import { DataService } from './services/data.service';
 
 @Component({
@@ -12,11 +13,33 @@ export class AppComponent {
 
   year = 2023;
   years: number[] = []
-  averageWeight = 159.82
+  entries: number[] = []
+  trend: Trend = <Trend>{}
   
   constructor(private data: DataService) {
-    data.getYears().subscribe((response) => {
-      this.years = response
+
+    this.getAvailableYears()
+
+    this.getTrendForYear(2022)
+  }
+
+  getAvailableYears() {
+      //collect years available to review
+      this.data.getYearsAvailable().subscribe((response) => {
+        this.years = response
+      })
+  }
+
+  getEntriesForYear(year: number) {
+    this.data.getEntriesForYear(year).subscribe((response) => {
+      this.entries = response
+    })
+  }
+
+  getTrendForYear(year: number) {
+    this.data.getTrendForYear(year).subscribe((response) => {
+      console.log(response)
+      this.trend = response
     })
   }
 }

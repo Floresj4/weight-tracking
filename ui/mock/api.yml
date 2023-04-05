@@ -8,8 +8,9 @@
       content-type: application/json
       Access-Control-Allow-Origin: '*'
     body: [2021, 2022, 2023]
+
 - request:
-    url: ^/years/\d{4}/trend
+    url: ^/year/\d{4}\/trend$
     method: GET
   response:
     status: 200
