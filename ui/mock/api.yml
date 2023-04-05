@@ -8,3 +8,20 @@
       content-type: application/json
       Access-Control-Allow-Origin: '*'
     body: [2021, 2022, 2023]
+- request:
+    url: ^/years/\d{4}/trend
+    method: GET
+  response:
+    status: 200
+    latency: 300
+    headers:
+      content-type: application/json
+      Access-Control-Allow-Origin: '*'
+    body: {
+      year: 2022,
+      data: {
+        min: 151,
+        max: 165,
+        avg: 157.2349140
+      }
+    }

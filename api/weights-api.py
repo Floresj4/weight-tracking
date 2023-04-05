@@ -18,7 +18,7 @@ def initialize_logger(name: str = __name__):
 logger = initialize_logger()
 
 path_data_by_year_month = re.compile(r'\/year\/(\d{4})\/month\/(\d{2})')
-path_data_by_year_trend = re.compile(r'\/year\/(\d{4})\?trend')
+path_data_by_year_trend = re.compile(r'\/year\/(\d{4})\/trend')
 path_data_by_year_monthly_avg = re.compile(r'\/year\/(\d{4})\?avg')
 path_data_by_year = re.compile(r'\/year\/(\d{4})')
 
