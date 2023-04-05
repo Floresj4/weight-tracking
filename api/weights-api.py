@@ -18,7 +18,7 @@ def initialize_logger(name: str = __name__):
 logger = initialize_logger()
 
 path_data_by_year_month = re.compile(r'\/year\/(\d{4})\/month\/(\d{2})')
-path_data_by_year_min_max = re.compile(r'\/year\/(\d{4})\?(min|max)')
+path_data_by_year_trend = re.compile(r'\/year\/(\d{4})\?trend')
 path_data_by_year_monthly_avg = re.compile(r'\/year\/(\d{4})\?avg')
 path_data_by_year = re.compile(r'\/year\/(\d{4})')
 
@@ -38,9 +38,9 @@ def request_handler(path: str, req_payload: dict):
         if(match_result := path_data_by_year_month.fullmatch(path)):
             data = get_data_by_year_month(dbconnect, match_result)
             return data
-
-        if(match_result := path_data_by_year_min_max.fullmatch(path)):
-            data = get_data_by_year_min_max(dbconnect, match_result)
+    
+        if(match_result := path_data_by_year_trend.fullmatch(path)):
+            data = get_data_by_year_trend(dbconnect, match_result)
             return data
 
         if(match_result := path_data_by_year_monthly_avg.fullmatch(path)):
@@ -60,12 +60,11 @@ def request_handler(path: str, req_payload: dict):
     return {}
 
 
-def get_data_by_year_min_max(connection, match_result):
+def get_data_by_year_trend(connection, match_result):
     '''
     Collect the min or max value for the year
     '''
     year = match_result.group(1)
-    min_max = match_result.group(2)
 
     cursor = connection.cursor()
 
@@ -78,29 +77,17 @@ def get_data_by_year_min_max(connection, match_result):
             select *
             from weight_entries
             where year(entry_date) = 2022
-        ),
-        max_year as (
-            select max(entry_value) as x from year_data
-        ),
-        min_year as (
-            select min(entry_value) as x from year_data
         )
-        select 'max', entry_date, entry_value
-        from year_data y
-        where y.entry_value = (table max_year)
-
-        union all
-
-        select 'min', entry_date, entry_value
+        select min(entry_value), max(entry_value), avg(entry_value)
         from year_data
-        where entry_value = (table min_year)
     ''')
 
     aggregates = {}
-    for agg, _date, _value in cursor.fetchall():
-        aggregates[agg] = {
-            'entry_date': _date,
-            'entry_value': _value
+    for _min, _max, _avg in cursor.fetchall():
+        aggregates = {
+            'min': _min,
+            'max': _max,
+            'avg': _avg
         }
 
     return {
