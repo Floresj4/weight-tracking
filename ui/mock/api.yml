@@ -26,3 +26,30 @@
         avg: 157.2349140
       }
     }
+
+- request:
+    url: ^/year/\d{4}\?avg$
+    method: GET
+  response:
+    status: 200
+    latency: 300
+    headers:
+      content-type: application/json
+      Access-Control-Allow-Origin: '*'
+    body: {
+      year: 2022, 
+      data: [
+        { entry_date: 1, entry_value: 163.47 }, 
+        { entry_date: 2, entry_value: 162.0 }, 
+        { entry_date: 3, entry_value: 161.54 }, 
+        { entry_date: 4, entry_value: 164.3 }, 
+        { entry_date: 5, entry_value: 163.83 }, 
+        { entry_date: 6, entry_value: 165.6 }, 
+        { entry_date: 7, entry_value: 161.0 },
+        { entry_date: 8, entry_value: 155.92 },
+        { entry_date: 9, entry_value: 156.6 },
+        { entry_date: 10, entry_value: 155.0 },
+        { entry_date: 11, entry_value: 154.95 },
+        { entry_date: 12, entry_value: 159.62 }
+      ]
+    }

@@ -22,6 +22,8 @@ export class AppComponent {
     this.getAvailableYears()
 
     this.getTrendForYear(2022)
+
+    this.getMonthlyAvgForYear(2022)
   }
 
   getAvailableYears() {
@@ -41,6 +43,12 @@ export class AppComponent {
     this.data.getTrendForYear(year).subscribe((response: Trend) => {
       this.trend = response
       this.displayTrend = true
+    })
+  }
+  
+  getMonthlyAvgForYear(year: number) {
+    this.data.getMonthlyAvgForYear(year).subscribe((response: any) => {
+      console.log(response)
     })
   }
 }
