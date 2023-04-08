@@ -39,17 +39,17 @@
     body: {
       year: 2022, 
       data: [
-        { entry_date: 1, entry_value: 163.47 }, 
-        { entry_date: 2, entry_value: 162.0 }, 
-        { entry_date: 3, entry_value: 161.54 }, 
-        { entry_date: 4, entry_value: 164.3 }, 
-        { entry_date: 5, entry_value: 163.83 }, 
-        { entry_date: 6, entry_value: 165.6 }, 
-        { entry_date: 7, entry_value: 161.0 },
-        { entry_date: 8, entry_value: 155.92 },
-        { entry_date: 9, entry_value: 156.6 },
-        { entry_date: 10, entry_value: 155.0 },
-        { entry_date: 11, entry_value: 154.95 },
-        { entry_date: 12, entry_value: 159.62 }
+        { entryDate: 1, entryValue: 163.47 }, 
+        { entryDate: 2, entryValue: 162.0 }, 
+        { entryDate: 3, entryValue: 161.54 }, 
+        { entryDate: 4, entryValue: 164.3 }, 
+        { entryDate: 5, entryValue: 163.83 }, 
+        { entryDate: 6, entryValue: 165.6 }, 
+        { entryDate: 7, entryValue: 161.0 },
+        { entryDate: 8, entryValue: 155.92 },
+        { entryDate: 9, entryValue: 156.6 },
+        { entryDate: 10, entryValue: 155.0 },
+        { entryDate: 11, entryValue: 154.95 },
+        { entryDate: 12, entryValue: 159.62 }
       ]
     }

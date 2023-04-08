@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Trend } from './model/trend.model';
+import { WeightMonthlyAvg } from './model/weight-monthly-avg';
 import { DataService } from './services/data.service';
 
 @Component({
@@ -9,13 +10,13 @@ import { DataService } from './services/data.service';
   providers: [DataService]
 })
 export class AppComponent {
-  title = 'ui';
 
   year: number = 0
   years: number[] = []
   entries: number[] = []
   trend: Trend = <Trend>{}
   displayTrend: boolean = false
+  monthlyAvg: WeightMonthlyAvg = <WeightMonthlyAvg>{}
 
   constructor(private data: DataService) {
 
@@ -48,7 +49,7 @@ export class AppComponent {
   
   getMonthlyAvgForYear(year: number) {
     this.data.getMonthlyAvgForYear(year).subscribe((response: any) => {
-      console.log(response)
+      this.monthlyAvg = response
     })
   }
 }

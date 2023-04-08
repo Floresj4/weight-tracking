@@ -2,10 +2,16 @@
   <ul>
     <li>Years: {{ years }}</li>
     <li>Select year: {{ year }}</li>
-    <!-- <li>trend: {{ trend }}</li> -->
+    <li>{{ monthlyAvg.year }}</li>
   </ul>
 
   <app-trend-display *ngIf="displayTrend"
     [trend]="trend"></app-trend-display>
 
+    <ul>
+      <li *ngFor="let month of monthlyAvg.data">
+        {{ month.entryDate }}, {{ month.entryValue }}
+      </li>
+    </ul>
+    
 </div>
