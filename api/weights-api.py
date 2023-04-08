@@ -151,8 +151,8 @@ def get_data_by_year_month(connection, match_result):
     month_data = []
     for _date, _value in cursor.fetchall():
         month_data.append({
-            'entry_date': _date,
-            'entry_value': _value
+            'entryDate': _date,
+            'entryValue': _value
             })
 
     return {
@@ -182,8 +182,8 @@ def get_data_by_year(connection, match_result):
     yearly_data = []
     for _date, _value in cursor.fetchall():
         yearly_data.append({
-            'entry_date': _date,
-            'entry_value': _value
+            'entryDate': _date,
+            'entryValue': _value
             })
 
     return {
