@@ -44,7 +44,7 @@ export class DataService {
 
   getMonthlyAvgForYear(year: number) {
 
-    let requestUrl = environment.url + `/year/${year}?avg`
+    let requestUrl = environment.url + `/year/${year}/avg`
     return this.http.get(requestUrl, this.defaultOptions)
   }
 }

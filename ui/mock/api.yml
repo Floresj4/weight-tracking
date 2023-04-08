@@ -28,7 +28,7 @@
     }
 
 - request:
-    url: ^/year/\d{4}\?avg$
+    url: ^/year/\d{4}/avg$
     method: GET
   response:
     status: 200
