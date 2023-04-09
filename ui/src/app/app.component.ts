@@ -11,11 +11,14 @@ import { DataService } from './services/data.service';
 })
 export class AppComponent {
 
-  year: number = 0
+  selectedYear: number = 0
   years: number[] = []
+
   entries: number[] = []
+
   trend: Trend = <Trend>{}
   displayTrend: boolean = false
+
   monthlyAvg: WeightMonthlyAvg = <WeightMonthlyAvg>{}
 
   constructor(private data: DataService) {
@@ -31,6 +34,7 @@ export class AppComponent {
       //collect years available to review
       this.data.getYearsAvailable().subscribe((response: number[]) => {
         this.years = response
+        this.selectedYear = this.years[1]
       })
   }
 
