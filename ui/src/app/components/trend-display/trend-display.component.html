@@ -1,13 +1,30 @@
-<div>
+<div class="trend-header">
     <h3>{{ trend.year }}</h3>
+</div>
+<div class="trend-container">
 
     <div>
-        {{ trend.data.min }}
+        <p>
+            <span class="trend-label">Min:</span> 
+            <span class="trend-value">
+                {{ trend.data.min }}
+            </span>
+        </p>
     </div>
     <div>
-        {{ trend.data.max }}
+        <p>
+            <span class="trend-label">Max:</span> 
+            <span class="trend-value">
+                {{ trend.data.max }}
+            </span>
+        </p>
     </div>
     <div>
-        {{ trend.data.avg }}
+        <p>
+            <span class="trend-label">Avg:</span> 
+            <span class="trend-value">
+                {{ trend.data.avg }}
+            </span>
+        </p>
     </div>
 </div>

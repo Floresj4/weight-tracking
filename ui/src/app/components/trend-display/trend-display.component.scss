@@ -1,0 +1,19 @@
+.trend-container {
+    display: flex;
+    border: 1px solid #ccc
+}
+
+.trend-container > div {
+    border: 1px solid #000;
+    padding: 15px 5px;
+}
+
+.trend-value {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.trend-label {
+    font-size: 10px;
+    font-weight: bold;
+}
