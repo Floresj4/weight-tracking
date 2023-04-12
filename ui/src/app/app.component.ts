@@ -34,6 +34,10 @@ export class AppComponent {
     this.getMonthlyAvgForYear(2022)
   }
 
+  getEntryMonth(index: string) {
+    return this.months[(+index) - 1]
+  }
+
   getAvailableYears() {
       //collect years available to review
       this.data.getYearsAvailable().subscribe((response: number[]) => {

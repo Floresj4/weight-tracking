@@ -10,7 +10,7 @@
 
     <ul>
       <li *ngFor="let month of monthlyAvg.data">
-        {{ month.entryDate }}, {{ month.entryValue }}
+        {{ getEntryMonth(month.entryDate) }}, {{ month.entryValue }}
       </li>
     </ul>
     
