@@ -5,13 +5,13 @@
     <li>{{ monthlyAvg.year }}</li>
   </ul>
 
-  <app-trend-display *ngIf="displayTrend"
-    [trend]="trend"></app-trend-display>
+  <app-trend-display
+    *ngIf="displayTrend"
+    [trend]="trend">
+  </app-trend-display>
 
-    <ul>
-      <li *ngFor="let month of monthlyAvg.data">
-        {{ getEntryMonth(month.entryDate) }}, {{ month.entryValue }}
-      </li>
-    </ul>
+  <div *ngFor="let month of monthlyAvg.data">
+    {{ getEntryMonth(month.entryDate) }}, {{ month.entryValue }}
+  </div>
     
 </div>
