@@ -10,8 +10,15 @@
     [trend]="trend">
   </app-trend-display>
 
-  <div *ngFor="let month of monthlyAvg.data">
-    {{ getEntryMonth(month.entryDate) }}, {{ month.entryValue }}
+  <div class="list-display">
+    <div *ngFor="let month of monthlyAvg.data" class="list-display-entry">
+      <div class="list-display-month">
+        {{ getEntryMonth(month.entryDate) }}
+      </div>
+      <div class="list-display-value">
+        {{ month.entryValue }}
+      </div>
+    </div>
   </div>
-    
+
 </div>

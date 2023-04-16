@@ -1,0 +1,18 @@
+.list-display {
+    width: 375px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+}
+
+.list-display-entry {
+    display: flex;
+    width: 100%;
+}
+
+.list-display-month {
+    flex: 1 1 30%;
+}
+.list-display-value {
+    flex: 1 1 70%;
+}
