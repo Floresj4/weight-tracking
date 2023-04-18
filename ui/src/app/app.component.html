@@ -11,6 +11,11 @@
   </app-trend-display>
 
   <div class="list-display">
+    
+    <div class="header-container">
+      <h3>Monthly Averages</h3>
+    </div>
+
     <div *ngFor="let month of monthlyAvg.data" class="list-display-entry">
       <div class="list-display-month">
         {{ getEntryMonth(month.entryDate) }}

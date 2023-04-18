@@ -5,9 +5,17 @@
     border-radius: 20px;
 }
 
+.header-container {
+    width: 100%;
+    border-bottom: 1px solid #bbb;
+}
+
 .list-display-entry {
     display: flex;
     width: 100%;
+}
+.list-display-entry > div {
+    padding-top: 5px
 }
 
 .list-display-month {
