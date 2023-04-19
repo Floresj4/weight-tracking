@@ -9,7 +9,7 @@ import { Trend } from 'src/app/model/trend.model';
 })
 export class TrendDisplayComponent implements OnInit {
 
-  @Input()
+  @Input('trend-data')
   trend: Trend = <Trend>{}
 
   constructor() { }

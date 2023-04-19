@@ -16,8 +16,8 @@ export class AppComponent {
 
   entries: number[] = []
 
-  trend: Trend = <Trend>{}
-  displayTrend: boolean = false
+  trendData: Trend = <Trend>{}
+  displayTrendData: boolean = false
 
   monthlyAvg: WeightMonthlyAvg = <WeightMonthlyAvg>{}
 
@@ -54,8 +54,8 @@ export class AppComponent {
 
   getTrendForYear(year: number) {
     this.data.getTrendForYear(year).subscribe((response: Trend) => {
-      this.trend = response
-      this.displayTrend = true
+      this.trendData = response
+      this.displayTrendData = true
     })
   }
   
