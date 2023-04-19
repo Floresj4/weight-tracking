@@ -21,10 +21,6 @@ export class AppComponent {
 
   monthlyAvg: WeightMonthlyAvg = <WeightMonthlyAvg>{}
 
-  months: string[] = ['January', 'February', 'March',
-    'April', 'May', 'June', 'July', 'August',
-    'September', 'October', 'November', 'December']
-
   constructor(private data: DataService) {
 
     this.getAvailableYears()
@@ -32,10 +28,6 @@ export class AppComponent {
     this.getTrendForYear(2022)
 
     this.getMonthlyAvgForYear(2022)
-  }
-
-  getEntryMonth(index: string) {
-    return this.months[(+index) - 1]
   }
 
   getAvailableYears() {

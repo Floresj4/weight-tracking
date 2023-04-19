@@ -1,0 +1,15 @@
+<div class="list-display">
+    
+    <div class="header-container">
+      <h3>Monthly Averages</h3>
+    </div>
+
+    <div *ngFor="let month of yearData.data" class="list-display-entry">
+      <div class="list-display-month">
+        {{ getEntryMonth(month.entryDate) }}
+      </div>
+      <div class="list-display-value">
+        {{ month.entryValue }}
+      </div>
+    </div>
+  </div>
