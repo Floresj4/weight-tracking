@@ -1,12 +1,7 @@
 <div>
-  <ul>
-    <li>Years: {{ years }}</li>
-    <li>Select year: {{ selectedYear }}</li>
-    <li>{{ monthlyAvg.year }}</li>
-  </ul>
 
   <app-trend-display
-    *ngIf="displayTrend"
+    *ngIf="displayTrendData"
     [trend-data]="trendData">
   </app-trend-display>
 
