@@ -53,3 +53,14 @@
         { entryDate: 12, entryValue: 159.62 }
       ]
     }
+
+- request:
+    url: ^/year/\d{4}$
+    method: GET
+  response:
+    status: 200
+    latency: 300
+    headers:
+      content-type: application/json
+      Access-Control-Allow-Origin: '*'
+    file: 'year-data.json'
