@@ -17,6 +17,7 @@ def initialize_logger(name: str = __name__):
 
 logger = initialize_logger()
 
+path_data_available_years = re.compile(r'\/years')
 path_data_by_year_month = re.compile(r'\/year\/(\d{4})\/month\/(\d{2})')
 path_data_by_year_trend = re.compile(r'\/year\/(\d{4})\/trend')
 path_data_by_year_monthly_avg = re.compile(r'\/year\/(\d{4})\/avg')
@@ -34,6 +35,10 @@ def request_handler(path: str, req_payload: dict):
                 passwd = '1234', 
                 db = 'weight_tracking',
                 sql_mode = None)
+
+        if(match_result := path_data_available_years.fullmatch(path)):
+            data = get_available_years(dbconnect)
+            return data
 
         if(match_result := path_data_by_year_month.fullmatch(path)):
             data = get_data_by_year_month(dbconnect, match_result)
@@ -58,6 +63,22 @@ def request_handler(path: str, req_payload: dict):
 
     logger.warning('No paths matched.')
     return {}
+
+
+def get_available_years(connection):
+    '''
+    Collect availible years to select from
+    '''
+
+    cursor = connection.cursor()
+    cursor.execute(f'''
+        select distinct year(entry_date) as year
+        from weight_entries
+    ''')
+
+    # collect the years column and return
+    years = [year[0] for year in cursor.fetchall()]    
+    return years
 
 
 def get_data_by_year_trend(connection, match_result):
