@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Trend } from './model/trend.model';
-import { WeightMonthlyAvg } from './model/weight-monthly-avg';
+import { WeightEntry } from './model/weight-entry.model';
+import { WeightEntries, WeightMonthlyAvg } from './model/weight-monthly-avg';
 import { DataService } from './services/data.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class AppComponent {
   selectedYear: number = 0
   years: number[] = []
 
-  entries: number[] = []
+  entries: WeightEntries = <WeightEntries>{}
 
   trendData: Trend = <Trend>{}
   displayTrendData: boolean = false
@@ -28,6 +29,8 @@ export class AppComponent {
     this.getTrendForYear(2022)
 
     this.getMonthlyAvgForYear(2022)
+
+    this.getEntriesForYear(2022)
   }
 
   getAvailableYears() {
@@ -39,7 +42,7 @@ export class AppComponent {
   }
 
   getEntriesForYear(year: number) {
-    this.data.getEntriesForYear(year).subscribe((response: number[]) => {
+    this.data.getEntriesForYear(year).subscribe((response: WeightEntries) => {
       this.entries = response
     })
   }
