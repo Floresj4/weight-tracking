@@ -13,9 +13,9 @@ import { DataService } from './services/data.service';
 export class AppComponent {
 
   selectedYear: number = 0
-  years: number[] = []
+  selectableYears: number[] = []
 
-  entries: WeightEntries = <WeightEntries>{}
+  yearEntries: WeightEntries = <WeightEntries>{}
 
   trendData: Trend = <Trend>{}
   displayTrendData: boolean = false
@@ -36,14 +36,14 @@ export class AppComponent {
   getAvailableYears() {
       //collect years available to review
       this.data.getYearsAvailable().subscribe((response: number[]) => {
-        this.years = response
-        this.selectedYear = this.years[1]
+        this.selectableYears = response
+        this.selectedYear = this.selectableYears[1]
       })
   }
 
   getEntriesForYear(year: number) {
     this.data.getEntriesForYear(year).subscribe((response: WeightEntries) => {
-      this.entries = response
+      this.yearEntries = response
     })
   }
 
