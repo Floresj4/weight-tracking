@@ -14,7 +14,7 @@ export class AppComponent {
   selectedYear: number = 0
   selectableYears: number[] = []
 
-  yearEntries: WeightEntries = <WeightEntries>{}
+  weights: WeightEntries = <WeightEntries>{}
 
   trendData: Trend = <Trend>{}
   displayTrendData: boolean = false
@@ -42,7 +42,7 @@ export class AppComponent {
 
   getEntriesForYear(year: number) {
     this.data.getEntriesForYear(year).subscribe((response: WeightEntries) => {
-      this.yearEntries = response
+      this.weights = response
     })
   }
 
