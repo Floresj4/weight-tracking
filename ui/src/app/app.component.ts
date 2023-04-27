@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Trend } from './model/trend.model';
-import { WeightEntry } from './model/weight-entry.model';
 import { WeightEntries, WeightMonthlyAvg } from './model/weight-monthly-avg';
 import { DataService } from './services/data.service';
 
