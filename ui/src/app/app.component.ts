@@ -19,6 +19,10 @@ export class AppComponent {
   trendData: Trend = <Trend>{}
   displayTrendData: boolean = false
 
+  minWeight = 0;
+  maxWeight = 0;
+  avgWeight = 0;
+
   monthlyAvg: WeightMonthlyAvg = <WeightMonthlyAvg>{}
 
   constructor(private data: DataService) {
@@ -43,6 +47,24 @@ export class AppComponent {
   getEntriesForYear(year: number) {
     this.data.getEntriesForYear(year).subscribe((response: WeightEntries) => {
       this.weights = response
+
+      //determine min, max, average from the current selection
+      for(let i = 0; i < response.data.length; i++) {
+        let w = response.data[i]
+
+        if(this.minWeight == 0 || w.entryValue < this.minWeight) {
+          this.minWeight = w.entryValue
+        }
+
+        if(this.maxWeight == 0 || w.entryValue > this.maxWeight) {
+          this.maxWeight = w.entryValue
+        }
+
+        this.avgWeight += w.entryValue;
+      }
+    
+      //finalize the average
+      this.avgWeight /= response.data.length
     })
   }
 
