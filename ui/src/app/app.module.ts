@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { TableModule } from 'primeng/table';
+import { CardModule } from 'primeng/card';
 
 import { TrendDisplayComponent } from './components/trend-display/trend-display.component';
 import { YearDisplayComponent } from './components/year-display/year-display.component';
@@ -20,7 +21,8 @@ import { YearDisplayComponent } from './components/year-display/year-display.com
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    TableModule
+    TableModule,
+    CardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
