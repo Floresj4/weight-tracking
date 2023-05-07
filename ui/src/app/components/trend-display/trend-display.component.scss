@@ -1,28 +1,16 @@
 .trend-container {
     display: flex;
     flex-wrap: wrap;
-    width: 375px;
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 15px;
-    margin-bottom: 10px;
+    width: 605px;
+    // padding: 5px 10px;
 }
 
-.header-container {
-    width: 100%;
-    border-bottom: 1px solid #bbb;
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 450px;
 }
 
-.trend-container > div.value-container {
-    padding: 5px;
-    flex: 1 1 30%;
-}
-
-.trend-label {
-    font-size: 10px;
-}
-
-.trend-value {
-    font-size: 24px;
-    font-weight: bold;
+.p-card {
+    border: 1px solid #000;
 }
