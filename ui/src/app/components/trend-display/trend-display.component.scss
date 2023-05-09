@@ -11,6 +11,11 @@
     width: 450px;
 }
 
-.p-card {
-    border: 1px solid #000;
+.p-card,
+.p-card-content {
+    padding: 0 !important;
+}
+
+.trend-content {
+    margin: 0;
 }
