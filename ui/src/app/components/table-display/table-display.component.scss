@@ -1,0 +1,14 @@
+.table-data {
+    display: flex;
+    flex-wrap: wrap;
+    width: 500px;
+    border: 1px solid #ccc;
+}
+
+.date {
+    width: 180px;
+}
+
+.value {
+    width: 300px;
+}
