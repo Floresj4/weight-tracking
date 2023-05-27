@@ -3,18 +3,17 @@
     <p-table [value]="weights.data" 
         [paginator]="true"
         [rows]="12"
-        [showCurrentPageReport]="true"
         [tableStyle]="{ 'min-width': '50rem' }"
-        styleClass="p-datatable-striped">
+        styleClass="p-datatable-striped p-datatable-sm">
         <ng-template pTemplate="header">
             <tr>
-                <th>Date</th>
+                <th class="entry-date">Date</th>
                 <th>Weight</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-weight>
             <tr>
-                <td>{{ weight.entryDate }}</td>
+                <td class="entry-date">{{ weight.entryDate }}</td>
                 <td>{{ weight.entryValue }}</td>
             </tr>
         </ng-template>
