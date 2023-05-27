@@ -1,6 +1,11 @@
 <div class="table-data">
 
-    <p-table [value]="weights.data" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table [value]="weights.data" 
+        [paginator]="true"
+        [rows]="12"
+        [showCurrentPageReport]="true"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        styleClass="p-datatable-striped">
         <ng-template pTemplate="header">
             <tr>
                 <th>Date</th>
