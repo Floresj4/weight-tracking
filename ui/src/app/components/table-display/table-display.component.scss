@@ -1,20 +1,3 @@
-.table-data-row {
-    display: flex;
-    flex-wrap: wrap;
-    width: 300px;
-    border: 1px solid #999;
-}
-
-.date,
-.value {
-    padding: 5px 0;
-    border: 1px solid #ccc;
-}
-
-.date {
-    width: 130px;
-}
-
-.value {
-    width: 150px;
+.table-data {
+    width: 600px;
 }
