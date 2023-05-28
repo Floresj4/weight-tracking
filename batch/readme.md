@@ -36,8 +36,8 @@ The MySQL container can be used as a client to configure the database.
 
 Create and select a database to use.
 
-`create database weight_tracking` <br/>
-`use weight_tracking`
+`create database weight_tracking;` <br/>
+`use weight_tracking;`
 
 <br/>
 
