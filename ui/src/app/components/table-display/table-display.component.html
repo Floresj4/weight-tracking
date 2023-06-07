@@ -5,15 +5,17 @@
         [rows]="12"
         [tableStyle]="{ 'min-width': '50rem' }"
         styleClass="p-datatable-striped p-datatable-sm">
+
         <ng-template pTemplate="header">
             <tr>
-                <th class="entry-date">Date</th>
+                <th>Date</th>
                 <th>Weight</th>
             </tr>
         </ng-template>
+
         <ng-template pTemplate="body" let-weight>
             <tr>
-                <td class="entry-date">{{ weight.entryDate }}</td>
+                <td>{{ weight.entryDate }}</td>
                 <td>{{ weight.entryValue }}</td>
             </tr>
         </ng-template>
