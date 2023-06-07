@@ -9,14 +9,12 @@ import { TableModule } from 'primeng/table';
 import { CardModule } from 'primeng/card';
 
 import { TrendDisplayComponent } from './components/trend-display/trend-display.component';
-import { YearDisplayComponent } from './components/year-display/year-display.component';
 import { TableDisplayComponent } from './components/table-display/table-display.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TrendDisplayComponent,
-    YearDisplayComponent,
     TableDisplayComponent
   ],
   imports: [
