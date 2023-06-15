@@ -1,11 +1,9 @@
-<div>
+<div class="main-container">
 
   <app-trend-display
     *ngIf="displayTrendData"
     [trend-data]="trendData">
   </app-trend-display>
-
-  <br/>
 
   <app-table-display
     [display]="weights">
