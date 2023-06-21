@@ -1,5 +1,9 @@
 <div class="main-container">
 
+  <div class="year-container">
+    <h1>{{ selectedYear }}</h1>
+  </div>
+
   <app-trend-display
     *ngIf="displayTrendData"
     [trend-data]="trendData">
