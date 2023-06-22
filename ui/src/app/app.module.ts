@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 
 import { TableModule } from 'primeng/table';
 import { CardModule } from 'primeng/card';
+import { DropdownModule } from 'primeng/dropdown';
 
 import { TrendDisplayComponent } from './components/trend-display/trend-display.component';
 import { TableDisplayComponent } from './components/table-display/table-display.component';
@@ -21,8 +22,9 @@ import { TableDisplayComponent } from './components/table-display/table-display.
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    TableModule,
-    CardModule
+    CardModule,
+    DropdownModule,
+    TableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
