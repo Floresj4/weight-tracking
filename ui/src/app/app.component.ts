@@ -14,6 +14,7 @@ export class AppComponent {
   selectedYear: number = 0
   selectableYears: number[] = []
 
+  isYearDataLoading: boolean = false
   weights: WeightEntries = <WeightEntries>{}
 
   trendData: Trend = <Trend>{}
@@ -45,6 +46,9 @@ export class AppComponent {
   }
 
   getEntriesForYear(year: number) {
+    this.isYearDataLoading = true
+    this.selectedYear = year
+
     this.data.getEntriesForYear(year).subscribe((response: WeightEntries) => {
       this.weights = response
 
@@ -65,6 +69,7 @@ export class AppComponent {
     
       //finalize the average
       this.avgWeight /= response.data.length
+      this.isYearDataLoading = false
     })
   }
 
@@ -79,5 +84,9 @@ export class AppComponent {
     this.data.getMonthlyAvgForYear(year).subscribe((response: any) => {
       this.monthlyAvg = response
     })
+  }
+
+  onYearChange(year: number) {
+    this.getEntriesForYear(year)
   }
 }

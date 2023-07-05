@@ -2,8 +2,8 @@
 
   <p-dropdown 
     [options]="selectableYears" 
-    [(ngModel)]="selectedYear"
-    >
+    #selectYearDropdown
+    (onChange)="onYearChange(selectYearDropdown.value)">
   </p-dropdown>
 
   <div class="year-container">
