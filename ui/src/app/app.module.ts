@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -13,6 +14,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { TrendDisplayComponent } from './components/trend-display/trend-display.component';
 import { TableDisplayComponent } from './components/table-display/table-display.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +24,7 @@ import { TableDisplayComponent } from './components/table-display/table-display.
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
     CardModule,

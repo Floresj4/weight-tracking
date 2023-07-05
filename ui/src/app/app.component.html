@@ -1,5 +1,11 @@
 <div class="main-container">
 
+  <p-dropdown 
+    [options]="selectableYears" 
+    [(ngModel)]="selectedYear"
+    >
+  </p-dropdown>
+
   <div class="year-container">
     <h1>{{ selectedYear }}</h1>
   </div>
