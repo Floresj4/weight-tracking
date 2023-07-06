@@ -55,12 +55,24 @@
     }
 
 - request:
-    url: ^/year/\d{4}$
+    url: ^/year/2022
     method: GET
   response:
     status: 200
-    latency: 300
+    latency: 600
     headers:
       content-type: application/json
       Access-Control-Allow-Origin: '*'
-    file: 'year-data.json'
+    file: 'year-2022-data.json'
+
+
+- request:
+    url: ^/year/2023
+    method: GET
+  response:
+    status: 200
+    latency: 600
+    headers:
+      content-type: application/json
+      Access-Control-Allow-Origin: '*'
+    file: 'year-2023-data.json'

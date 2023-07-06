@@ -30,11 +30,13 @@ export class AppComponent {
 
     this.getAvailableYears()
 
-    this.getTrendForYear(2022)
+    this.selectedYear = 2022
 
-    this.getMonthlyAvgForYear(2022)
+    this.getTrendForYear(this.selectedYear)
 
-    this.getEntriesForYear(2022)
+    this.getMonthlyAvgForYear(this.selectedYear)
+
+    this.getEntriesForYear(this.selectedYear)
   }
 
   getAvailableYears() {

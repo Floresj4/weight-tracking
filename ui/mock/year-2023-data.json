@@ -1,0 +1,129 @@
+{
+    "year": "2023",
+    "data": [
+        {
+            "entryDate": "2023-01-03",
+            "entryValue": 164.2
+        },
+        {
+            "entryDate": "2023-01-10",
+            "entryValue": 162.4
+        },
+        {
+            "entryDate": "2023-01-17",
+            "entryValue": 162.4
+        },
+        {
+            "entryDate": "2023-01-24",
+            "entryValue": 164.0
+        },
+        {
+            "entryDate": "2023-01-31",
+            "entryValue": 164.4
+        },
+        {
+            "entryDate": "2023-02-07",
+            "entryValue": 163.0
+        },
+        {
+            "entryDate": "2023-02-14",
+            "entryValue": 161.8
+        },
+        {
+            "entryDate": "2023-02-21",
+            "entryValue": 161.6
+        },
+        {
+            "entryDate": "2023-02-28",
+            "entryValue": 161.6
+        },
+        {
+            "entryDate": "2023-03-07",
+            "entryValue": 160.0
+        },
+        {
+            "entryDate": "2023-03-14",
+            "entryValue": 160.8
+        },
+        {
+            "entryDate": "2023-03-21",
+            "entryValue": 162.2
+        },
+        {
+            "entryDate": "2023-03-28",
+            "entryValue": 163.2
+        },
+        {
+            "entryDate": "2023-04-04",
+            "entryValue": 162.8
+        },
+        {
+            "entryDate": "2023-04-11",
+            "entryValue": 165.0
+        },
+        {
+            "entryDate": "2023-04-18",
+            "entryValue": 164.6
+        },
+        {
+            "entryDate": "2023-04-25",
+            "entryValue": 164.8
+        },
+        {
+            "entryDate": "2023-05-02",
+            "entryValue": 161.8
+        },
+        {
+            "entryDate": "2023-05-09",
+            "entryValue": 163.6
+        },
+        {
+            "entryDate": "2023-05-16",
+            "entryValue": 164.4
+        },
+        {
+            "entryDate": "2023-05-23",
+            "entryValue": 164.0
+        },
+        {
+            "entryDate": "2023-05-30",
+            "entryValue": 165.4
+        },
+        {
+            "entryDate": "2023-06-06",
+            "entryValue": 166.6
+        },
+        {
+            "entryDate": "2023-06-13",
+            "entryValue": 167.2
+        },
+        {
+            "entryDate": "2023-06-20",
+            "entryValue": 163.6
+        },
+        {
+            "entryDate": "2023-06-27",
+            "entryValue": 165.0
+        },
+        {
+            "entryDate": "2023-07-04",
+            "entryValue": 163.4
+        },
+        {
+            "entryDate": "2023-07-11",
+            "entryValue": 162.2
+        },
+        {
+            "entryDate": "2023-07-18",
+            "entryValue": 159.8
+        },
+        {
+            "entryDate": "2023-07-25",
+            "entryValue": 158.6
+        },
+        {
+            "entryDate": "2023-08-01",
+            "entryValue": 158.8
+        }
+    ]
+}
