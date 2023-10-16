@@ -1,22 +1,16 @@
 <div class="main-container">
 
-  <p-dropdown 
-    [options]="selectableYears" 
-    #selectYearDropdown
-    (onChange)="onYearChange(selectYearDropdown.value)">
-  </p-dropdown>
-
-  <div class="year-container">
-    <h1>{{ selectedYear }}</h1>
+  <div class="year-display-select">
+    <div>
+      <h2>{{ selectedYear }}</h2>
+    </div>
+    
+    <div>
+      <p-dropdown 
+        [options]="selectableYears" 
+        [(ngModel)]="selectedYear" 
+        optionLabel="Year"></p-dropdown>
+    </div>
   </div>
-
-  <app-trend-display
-    *ngIf="displayTrendData"
-    [trend-data]="trendData">
-  </app-trend-display>
-
-  <app-table-display
-    [display]="weights">
-  </app-table-display>
 
 </div>
