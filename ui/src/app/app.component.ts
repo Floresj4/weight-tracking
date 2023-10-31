@@ -44,10 +44,16 @@ export class AppComponent {
         }
 
         this.data.getEntriesForYear(this.selectedYear)
-          .subscribe((response: WeightAnnual) => {
-            console.log(response)
-            this.weight = response.data
-          })
+        .subscribe((response: WeightAnnual) => {
+          this.weight = response.data
+        })
+      })
+  }
+
+  getEntriesForSelectedYear(event: any) {
+    this.data.getEntriesForYear(this.selectedYear)
+      .subscribe((response: WeightAnnual) => {
+        this.weight = response.data
       })
   }
 }

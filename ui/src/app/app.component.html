@@ -10,7 +10,8 @@
         [options]="selectableYears" 
         [(ngModel)]="selectedYear" 
         optionLabel="label"
-        optionValue="value">
+        optionValue="value"
+        (onChange)="getEntriesForSelectedYear($event)">
       </p-dropdown>
     </div>
   
