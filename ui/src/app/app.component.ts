@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DataService } from './services/data.service';
+import { Weight, WeightAnnual } from './model/weight.model';
 
 interface SelectableYear {
   label: string;
@@ -16,6 +17,8 @@ export class AppComponent {
 
   selectableYears: SelectableYear[] = []
   selectedYear: number = 0
+
+  weight: Weight[] = []
 
   constructor(private data: DataService) {
   }
@@ -35,7 +38,16 @@ export class AppComponent {
           })
         })
 
-        this.selectedYear = this.selectableYears[0].value
+        //if unset
+        if(this.selectedYear == 0) {
+          this.selectedYear = this.selectableYears[0].value
+        }
+
+        this.data.getEntriesForYear(this.selectedYear)
+          .subscribe((response: WeightAnnual) => {
+            console.log(response)
+            this.weight = response.data
+          })
       })
   }
 }
