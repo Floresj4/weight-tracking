@@ -10,49 +10,15 @@
     body: [2021, 2022, 2023]
 
 - request:
-    url: ^/year/\d{4}\/trend$
+    url: ^/year/2021
     method: GET
   response:
     status: 200
-    latency: 300
+    latency: 600
     headers:
       content-type: application/json
       Access-Control-Allow-Origin: '*'
-    body: {
-      year: 2022,
-      data: {
-        min: 151,
-        max: 165,
-        avg: 157.2349140
-      }
-    }
-
-- request:
-    url: ^/year/\d{4}/avg$
-    method: GET
-  response:
-    status: 200
-    latency: 300
-    headers:
-      content-type: application/json
-      Access-Control-Allow-Origin: '*'
-    body: {
-      year: 2022, 
-      data: [
-        { entryDate: 1, entryValue: 163.47 }, 
-        { entryDate: 2, entryValue: 162.0 }, 
-        { entryDate: 3, entryValue: 161.54 }, 
-        { entryDate: 4, entryValue: 164.3 }, 
-        { entryDate: 5, entryValue: 163.83 }, 
-        { entryDate: 6, entryValue: 165.6 }, 
-        { entryDate: 7, entryValue: 161.0 },
-        { entryDate: 8, entryValue: 155.92 },
-        { entryDate: 9, entryValue: 156.6 },
-        { entryDate: 10, entryValue: 155.0 },
-        { entryDate: 11, entryValue: 154.95 },
-        { entryDate: 12, entryValue: 159.62 }
-      ]
-    }
+    file: 'year-2021-data.json'
 
 - request:
     url: ^/year/2022
@@ -64,7 +30,6 @@
       content-type: application/json
       Access-Control-Allow-Origin: '*'
     file: 'year-2022-data.json'
-
 
 - request:
     url: ^/year/2023
