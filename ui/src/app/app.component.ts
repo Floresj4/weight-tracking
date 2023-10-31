@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { DataService } from './services/data.service';
 
 interface SelectableYear {
-  name: string;
-  code: string;
+  label: string;
+  value: number;
 }
 
 @Component({
@@ -14,11 +14,13 @@ interface SelectableYear {
 })
 export class AppComponent {
 
-  selectableYears: number[] = []
-  selectedYear: number | undefined
+  selectableYears: SelectableYear[] = []
+  selectedYear: number = 0
 
   constructor(private data: DataService) {
+  }
 
+  ngOnInit() {
     this.getAvailableYears()
   }
 
@@ -26,11 +28,14 @@ export class AppComponent {
       //collect years available to review
       this.data.getYearsAvailable().subscribe((response: number[]) => {
 
-        response.forEach((v) => {
-          this.selectableYears.push(v)
+        response.forEach((year) => {
+          this.selectableYears.push({
+            label: `${year}`,
+            value: year
+          })
         })
 
-        this.selectedYear = this.selectableYears[0]
+        this.selectedYear = this.selectableYears[0].value
       })
   }
 }
