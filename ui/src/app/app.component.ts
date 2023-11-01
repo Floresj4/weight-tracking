@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DataService } from './services/data.service';
 import { Weight, WeightAnnual } from './model/weight.model';
+import { min } from 'rxjs';
 
 interface SelectableYear {
   label: string;
@@ -18,7 +19,10 @@ export class AppComponent {
   selectableYears: SelectableYear[] = []
   selectedYear: number = 0
 
-  weight: Weight[] = []
+  weights: Weight[] = []
+  weightMin: Weight | undefined
+  weightMax: Weight | undefined
+  weightAvg: number | undefined
 
   isDataLoaded: boolean = false
 
@@ -45,23 +49,55 @@ export class AppComponent {
           this.selectedYear = this.selectableYears[0].value
         }
 
-        this.data.getEntriesForYear(this.selectedYear)
-          .subscribe((response: WeightAnnual) => {
-            this.weight = response.data
-            this.isDataLoaded = true
-          })
+        this.getEntriesForYear(this.selectedYear)
       })
   }
 
   //TODO find the missing change event type
-  //TODO avoid writing the getEntriesForYear method twice
   getEntriesForSelectedYear(event: any) {
+    this.getEntriesForYear(event.value)
+  }
+
+  private getEntriesForYear(year: number) {
     this.isDataLoaded = false
 
-    this.data.getEntriesForYear(this.selectedYear)
+    this.data.getEntriesForYear(year)
       .subscribe((response: WeightAnnual) => {
-        this.weight = response.data
+        this.weights = response.data
         this.isDataLoaded = true
+
+        this.updateTrendData(this.weights)
       })
   }
+
+  updateTrendData(weights: Weight[]) {
+    if(weights.length < 1) {
+      return
+    }
+
+    let min: Weight = weights[0]
+    let max: Weight = weights[0]
+    let avg: number = weights[0].value
+
+    for(let i = 1; i < weights.length; i++) {
+      let current = weights[i]
+
+      if(current.value < min.value) {
+        min = current
+      }
+
+      if(current.value > max.value) {
+        max = current
+      }
+
+      avg += current.value
+    }
+
+    avg /= weights.length
+    
+    this.weightMin = min
+    this.weightMax = max
+    this.weightAvg = avg
+  }
+
 }

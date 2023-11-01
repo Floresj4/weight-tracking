@@ -17,8 +17,35 @@
   
   </div>
 
+  <div class="weight-trends">
+    <div>
+      {{ weightMin | json }}
+    </div>
+    <div>
+      {{ weightMax | json }}
+    </div>
+    <div>
+      {{ weightAvg }}
+    </div>
+  </div>
+
   <div *ngIf="isDataLoaded; else dataLoading">
-    <p>{{ weight | json }}</p>
+
+    <p-table [value]="weights" [tableStyle]="{ 'min-width': '50rem' }">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Date</th>
+          <th>Entry</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-weight>
+        <tr>
+          <td>{{ weight.date }}</td>
+          <td>{{ weight.value }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+
   </div>
   <ng-template #dataLoading>
     Loading...
