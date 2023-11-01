@@ -54,6 +54,7 @@ export class AppComponent {
   }
 
   //TODO find the missing change event type
+  //TODO avoid writing the getEntriesForYear method twice
   getEntriesForSelectedYear(event: any) {
     this.isDataLoaded = false
 
