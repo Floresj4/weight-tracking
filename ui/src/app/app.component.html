@@ -17,8 +17,11 @@
   
   </div>
 
-  <div>
+  <div *ngIf="isDataLoaded; else dataLoading">
     <p>{{ weight | json }}</p>
   </div>
+  <ng-template #dataLoading>
+    Loading...
+  </ng-template>
 
 </div>

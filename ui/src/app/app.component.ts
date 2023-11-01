@@ -20,6 +20,8 @@ export class AppComponent {
 
   weight: Weight[] = []
 
+  isDataLoaded: boolean = false
+
   constructor(private data: DataService) {
   }
 
@@ -44,16 +46,21 @@ export class AppComponent {
         }
 
         this.data.getEntriesForYear(this.selectedYear)
-        .subscribe((response: WeightAnnual) => {
-          this.weight = response.data
-        })
+          .subscribe((response: WeightAnnual) => {
+            this.weight = response.data
+            this.isDataLoaded = true
+          })
       })
   }
 
+  //TODO find the missing change event type
   getEntriesForSelectedYear(event: any) {
+    this.isDataLoaded = false
+
     this.data.getEntriesForYear(this.selectedYear)
       .subscribe((response: WeightAnnual) => {
         this.weight = response.data
+        this.isDataLoaded = true
       })
   }
 }
