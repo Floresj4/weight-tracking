@@ -20,9 +20,9 @@ export class AppComponent {
   selectedYear: number = 0
 
   weights: Weight[] = []
-  weightMin: Weight | undefined
-  weightMax: Weight | undefined
-  weightAvg: number | undefined
+  weightMin: Weight = <Weight>{}
+  weightMax: Weight = <Weight>{}
+  weightAvg: string = ''
 
   isDataLoaded: boolean = false
 
@@ -70,6 +70,14 @@ export class AppComponent {
       })
   }
 
+  getDate(weight: Weight) {
+    return weight.date
+  }
+
+  getValue(weight: Weight) {
+    return weight.value
+  }
+
   updateTrendData(weights: Weight[]) {
     if(weights.length < 1) {
       return
@@ -94,10 +102,10 @@ export class AppComponent {
     }
 
     avg /= weights.length
-    
+
     this.weightMin = min
     this.weightMax = max
-    this.weightAvg = avg
+    this.weightAvg = avg.toFixed(2)
   }
 
 }
