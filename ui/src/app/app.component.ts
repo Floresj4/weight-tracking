@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { DataService } from './services/data.service';
 import { Weight, WeightAnnual } from './model/weight.model';
-import { min } from 'rxjs';
+
+import { Table } from 'primeng/table';
 
 interface SelectableYear {
   label: string;
@@ -26,11 +27,22 @@ export class AppComponent {
 
   isDataLoaded: boolean = false
 
+  @ViewChild('weightsTable')
+  weightsTable: Table | undefined
+
   constructor(private data: DataService) {
   }
 
   ngOnInit() {
     this.getAvailableYears()
+  }
+
+  applyGlobalFilter(event: any, searchType: string) {
+    this.weightsTable!.filterGlobal((event.target as HTMLInputElement).value, searchType)
+  }
+
+  clear(table: Table) {
+    table.clear()
   }
 
   getAvailableYears() {

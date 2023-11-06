@@ -7,9 +7,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { TableModule } from 'primeng/table';
-import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
+import { TableModule } from 'primeng/table';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { DropdownModule } from 'primeng/dropdown';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    CardModule,
+    ButtonModule,
+    InputTextModule,
     DropdownModule,
     TableModule
   ],

@@ -36,13 +36,35 @@
 
   <div *ngIf="isDataLoaded; else dataLoading">
 
-    <p-table [value]="weights" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table #weightsTable
+      [value]="weights" 
+      [globalFilterFields]="['date']"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      styleClass="p-datatable-sm p-datatable-striped">
+
+      <ng-template pTemplate="caption">
+        <div class="weights-table-caption">
+          <button pButton label="clear"
+            class="p-button-outlined"
+            icon="pi pi-filter-slashed"
+            (click)="clear(weightsTable)">
+          </button>
+
+          <i class="pi pi-search"></i>
+          <input pInputText 
+            type="text"
+            (input)="applyGlobalFilter($event, 'contains')"
+            placeholder="Search" />
+        </div>
+      </ng-template>
+
       <ng-template pTemplate="header">
         <tr>
           <th>Date</th>
           <th>Entry</th>
         </tr>
       </ng-template>
+
       <ng-template pTemplate="body" let-weight>
         <tr>
           <td>{{ weight.date }}</td>
@@ -52,6 +74,7 @@
     </p-table>
 
   </div>
+
   <ng-template #dataLoading>
     Loading...
   </ng-template>
