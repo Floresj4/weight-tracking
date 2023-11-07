@@ -30,6 +30,11 @@ export class AppComponent {
   @ViewChild('weightsTable')
   weightsTable: Table | undefined
 
+  month = ["January", "February", "March",
+    "April", "May", "June", "July", "August",
+    "September", "October", "November",
+    "December"]
+
   constructor(private data: DataService) {
   }
 
@@ -84,6 +89,10 @@ export class AppComponent {
 
   getDate(weight: Weight) {
     return weight.date
+  }
+
+  getMonth(num: number) {
+    return this.month[num - 1]
   }
 
   getValue(weight: Weight) {

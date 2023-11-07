@@ -37,7 +37,9 @@
   <div *ngIf="isDataLoaded; else dataLoading">
 
     <p-table #weightsTable
-      [value]="weights" 
+      [value]="weights"
+      rowGroupMode="rowspan"
+      groupRowsBy="month"
       [paginator]="true"
       [rows]="12"
       [globalFilterFields]="['date']"
@@ -62,13 +64,15 @@
 
       <ng-template pTemplate="header">
         <tr>
+          <th>Month</th>
           <th>Date</th>
-          <th>Entry</th>
+          <th>Value</th>
         </tr>
       </ng-template>
 
-      <ng-template pTemplate="body" let-weight>
+      <ng-template pTemplate="body" let-weight let-rowgroup="rowgroup" let-rowspan="rowspan">
         <tr>
+          <td *ngIf="rowgroup" [attr.rowspan]="rowspan"> {{ getMonth(weight.month) }} </td>
           <td>{{ weight.date }}</td>
           <td>{{ weight.value }}</td>
         </tr>
