@@ -38,6 +38,8 @@
 
     <p-table #weightsTable
       [value]="weights" 
+      [paginator]="true"
+      [rows]="12"
       [globalFilterFields]="['date']"
       [tableStyle]="{ 'min-width': '50rem' }"
       styleClass="p-datatable-sm p-datatable-striped">
