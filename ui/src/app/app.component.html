@@ -34,6 +34,10 @@
     </div>
   </div>
 
+  <div>
+    <p-chart type="line" [data]="dataz" [options]="options"></p-chart>
+  </div>
+
   <div *ngIf="isDataLoaded; else dataLoading">
 
     <p-table #weightsTable

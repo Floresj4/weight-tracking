@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { ButtonModule } from 'primeng/button';
+import { ChartModule } from 'primeng/chart';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
@@ -24,8 +25,9 @@ import { TableModule } from 'primeng/table';
     AppRoutingModule,
     HttpClientModule,
     ButtonModule,
-    InputTextModule,
+    ChartModule,
     DropdownModule,
+    InputTextModule,
     TableModule
   ],
   providers: [],
