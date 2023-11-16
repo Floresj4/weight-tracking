@@ -3,10 +3,17 @@ import { DataService } from './services/data.service';
 import { Weight, WeightAnnual } from './model/weight.model';
 
 import { Table } from 'primeng/table';
+import { TreeNode } from 'primeng/api';
 
 interface SelectableYear {
-  label: string;
-  value: number;
+  label: string
+  value: number
+}
+
+interface TrendData {
+  minimum: Weight
+  maximum: Weight
+  average: string
 }
 
 @Component({
@@ -144,7 +151,10 @@ export class AppComponent {
         this.weights = response.data
         this.isDataLoaded = true
 
-        this.updateTrendData(this.weights)
+        let trend: TrendData = this.updateTrendData(this.weights)
+        this.weightMin = trend.minimum ?? <Weight>{}
+        this.weightMax = trend.maximum ?? <Weight>{}
+        this.weightAvg = trend.average ?? ''
       })
   }
 
@@ -162,7 +172,7 @@ export class AppComponent {
 
   updateTrendData(weights: Weight[]) {
     if(weights.length < 1) {
-      return
+      return <TrendData>{}
     }
 
     let min: Weight = weights[0]
@@ -185,9 +195,11 @@ export class AppComponent {
 
     avg /= weights.length
 
-    this.weightMin = min
-    this.weightMax = max
-    this.weightAvg = avg.toFixed(2)
+    return <TrendData> {
+      minimum: min,
+      maximum: max,
+      average: avg.toFixed(2)
+    }
   }
 
 }

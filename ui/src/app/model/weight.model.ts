@@ -1,6 +1,6 @@
 export interface Weight {
     date: string,
-    month?: number,
+    month: number,
     value: number
 }
 
