@@ -44,6 +44,11 @@ export class AppComponent {
   dataz: any = <any>{}
   options: any = <any>{}
 
+  documentStyle = getComputedStyle(document.documentElement);
+  textColor = this.documentStyle.getPropertyValue('--text-color');
+  textColorSecondary = this.documentStyle.getPropertyValue('--text-color-secondary');
+  surfaceBorder = this.documentStyle.getPropertyValue('--surface-border');
+
   month = ["January", "February", "March",
     "April", "May", "June", "July", "August",
     "September", "October", "November",
@@ -55,30 +60,7 @@ export class AppComponent {
   ngOnInit() {
     this.getAvailableYears()
 
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
-    const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
-    this.dataz = {
-        labels: this.month,
-        datasets: [
-            {
-                label: 'Average',
-                data: this.presentationAvg,
-                fill: false,
-                borderColor: documentStyle.getPropertyValue('--blue-500'),
-                tension: 0.4
-            },
-            {
-                label: 'High',
-                data: this.presentationMax,
-                fill: false,
-                borderColor: documentStyle.getPropertyValue('--pink-500'),
-                tension: 0.4
-            }
-        ]
-    };
 
     this.options = {
         maintainAspectRatio: false,
@@ -86,26 +68,26 @@ export class AppComponent {
         plugins: {
             legend: {
                 labels: {
-                    color: textColor
+                    color: this.textColor
                 }
             }
         },
         scales: {
             x: {
                 ticks: {
-                    color: textColorSecondary
+                    color: this.textColorSecondary
                 },
                 grid: {
-                    color: surfaceBorder,
+                    color: this.surfaceBorder,
                     drawBorder: false
                 }
             },
             y: {
                 ticks: {
-                    color: textColorSecondary
+                    color: this.textColorSecondary
                 },
                 grid: {
-                    color: surfaceBorder,
+                    color: this.surfaceBorder,
                     drawBorder: false
                 }
             }
@@ -163,10 +145,7 @@ export class AppComponent {
     
       this.data.getPresentationData(year)
         .subscribe((response: WeightPresentation) => {
-          console.log(response)
-          this.presentationMin = response.data.minimum
-          this.presentationMax = response.data.maximum
-          this.presentationAvg = response.data.average
+          this.dataz = this.getPresentationData(response)
         })
   }
 
@@ -176,6 +155,30 @@ export class AppComponent {
 
   getMonth(num: number) {
     return this.month[num - 1]
+  }
+
+  getPresentationData(response: WeightPresentation) {
+
+    return {
+      labels: this.month,
+      datasets: [
+          {
+              label: 'Average',
+              data: response.data.average,
+              fill: false,
+              borderColor: this.documentStyle.getPropertyValue('--blue-500'),
+              tension: 0.4
+          },
+          {
+              label: 'High',
+              data: response.data.maximum,
+              fill: false,
+              borderColor: this.documentStyle.getPropertyValue('--pink-500'),
+              tension: 0.4
+          }
+      ]
+  };
+
   }
 
   getValue(weight: Weight) {
