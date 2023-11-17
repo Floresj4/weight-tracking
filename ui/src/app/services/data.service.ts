@@ -34,4 +34,10 @@ export class DataService {
     return this.http.get<WeightAnnual>(requestUrl, 
       this.defaultOptions)
   }
+
+  getPresentationData(year: number) {
+    let requestUrl = environment.url + `/year/${year}?view=trend`
+    return this.http.get<WeightAnnual>(requestUrl,
+      this.defaultOptions)
+  }
 }
