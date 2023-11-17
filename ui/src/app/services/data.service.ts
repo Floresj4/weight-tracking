@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { Weight, WeightAnnual } from '../model/weight.model';
+import { Weight, WeightAnnual, WeightPresentation } from '../model/weight.model';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +37,7 @@ export class DataService {
 
   getPresentationData(year: number) {
     let requestUrl = environment.url + `/year/${year}?view=trend`
-    return this.http.get<WeightAnnual>(requestUrl,
+    return this.http.get<WeightPresentation>(requestUrl,
       this.defaultOptions)
   }
 }

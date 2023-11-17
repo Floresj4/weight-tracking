@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { DataService } from './services/data.service';
-import { Weight, WeightAnnual } from './model/weight.model';
+import { Weight, WeightAnnual, WeightPresentation } from './model/weight.model';
 
 import { Table } from 'primeng/table';
 import { TreeNode } from 'primeng/api';
@@ -32,6 +32,10 @@ export class AppComponent {
   weightMax: Weight = <Weight>{}
   weightAvg: string = ''
 
+  presentationMin: number[] = []
+  presentationMax: number[] = []
+  presentationAvg: number[] = []
+
   isDataLoaded: boolean = false
 
   @ViewChild('weightsTable')
@@ -61,14 +65,14 @@ export class AppComponent {
         datasets: [
             {
                 label: 'Average',
-                data: [65, 59, 80, 81, 56, 55, 40, 33, 54, 84, 21, 90],
+                data: this.presentationAvg,
                 fill: false,
                 borderColor: documentStyle.getPropertyValue('--blue-500'),
                 tension: 0.4
             },
             {
                 label: 'High',
-                data: [28, 48, 40, 19, 86, 27, 90, 54, 21, 76, 23, 92],
+                data: this.presentationMax,
                 fill: false,
                 borderColor: documentStyle.getPropertyValue('--pink-500'),
                 tension: 0.4
@@ -156,6 +160,14 @@ export class AppComponent {
         this.weightMax = trend.maximum ?? <Weight>{}
         this.weightAvg = trend.average ?? ''
       })
+    
+      this.data.getPresentationData(year)
+        .subscribe((response: WeightPresentation) => {
+          console.log(response)
+          this.presentationMin = response.data.minimum
+          this.presentationMax = response.data.maximum
+          this.presentationAvg = response.data.average
+        })
   }
 
   getDate(weight: Weight) {
