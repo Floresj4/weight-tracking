@@ -35,6 +35,19 @@
 
 - request:
     url: ^/year/2022
+    query:
+      view: trend
+    method: GET
+  response:
+    status: 200
+    latency: 500
+    headers:
+      content-type: application/json
+      Access-Control-Allow-Origin: '*'
+    file: 'year-2022-trend.json'
+
+- request:
+    url: ^/year/2022
     method: GET
   response:
     status: 200
