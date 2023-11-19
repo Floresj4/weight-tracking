@@ -13,13 +13,22 @@
     align-items: center;
 }
 
-.weight-trends {
+.trend-presentation-container {
     display: flex;
 }
-.trend-container {
-    border: 1px solid #ccc;
+.presentation-container {
+    flex-grow: 4;
+    margin-bottom: 20px;
+}
+.trend-container{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.trend-value-container {
     padding: 0 10px;
     margin: 0 10px 10px 0;
+    border: 1px solid #ccc;
     border-radius: 15px;
 }
 
@@ -28,6 +37,3 @@
     justify-content: space-between;
 }
 
-.presentation-container {
-    margin-bottom: 20px;
-}

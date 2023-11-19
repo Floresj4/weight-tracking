@@ -32,10 +32,6 @@ export class AppComponent {
   weightMax: Weight = <Weight>{}
   weightAvg: string = ''
 
-  presentationMin: number[] = []
-  presentationMax: number[] = []
-  presentationAvg: number[] = []
-
   isDataLoaded: boolean = false
 
   @ViewChild('weightsTable')

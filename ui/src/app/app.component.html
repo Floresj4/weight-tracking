@@ -17,27 +17,31 @@
   
   </div>
 
-  <div class="weight-trends">
-    <div class="trend-container">
-      <h2>Min</h2>
-      <h3>{{ getValue(weightMin) }}</h3>
-      <p>{{ getDate(weightMin) }}</p>
-    </div>
-    
-    <div class="trend-container">
-      <h2>Max</h2>
-      <h3>{{ getValue(weightMax) }}</h3>
-      <p>{{ getDate(weightMax) }}</p>
+  <div class="trend-presentation-container">
+    <div class="presentation-container">
+      <p-chart type="line" [data]="presentation" [options]="options"></p-chart>
     </div>
 
     <div class="trend-container">
-      <h2>Avg</h2>
-      <h3>{{ weightAvg }}</h3>
-    </div>
-  </div>
 
-  <div class="presentation-container">
-    <p-chart type="line" [data]="presentation" [options]="options"></p-chart>
+      <div class="trend-value-container">
+        <h2>Min</h2>
+        <h3>{{ getValue(weightMin) }}</h3>
+        <p>{{ getDate(weightMin) }}</p>
+      </div>
+      
+      <div class="trend-value-container">
+        <h2>Max</h2>
+        <h3>{{ getValue(weightMax) }}</h3>
+        <p>{{ getDate(weightMax) }}</p>
+      </div>
+
+      <div class="trend-value-container">
+        <h2>Avg</h2>
+        <h3>{{ weightAvg }}</h3>
+      </div>
+
+    </div>
   </div>
 
   <div *ngIf="isDataLoaded; else dataLoading">
