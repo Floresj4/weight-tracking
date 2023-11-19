@@ -3,7 +3,6 @@ import { DataService } from './services/data.service';
 import { Weight, WeightAnnual, WeightPresentation } from './model/weight.model';
 
 import { Table } from 'primeng/table';
-import { TreeNode } from 'primeng/api';
 
 interface SelectableYear {
   label: string
@@ -16,6 +15,7 @@ interface TrendData {
   average: string
 }
 
+//TODO: fix width overflow on presentation panels
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
