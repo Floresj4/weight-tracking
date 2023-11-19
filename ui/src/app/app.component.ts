@@ -41,7 +41,7 @@ export class AppComponent {
   @ViewChild('weightsTable')
   weightsTable: Table | undefined
 
-  dataz: any = <any>{}
+  presentation: any = <any>{}
   options: any = <any>{}
 
   documentStyle = getComputedStyle(document.documentElement);
@@ -145,7 +145,7 @@ export class AppComponent {
     
       this.data.getPresentationData(year)
         .subscribe((response: WeightPresentation) => {
-          this.dataz = this.getPresentationData(response)
+          this.presentation = this.getPresentationData(response)
         })
   }
 
