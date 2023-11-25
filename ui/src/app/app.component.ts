@@ -45,7 +45,8 @@ export class AppComponent {
   textColorSecondary = this.documentStyle.getPropertyValue('--text-color-secondary');
   surfaceBorder = this.documentStyle.getPropertyValue('--surface-border');
 
-  month = ["January", "February", "March",
+  presentationMonths: string[] = []
+  month: string[] = ["January", "February", "March",
     "April", "May", "June", "July", "August",
     "September", "October", "November",
     "December"]
@@ -54,10 +55,16 @@ export class AppComponent {
   }
 
   ngOnInit() {
+
+    // query the available years to view
     this.getAvailableYears()
 
+    // update the the values used on the graph/presentation
+    this.month.forEach((m, i) =>
+      this.presentationMonths[i] = m.substring(0, 3) 
+    );
 
-
+    // setup options for graph/presentation
     this.options = {
         maintainAspectRatio: false,
         aspectRatio: 0.6,
@@ -156,7 +163,7 @@ export class AppComponent {
   getPresentationData(response: WeightPresentation) {
 
     return {
-      labels: this.month,
+      labels: this.presentationMonths,
       datasets: [
           {
               label: 'Average',
