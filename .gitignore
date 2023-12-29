@@ -10,4 +10,4 @@ target/
 *-out.csv
 
 batch-weights/
-
+dynamo/**/*.db
