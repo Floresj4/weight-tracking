@@ -78,7 +78,7 @@ public class SpringDynamo {
 			System.out.println(newTableName);
 		}
 		catch(DynamoDbException e) {
-			Log.error(e);
+			log.error(e.getMessage());
 		}
 	}
 }
