@@ -1,6 +1,7 @@
 package com.flores.dev.dynamo;
 
 import java.net.URI;
+import java.time.Instant;
 
 import lombok.extern.slf4j.Slf4j;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
@@ -17,6 +18,7 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.model.KeySchemaElement;
 import software.amazon.awssdk.services.dynamodb.model.KeyType;
 import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
+import software.amazon.awssdk.services.dynamodb.model.ResourceNotFoundException;
 import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
 import software.amazon.awssdk.services.dynamodb.waiters.DynamoDbWaiter;
 
@@ -80,25 +82,38 @@ public class SpringDynamo {
 		
 		DynamoDbWaiter waiter = client.waiter();
 
-		String tableName = "Weights";
-		CreateTableRequest createTable = createWeightTableRequest();
+
 		
 		try {
-			CreateTableResponse response = client.createTable(createTable);
-			DescribeTableRequest describeTable = DescribeTableRequest.builder()
+			String tableName = "Weights";
+			DescribeTableRequest describeTableRequest = DescribeTableRequest.builder()
 					.tableName(tableName)
 					.build();
-			
-			//wait until DynamoDb is finished
-			WaiterResponse<DescribeTableResponse> waiterResponse = waiter.waitUntilTableExists(describeTable);
-			waiterResponse.matched()
-					.response()
-					.ifPresent(System.out::println);;
-			
-			String newTableName = response.tableDescription()
-					.tableName();
 
-			log.info("{} created.", newTableName);
+			try {
+				//check if the table exists first
+				DescribeTableResponse describeTableResponse = client.describeTable(describeTableRequest);
+				
+				Instant creationDate = describeTableResponse.table().creationDateTime();
+				log.info("{} table created {}", tableName, creationDate);
+			}
+			catch(ResourceNotFoundException e) {
+				log.info("Table {} does not exist.  Creating...", tableName);
+				
+				CreateTableRequest createTableRequest = createWeightTableRequest();
+				CreateTableResponse createTableResponse = client.createTable(createTableRequest);
+				
+				//wait until DynamoDb is finished
+				WaiterResponse<DescribeTableResponse> waiterResponse = waiter.waitUntilTableExists(describeTableRequest);
+				waiterResponse.matched()
+						.response()
+						.ifPresent(System.out::println);;
+				
+				String newTableName = createTableResponse.tableDescription()
+						.tableName();
+
+				log.info("{} created.", newTableName);
+			}
 		}
 		catch(DynamoDbException e) {
 			log.error(e.getMessage());
