@@ -1,9 +1,7 @@
 package com.flores.dev.dynamo;
 
 import java.net.URI;
-import java.util.Optional;
 
-import jdk.internal.org.jline.utils.Log;
 import lombok.extern.slf4j.Slf4j;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
@@ -31,6 +29,45 @@ public class SpringDynamo {
 
 	private static final String AMAZON_AWS_SECRET_KEY = "Sample";
 
+	public static CreateTableRequest createWeightTableRequest() {
+		log.info("Creating Weight table request");
+
+		//define table attributes
+		String guid = "guid";
+		AttributeDefinition guidAttribute = AttributeDefinition.builder()
+				.attributeType(ScalarAttributeType.S)
+				.attributeName(guid)
+				.build();
+		
+		String entryDate = "entry-date";
+		AttributeDefinition dateAttribute = AttributeDefinition.builder()
+				.attributeType(ScalarAttributeType.S)
+				.attributeName(entryDate)
+				.build();
+
+		//define table primary key attributes
+		KeySchemaElement partitionKey = KeySchemaElement.builder()
+				.keyType(KeyType.HASH)
+				.attributeName(guid)
+				.build();
+		
+		KeySchemaElement sortKey = KeySchemaElement.builder()
+				.keyType(KeyType.RANGE)
+				.attributeName(entryDate)
+				.build();
+		
+		String tableName = "Weights";
+		return CreateTableRequest.builder()
+				.attributeDefinitions(guidAttribute, dateAttribute)
+				.keySchema(partitionKey, sortKey)
+				.provisionedThroughput(ProvisionedThroughput.builder()
+						.readCapacityUnits(5L)
+						.writeCapacityUnits(5L)
+						.build())
+				.tableName(tableName)
+				.build();	
+	}
+	
 	public static void main(String args[]) throws Exception {
 
 		DynamoDbClient client = DynamoDbClient.builder()
@@ -42,25 +79,9 @@ public class SpringDynamo {
 				.build();
 		
 		DynamoDbWaiter waiter = client.waiter();
-		
-		String tableName = "guids";
-		String key = "id";
-		
-		CreateTableRequest createTable = CreateTableRequest.builder()
-				.attributeDefinitions(AttributeDefinition.builder()
-						.attributeName(key)
-						.attributeType(ScalarAttributeType.S)
-						.build())
-				.keySchema(KeySchemaElement.builder()
-						.attributeName(key)
-						.keyType(KeyType.HASH)
-						.build())
-				.provisionedThroughput(ProvisionedThroughput.builder()
-						.readCapacityUnits(10L)
-						.writeCapacityUnits(10L)
-						.build())
-				.tableName(tableName)
-				.build();
+
+		String tableName = "Weights";
+		CreateTableRequest createTable = createWeightTableRequest();
 		
 		try {
 			CreateTableResponse response = client.createTable(createTable);
@@ -74,8 +95,10 @@ public class SpringDynamo {
 					.response()
 					.ifPresent(System.out::println);;
 			
-			String newTableName = response.tableDescription().tableName();
-			System.out.println(newTableName);
+			String newTableName = response.tableDescription()
+					.tableName();
+
+			log.info("{} created.", newTableName);
 		}
 		catch(DynamoDbException e) {
 			log.error(e.getMessage());
