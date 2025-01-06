@@ -2,6 +2,9 @@ package com.flores.dev.dynamo;
 
 import java.net.URI;
 import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 import lombok.extern.slf4j.Slf4j;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
@@ -10,20 +13,29 @@ import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeDefinition;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableResponse;
 import software.amazon.awssdk.services.dynamodb.model.DescribeTableRequest;
 import software.amazon.awssdk.services.dynamodb.model.DescribeTableResponse;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
+import software.amazon.awssdk.services.dynamodb.model.ItemCollectionMetrics;
 import software.amazon.awssdk.services.dynamodb.model.KeySchemaElement;
 import software.amazon.awssdk.services.dynamodb.model.KeyType;
 import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
+import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
+import software.amazon.awssdk.services.dynamodb.model.PutItemResponse;
 import software.amazon.awssdk.services.dynamodb.model.ResourceNotFoundException;
+import software.amazon.awssdk.services.dynamodb.model.ReturnItemCollectionMetrics;
 import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
 import software.amazon.awssdk.services.dynamodb.waiters.DynamoDbWaiter;
 
 @Slf4j
 public class SpringDynamo {
+
+	public static final String ATTRIBUTE_GUID = "guid";
+	public static final String ATTRIBUTE_ENTRY_DATE = "entry-date";
+	public static final String ATTRIBUTE_VALUE = "value";
 
 	private static final String LOCAL_DB_ENDPOINT = "http://localhost:8000";
 
@@ -35,27 +47,25 @@ public class SpringDynamo {
 		log.info("Creating Weight table request");
 
 		//define table attributes
-		String guid = "guid";
 		AttributeDefinition guidAttribute = AttributeDefinition.builder()
 				.attributeType(ScalarAttributeType.S)
-				.attributeName(guid)
+				.attributeName(ATTRIBUTE_GUID)
 				.build();
 		
-		String entryDate = "entry-date";
 		AttributeDefinition dateAttribute = AttributeDefinition.builder()
 				.attributeType(ScalarAttributeType.S)
-				.attributeName(entryDate)
+				.attributeName(ATTRIBUTE_ENTRY_DATE)
 				.build();
 
 		//define table primary key attributes
 		KeySchemaElement partitionKey = KeySchemaElement.builder()
 				.keyType(KeyType.HASH)
-				.attributeName(guid)
+				.attributeName(ATTRIBUTE_GUID)
 				.build();
 		
 		KeySchemaElement sortKey = KeySchemaElement.builder()
 				.keyType(KeyType.RANGE)
-				.attributeName(entryDate)
+				.attributeName(ATTRIBUTE_ENTRY_DATE)
 				.build();
 		
 		String tableName = "Weights";
@@ -80,10 +90,6 @@ public class SpringDynamo {
 				.endpointOverride(new URI(LOCAL_DB_ENDPOINT))
 				.build();
 		
-		DynamoDbWaiter waiter = client.waiter();
-
-
-		
 		try {
 			String tableName = "Weights";
 			DescribeTableRequest describeTableRequest = DescribeTableRequest.builder()
@@ -104,6 +110,7 @@ public class SpringDynamo {
 				CreateTableResponse createTableResponse = client.createTable(createTableRequest);
 				
 				//wait until DynamoDb is finished
+				DynamoDbWaiter waiter = client.waiter();
 				WaiterResponse<DescribeTableResponse> waiterResponse = waiter.waitUntilTableExists(describeTableRequest);
 				waiterResponse.matched()
 						.response()
@@ -114,9 +121,45 @@ public class SpringDynamo {
 
 				log.info("{} created.", newTableName);
 			}
+			
+			String userGuid = UUID.randomUUID()
+					.toString();
+
+			Map<String, AttributeValue> item = getItemMap(userGuid, "2024-01-04", "159.0");
+			
+			PutItemRequest putItemRequest = PutItemRequest.builder()
+					.returnItemCollectionMetrics(ReturnItemCollectionMetrics.SIZE)
+					.item(item)
+					.build();
+
+			PutItemResponse putItemResponse = client.putItem(putItemRequest);
+			ItemCollectionMetrics putMetrics = putItemResponse.itemCollectionMetrics();
+			log.info("Item put status:", putMetrics);
+			
 		}
 		catch(DynamoDbException e) {
 			log.error(e.getMessage());
 		}
+	}
+	
+	public static Map<String, AttributeValue> getItemMap(String userGuid, String entryDate, String value) {
+		Map<String, AttributeValue> item = new HashMap<>();
+
+		AttributeValue guid = AttributeValue.builder()
+				.s(userGuid)
+				.build();
+		
+		item.put(ATTRIBUTE_GUID, guid);
+		AttributeValue entryDateAttr = AttributeValue.builder()
+				.s(entryDate)
+				.build();
+
+		item.put(ATTRIBUTE_ENTRY_DATE, entryDateAttr);
+		AttributeValue valueAttr = AttributeValue.builder()
+				.n(value)
+				.build();
+
+		item.put(ATTRIBUTE_VALUE, valueAttr);
+		return item;
 	}
 }
