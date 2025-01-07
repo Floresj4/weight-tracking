@@ -21,6 +21,7 @@ import software.amazon.awssdk.services.dynamodb.model.DescribeTableRequest;
 import software.amazon.awssdk.services.dynamodb.model.DescribeTableResponse;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
+import software.amazon.awssdk.services.dynamodb.model.GetItemResponse;
 import software.amazon.awssdk.services.dynamodb.model.KeySchemaElement;
 import software.amazon.awssdk.services.dynamodb.model.KeyType;
 import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
@@ -126,16 +127,48 @@ public class SpringDynamo {
 			String userGuid = UUID.randomUUID()
 					.toString();
 
-			putSingleItem(client, tableName, userGuid);
+			String entryDate = "2024-01-04";
+			
+			putSingleItem(client, tableName, userGuid, entryDate);
+
+			getSingleItem(client, tableName, userGuid, entryDate);
 		}
 		catch(DynamoDbException e) {
 			log.error(e.getMessage());
 		}
 	}
 
-	public static void putSingleItem(DynamoDbClient client, String tableName, String userGuid) {
+	public static void getSingleItem(DynamoDbClient client, String tableName, String userGuid, String entryDate) {
+		Map<String, AttributeValue> item = new HashMap<>();
+
+		AttributeValue guid = AttributeValue.builder()
+				.s(userGuid)
+				.build();
+		
+		item.put(ATTRIBUTE_GUID, guid);
+		AttributeValue entryDateAttr = AttributeValue.builder()
+				.s(entryDate)
+				.build();
+
+		item.put(ATTRIBUTE_ENTRY_DATE, entryDateAttr);
+		
+		GetItemRequest getItemRequest = GetItemRequest.builder()
+				.returnConsumedCapacity(ReturnConsumedCapacity.TOTAL)
+				.tableName(tableName)
+				.key(item)
+				.build();
+		
+		GetItemResponse getItemResponse = client.getItem(getItemRequest);
+		ConsumedCapacity consumedCapacity = getItemResponse.consumedCapacity();
+		log.info("GetItem complete.  Comsumed capacity: {}", consumedCapacity);	
+		
+		Map<String, AttributeValue> responseItem = getItemResponse.item();
+		log.info("Returned {}", responseItem);
+	}
+	
+	public static void putSingleItem(DynamoDbClient client, String tableName, String userGuid, String entryDate) {
 		//create a single item to put
-		Map<String, AttributeValue> item = getItemMap(userGuid, "2024-01-04", "159.0");			
+		Map<String, AttributeValue> item = getItemMap(userGuid, entryDate, "159.0");			
 		PutItemRequest putItemRequest = PutItemRequest.builder()
 				.returnConsumedCapacity(ReturnConsumedCapacity.TOTAL)
 				.tableName(tableName)
@@ -144,7 +177,7 @@ public class SpringDynamo {
 
 		PutItemResponse putItemResponse = client.putItem(putItemRequest);
 		ConsumedCapacity consumedCapacity = putItemResponse.consumedCapacity();
-		log.info("PutItem complete.  Comsumed capacity: {}", consumedCapacity);		
+		log.info("PutItem complete.  Comsumed capacity: {}", consumedCapacity);
 	}
 	
 	public static Map<String, AttributeValue> getItemMap(String userGuid, String entryDate, String value) {
