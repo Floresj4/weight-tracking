@@ -14,19 +14,20 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeDefinition;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+import software.amazon.awssdk.services.dynamodb.model.ConsumedCapacity;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableResponse;
 import software.amazon.awssdk.services.dynamodb.model.DescribeTableRequest;
 import software.amazon.awssdk.services.dynamodb.model.DescribeTableResponse;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
-import software.amazon.awssdk.services.dynamodb.model.ItemCollectionMetrics;
+import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.KeySchemaElement;
 import software.amazon.awssdk.services.dynamodb.model.KeyType;
 import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
 import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.PutItemResponse;
 import software.amazon.awssdk.services.dynamodb.model.ResourceNotFoundException;
-import software.amazon.awssdk.services.dynamodb.model.ReturnItemCollectionMetrics;
+import software.amazon.awssdk.services.dynamodb.model.ReturnConsumedCapacity;
 import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
 import software.amazon.awssdk.services.dynamodb.waiters.DynamoDbWaiter;
 
@@ -125,21 +126,25 @@ public class SpringDynamo {
 			String userGuid = UUID.randomUUID()
 					.toString();
 
-			Map<String, AttributeValue> item = getItemMap(userGuid, "2024-01-04", "159.0");
-			
-			PutItemRequest putItemRequest = PutItemRequest.builder()
-					.returnItemCollectionMetrics(ReturnItemCollectionMetrics.SIZE)
-					.item(item)
-					.build();
-
-			PutItemResponse putItemResponse = client.putItem(putItemRequest);
-			ItemCollectionMetrics putMetrics = putItemResponse.itemCollectionMetrics();
-			log.info("Item put status:", putMetrics);
-			
+			putSingleItem(client, tableName, userGuid);
 		}
 		catch(DynamoDbException e) {
 			log.error(e.getMessage());
 		}
+	}
+
+	public static void putSingleItem(DynamoDbClient client, String tableName, String userGuid) {
+		//create a single item to put
+		Map<String, AttributeValue> item = getItemMap(userGuid, "2024-01-04", "159.0");			
+		PutItemRequest putItemRequest = PutItemRequest.builder()
+				.returnConsumedCapacity(ReturnConsumedCapacity.TOTAL)
+				.tableName(tableName)
+				.item(item)
+				.build();
+
+		PutItemResponse putItemResponse = client.putItem(putItemRequest);
+		ConsumedCapacity consumedCapacity = putItemResponse.consumedCapacity();
+		log.info("PutItem complete.  Comsumed capacity: {}", consumedCapacity);		
 	}
 	
 	public static Map<String, AttributeValue> getItemMap(String userGuid, String entryDate, String value) {
