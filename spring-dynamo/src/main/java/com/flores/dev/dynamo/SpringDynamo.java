@@ -132,12 +132,18 @@ public class SpringDynamo {
 			putSingleItem(client, tableName, userGuid, entryDate);
 
 			getSingleItem(client, tableName, userGuid, entryDate);
+			
+			batchItemRequest(client, tableName, userGuid);
 		}
 		catch(DynamoDbException e) {
 			log.error(e.getMessage());
 		}
 	}
 
+	public static void batchItemRequest(DynamoDbClient client, String tableName, String userGuid) {
+		
+	}
+	
 	public static void getSingleItem(DynamoDbClient client, String tableName, String userGuid, String entryDate) {
 		Map<String, AttributeValue> item = new HashMap<>();
 
