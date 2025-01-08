@@ -2,6 +2,7 @@ package com.flores.dev.dynamo;
 
 import java.net.URI;
 import java.time.Instant;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -14,6 +15,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeDefinition;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+import software.amazon.awssdk.services.dynamodb.model.BatchWriteItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.ConsumedCapacity;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableResponse;
@@ -30,6 +32,7 @@ import software.amazon.awssdk.services.dynamodb.model.PutItemResponse;
 import software.amazon.awssdk.services.dynamodb.model.ResourceNotFoundException;
 import software.amazon.awssdk.services.dynamodb.model.ReturnConsumedCapacity;
 import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
+import software.amazon.awssdk.services.dynamodb.model.WriteRequest;
 import software.amazon.awssdk.services.dynamodb.waiters.DynamoDbWaiter;
 
 @Slf4j
@@ -141,7 +144,11 @@ public class SpringDynamo {
 	}
 
 	public static void batchItemRequest(DynamoDbClient client, String tableName, String userGuid) {
-		
+		Map<String, ? extends Collection<WriteRequest>> requestItems = new HashMap<>();
+
+		BatchWriteItemRequest batchItemRequeust = BatchWriteItemRequest.builder()
+				.requestItems(requestItems)
+				.build();
 	}
 	
 	public static void getSingleItem(DynamoDbClient client, String tableName, String userGuid, String entryDate) {
