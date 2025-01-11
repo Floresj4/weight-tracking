@@ -4,6 +4,7 @@ import java.net.URI;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -16,6 +17,7 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeDefinition;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.BatchWriteItemRequest;
+import software.amazon.awssdk.services.dynamodb.model.BatchWriteItemResponse;
 import software.amazon.awssdk.services.dynamodb.model.ConsumedCapacity;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableResponse;
@@ -149,6 +151,12 @@ public class SpringDynamo {
 		BatchWriteItemRequest batchItemRequeust = BatchWriteItemRequest.builder()
 				.requestItems(requestItems)
 				.build();
+		
+		BatchWriteItemResponse batchItemResponse = client.batchWriteItem(batchItemRequeust);
+		List<ConsumedCapacity> consumedCapacity = batchItemResponse.consumedCapacity();
+		
+		consumedCapacity.stream()
+		.forEach(System.out::println);
 	}
 	
 	public static void getSingleItem(DynamoDbClient client, String tableName, String userGuid, String entryDate) {
