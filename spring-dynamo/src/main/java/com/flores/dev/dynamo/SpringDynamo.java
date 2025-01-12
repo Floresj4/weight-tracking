@@ -2,11 +2,14 @@ package com.flores.dev.dynamo;
 
 import java.net.URI;
 import java.time.Instant;
-import java.util.Collection;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
@@ -31,6 +34,7 @@ import software.amazon.awssdk.services.dynamodb.model.KeyType;
 import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
 import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.PutItemResponse;
+import software.amazon.awssdk.services.dynamodb.model.PutRequest;
 import software.amazon.awssdk.services.dynamodb.model.ResourceNotFoundException;
 import software.amazon.awssdk.services.dynamodb.model.ReturnConsumedCapacity;
 import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
@@ -146,17 +150,49 @@ public class SpringDynamo {
 	}
 
 	public static void batchItemRequest(DynamoDbClient client, String tableName, String userGuid) {
-		Map<String, ? extends Collection<WriteRequest>> requestItems = new HashMap<>();
+		Map<String, List<WriteRequest>> requestItems = new HashMap<>();
 
+		Random random = new Random(System.currentTimeMillis());
+		
+		int numberOfEntries = random.nextInt(25);
+		log.info("Attempting to add {} entries", numberOfEntries);
+		
+		for(int i = 0; i < numberOfEntries; i++) {
+			String date = LocalDate.of(random.nextInt(2022, 2024),
+					random.nextInt(1, 12),
+					random.nextInt(1, 28))
+					.toString();
+			
+			String value = String.valueOf(random.nextInt(150, 200));
+			
+			Map<String, AttributeValue> item = getItemMap(userGuid, date, value);
+			List<WriteRequest> putItems = requestItems.getOrDefault(tableName, new ArrayList<>());
+			PutRequest put = PutRequest.builder()
+					.item(item)
+					.build();
+
+			putItems.add(WriteRequest.builder()
+					.putRequest(put)
+					.build());
+			
+			requestItems.put(tableName, putItems);
+		}
+		
 		BatchWriteItemRequest batchItemRequeust = BatchWriteItemRequest.builder()
+				.returnConsumedCapacity(ReturnConsumedCapacity.TOTAL)
 				.requestItems(requestItems)
 				.build();
 		
 		BatchWriteItemResponse batchItemResponse = client.batchWriteItem(batchItemRequeust);
 		List<ConsumedCapacity> consumedCapacity = batchItemResponse.consumedCapacity();
+
+		String capacity = consumedCapacity.stream()
+				.map(String::valueOf)
+				.collect(Collectors.joining(
+						System.lineSeparator()));
 		
-		consumedCapacity.stream()
-		.forEach(System.out::println);
+		log.info("BatchWriteItemRequest complete.  Consumed capacity: {}", capacity);
+
 	}
 	
 	public static void getSingleItem(DynamoDbClient client, String tableName, String userGuid, String entryDate) {
