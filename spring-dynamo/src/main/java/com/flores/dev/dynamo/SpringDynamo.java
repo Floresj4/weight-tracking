@@ -44,7 +44,7 @@ import software.amazon.awssdk.services.dynamodb.waiters.DynamoDbWaiter;
 @Slf4j
 public class SpringDynamo {
 
-	public static final Random random = new Random(System.currentTimeMillis());
+	public static final Random RANDOM = new Random(System.currentTimeMillis());
 	
 	public static final String ATTRIBUTE_GUID = "guid";
 	public static final String ATTRIBUTE_ENTRY_DATE = "entry-date";
@@ -145,6 +145,7 @@ public class SpringDynamo {
 			getSingleItem(client, tableName, userGuid, entryDate);
 			
 			batchItemRequest(client, tableName, userGuid);
+			
 		}
 		catch(DynamoDbException e) {
 			log.error(e.getMessage());
@@ -154,7 +155,7 @@ public class SpringDynamo {
 	public static void batchItemRequest(DynamoDbClient client, String tableName, String userGuid) {
 		Map<String, List<WriteRequest>> requestItems = new HashMap<>();
 		
-		int numberOfEntries = random.nextInt(25);
+		int numberOfEntries = RANDOM.nextInt(25);
 		log.info("Attempting to add {} entries", numberOfEntries);
 		
 		for(int i = 0; i < numberOfEntries; i++) {			
@@ -233,12 +234,12 @@ public class SpringDynamo {
 	
 	public static Map<String, AttributeValue> getItemMap(String userGuid) {
 		String date = LocalDate.of(
-				random.nextInt(2022, 2024),
-				random.nextInt(1, 12),
-				random.nextInt(1, 28))
+				RANDOM.nextInt(2022, 2024),
+				RANDOM.nextInt(1, 12),
+				RANDOM.nextInt(1, 28))
 				.toString();
 		
-		String value = String.valueOf(random.nextInt(150, 200));
+		String value = String.valueOf(RANDOM.nextInt(150, 200));
 		
 		return getItemMap(userGuid, date, value);
 	}
