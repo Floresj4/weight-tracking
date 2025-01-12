@@ -44,6 +44,8 @@ import software.amazon.awssdk.services.dynamodb.waiters.DynamoDbWaiter;
 @Slf4j
 public class SpringDynamo {
 
+	public static final Random random = new Random(System.currentTimeMillis());
+	
 	public static final String ATTRIBUTE_GUID = "guid";
 	public static final String ATTRIBUTE_ENTRY_DATE = "entry-date";
 	public static final String ATTRIBUTE_VALUE = "value";
@@ -151,21 +153,13 @@ public class SpringDynamo {
 
 	public static void batchItemRequest(DynamoDbClient client, String tableName, String userGuid) {
 		Map<String, List<WriteRequest>> requestItems = new HashMap<>();
-
-		Random random = new Random(System.currentTimeMillis());
 		
 		int numberOfEntries = random.nextInt(25);
 		log.info("Attempting to add {} entries", numberOfEntries);
 		
-		for(int i = 0; i < numberOfEntries; i++) {
-			String date = LocalDate.of(random.nextInt(2022, 2024),
-					random.nextInt(1, 12),
-					random.nextInt(1, 28))
-					.toString();
+		for(int i = 0; i < numberOfEntries; i++) {			
+			Map<String, AttributeValue> item = getItemMap(userGuid);
 			
-			String value = String.valueOf(random.nextInt(150, 200));
-			
-			Map<String, AttributeValue> item = getItemMap(userGuid, date, value);
 			List<WriteRequest> putItems = requestItems.getOrDefault(tableName, new ArrayList<>());
 			PutRequest put = PutRequest.builder()
 					.item(item)
@@ -235,6 +229,18 @@ public class SpringDynamo {
 		PutItemResponse putItemResponse = client.putItem(putItemRequest);
 		ConsumedCapacity consumedCapacity = putItemResponse.consumedCapacity();
 		log.info("PutItem complete.  Comsumed capacity: {}", consumedCapacity);
+	}
+	
+	public static Map<String, AttributeValue> getItemMap(String userGuid) {
+		String date = LocalDate.of(
+				random.nextInt(2022, 2024),
+				random.nextInt(1, 12),
+				random.nextInt(1, 28))
+				.toString();
+		
+		String value = String.valueOf(random.nextInt(150, 200));
+		
+		return getItemMap(userGuid, date, value);
 	}
 	
 	public static Map<String, AttributeValue> getItemMap(String userGuid, String entryDate, String value) {
