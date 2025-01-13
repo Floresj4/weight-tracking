@@ -42,7 +42,7 @@ import software.amazon.awssdk.services.dynamodb.model.WriteRequest;
 import software.amazon.awssdk.services.dynamodb.waiters.DynamoDbWaiter;
 
 @Slf4j
-public class SpringDynamo {
+public class DynamoDbOperations {
 
 	public static final Random RANDOM = new Random(System.currentTimeMillis());
 	
