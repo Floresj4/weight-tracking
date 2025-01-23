@@ -173,12 +173,12 @@ public class DynamoDbOperations {
 			requestItems.put(tableName, putItems);
 		}
 		
-		BatchWriteItemRequest batchItemRequeust = BatchWriteItemRequest.builder()
+		BatchWriteItemRequest batchItemRequest = BatchWriteItemRequest.builder()
 				.returnConsumedCapacity(ReturnConsumedCapacity.TOTAL)
 				.requestItems(requestItems)
 				.build();
 		
-		BatchWriteItemResponse batchItemResponse = client.batchWriteItem(batchItemRequeust);
+		BatchWriteItemResponse batchItemResponse = client.batchWriteItem(batchItemRequest);
 		List<ConsumedCapacity> consumedCapacity = batchItemResponse.consumedCapacity();
 
 		String capacity = consumedCapacity.stream()
@@ -187,7 +187,6 @@ public class DynamoDbOperations {
 						System.lineSeparator()));
 		
 		log.info("BatchWriteItemRequest complete.  Consumed capacity: {}", capacity);
-
 	}
 	
 	public static void getSingleItem(DynamoDbClient client, String tableName, String userGuid, String entryDate) {
