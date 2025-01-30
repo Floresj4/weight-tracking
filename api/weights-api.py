@@ -1,7 +1,7 @@
 import os, re, json, sys
 import logging, argparse
 
-import MySQLdb
+import boto3
 
 def initialize_logger(name: str = __name__):
     '''
@@ -24,6 +24,10 @@ path_data_by_year_monthly_avg = re.compile(r'\/year\/(\d{4})\/avg')
 path_data_by_year = re.compile(r'\/year\/(\d{4})')
 
 def request_handler(path: str, req_payload: dict):
+    pass
+
+
+def put_entry():
     pass
 
 
