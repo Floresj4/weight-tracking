@@ -3,6 +3,8 @@ import logging, argparse
 
 import boto3
 
+dynamodb = boto3.resource('dynamodb')
+
 def initialize_logger(name: str = __name__):
     '''
     initialize logger
@@ -27,7 +29,16 @@ def request_handler(path: str, req_payload: dict):
     pass
 
 
-def put_entry():
+def put_entry(payload):
+    table = dynamodb.Table('Weights')
+    table.put_item(
+        Item = {
+            'pk': payload['guid'],
+            'sk': payload['entry-date'],
+            'value': payload['value']
+        }
+    )
+
     pass
 
 
