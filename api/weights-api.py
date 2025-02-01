@@ -98,16 +98,37 @@ def get_data_by_year(connection, match_result):
     '''
     pass
 
+
+def get_payload_from_input(input):
+    '''
+    Parse the argparge --payload data and create a dictionary
+    structure that simulates what would come through the request handler
+    '''
+    split = [s.strip() for s in input.split(',')]
+    if len(split) != 3:
+        raise Exception(f'Payload input {input} must contain 3 values in '
+            + 'the form USERGUID,DATE,VALUE')
+    
+    return {
+        'guid': split[0],
+        'entry-date': split[1],
+        'value': split[2] 
+    }
+
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(prog = 'Weight Tracking Access', description='Database interactions by request routes.')
     parser.add_argument('path', default = '/', type = str, help = 'Path to execute. e.g., /year/2023')
-    parser.add_argument('payload', type = str, help = 'Comma-separate values of payload data - GUID,DATE,VALUE e.g., guid,2025-01-01,175.0')
+    parser.add_argument('--payload', type = str, help = 'Comma-separate values of payload data - USERGUID,DATE,VALUE e.g., 9842-1232-2321-0923,2025-01-01,175.0')
     parser.add_argument('--indent', default = None, type = int, help = 'Indentation size on json pretty print.  Default None to be less verbose during dev/test.')
     args = parser.parse_args()
 
+    # parse simple input into a request payload
+    payload = get_payload_from_input(args.payload) \
+        if args.payload else {}
+
     # verify path and response
-    response = request_handler(args.path, {})
+    response = request_handler(args.path, payload)
     json.dump(response, sys.stdout
               , indent = args.indent
               , default = str)
