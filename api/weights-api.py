@@ -3,7 +3,7 @@ import logging, argparse
 
 import boto3
 
-dynamodb = boto3.resource('dynamodb')
+dynamodb = boto3.resource('dynamodb', endpoint_url = "http://localhost:8000/")
 
 def initialize_logger(name: str = __name__):
     '''
