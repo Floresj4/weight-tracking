@@ -2,8 +2,16 @@ import os, re, json, sys
 import logging, argparse
 
 import boto3
+from botocore.config import Config
 
-dynamodb = boto3.resource('dynamodb', endpoint_url = "http://localhost:8000/")
+config = Config(
+   connect_timeout = 3.0,
+   read_timeout = 3.0
+)
+
+dynamodb = boto3.resource('dynamodb',
+                          config = config,
+                          endpoint_url = "http://localhost:8000/")
 
 def initialize_logger(name: str = __name__):
     '''
@@ -36,6 +44,8 @@ def request_handler(path: str, req_payload: dict):
 
 
 def put_entry(payload):
+    logger.info(f'put_entry: {payload}')
+
     table = dynamodb.Table('Weights')
     table.put_item(
         Item = {
@@ -92,6 +102,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(prog = 'Weight Tracking Access', description='Database interactions by request routes.')
     parser.add_argument('path', default = '/', type = str, help = 'Path to execute. e.g., /year/2023')
+    parser.add_argument('payload', type = str, help = 'Comma-separate values of payload data - GUID,DATE,VALUE e.g., guid,2025-01-01,175.0')
     parser.add_argument('--indent', default = None, type = int, help = 'Indentation size on json pretty print.  Default None to be less verbose during dev/test.')
     args = parser.parse_args()
 
