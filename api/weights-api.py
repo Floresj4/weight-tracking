@@ -38,25 +38,23 @@ path_data_by_year = re.compile(r'\/year\/(\d{4})')
 def request_handler(path: str, req_payload: dict):
 
     if(match_result := path_data_new.fullmatch(path)):
-        data = put_entry(req_payload)
-        return data
-
-    pass
+        put_entry(req_payload)
 
 
 def put_entry(payload):
+    '''
+    Put a single entry into the table
+    '''
     logger.info(f'put_entry: {payload}')
 
     table = dynamodb.Table('Weights')
     table.put_item(
         Item = {
-            'pk': payload['guid'],
-            'sk': payload['entry-date'],
+            'guid': payload['guid'],
+            'entry-date': payload['entry-date'],
             'value': payload['value']
         }
     )
-
-    pass
 
 
 def get_available_years(connection):
