@@ -9,7 +9,8 @@ config = Config(
    read_timeout = 3.0
 )
 
-dynamodb = boto3.resource('dynamodb',
+session = boto3.Session()
+dynamodb = session.resource('dynamodb',
                           config = config,
                           endpoint_url = "http://localhost:8000/")
 
