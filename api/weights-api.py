@@ -57,21 +57,21 @@ def put_entry(payload):
     )
 
 
-def get_available_years(connection):
+def get_available_years():
     '''
     Collect availible years to select from
     '''
     pass
 
 
-def get_data_by_year_trend(connection, match_result):
+def get_data_by_year_trend(match_result):
     '''
     Collect the min or max value for the year
     '''
     pass
 
 
-def get_data_monthly_avg_by_year(connection, match_result):
+def get_data_monthly_avg_by_year(match_result):
     '''
     Collect monthly averages by year
 
@@ -80,7 +80,7 @@ def get_data_monthly_avg_by_year(connection, match_result):
     pass
 
 
-def get_data_by_year_month(connection, match_result):
+def get_data_by_year_month(match_result):
     '''
     Collect data for a single month and year.
 
@@ -89,7 +89,7 @@ def get_data_by_year_month(connection, match_result):
     pass
 
 
-def get_data_by_year(connection, match_result):
+def get_data_by_year(match_result):
     '''
     Collect data for a given year
 
