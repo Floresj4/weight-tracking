@@ -136,6 +136,31 @@ def get_payload_from_input(input):
 
     return base64.b64encode(post_body.encode('utf-8'))
 
+def get_event_from_inputs(args):
+    '''
+    Load the json event template and substitute inputs
+    into the object for local testing and development
+    '''
+    event = {}  # load the test payload to replace values on
+    with open('./test/api-gateway-http-api.json', 'r') as api_sample:
+        event = json.load(api_sample)
+
+    # parse the input url for setup
+    parsed_url = urllib.parse.urlparse(args.url)
+    query_params = urllib.parse.parse_qs(parsed_url.query)
+
+    # parse input into a request body
+    post_body = get_payload_from_input(args.body) \
+        if args.body else {}
+    
+    # update event properties
+    event['rawPath'] = args.url
+    event['rawQueryString'] = parsed_url.query
+    event['queryStringParameters'] = query_params
+    event['body'] = post_body
+    return event
+
+
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(prog = 'Weight Tracking Access', description='Database interactions by request routes.')
@@ -144,21 +169,7 @@ if __name__ == '__main__':
     parser.add_argument('--indent', default = None, type = int, help = 'Indentation size on json pretty print.  Default None to be less verbose during dev/test.')
     args = parser.parse_args()
 
-    event = {}  # load the test payload to replace values on
-    with open('./test/api-gateway-http-api.json', 'r') as api_sample:
-        event = json.load(api_sample)
-
-    parsed_url = urllib.parse.urlparse(args.url)
-    query_params = urllib.parse.parse_qs(parsed_url.query)
-
-    # parse input into a request body
-    post_body = get_payload_from_input(args.body) \
-        if args.body else {}
-    
-    event['rawPath'] = args.url
-    event['rawQueryString'] = parsed_url.query
-    event['queryStringParameters'] = query_params
-    event['body'] = post_body
+    event = get_event_from_inputs(args)
 
     # verify path and response
     # response = request_handler(event, {})
