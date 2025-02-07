@@ -144,19 +144,24 @@ if __name__ == '__main__':
     parser.add_argument('--indent', default = None, type = int, help = 'Indentation size on json pretty print.  Default None to be less verbose during dev/test.')
     args = parser.parse_args()
 
-    event = {}
+    event = {}  # load the test payload to replace values on
     with open('./test/api-gateway-http-api.json', 'r') as api_sample:
         event = json.load(api_sample)
+
+    parsed_url = urllib.parse.urlparse(args.url)
+    query_params = urllib.parse.parse_qs(parsed_url.query)
 
     # parse input into a request body
     post_body = get_payload_from_input(args.body) \
         if args.body else {}
     
     event['rawPath'] = args.url
+    event['rawQueryString'] = parsed_url.query
+    event['queryStringParameters'] = query_params
     event['body'] = post_body
 
     # verify path and response
-    # response = request_handler(args.path, payload)
-    # json.dump(response, sys.stdout
-    #           , indent = args.indent
-    #           , default = str)
+    # response = request_handler(event, {})
+    json.dump(event, sys.stdout
+              , indent = args.indent
+              , default = str)
