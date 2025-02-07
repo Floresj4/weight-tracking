@@ -1,6 +1,7 @@
 import os, re, json, sys
 import urllib.parse
 import logging, argparse
+import base64
 
 from botocore.config import Config
 
@@ -127,11 +128,13 @@ def get_payload_from_input(input):
         raise Exception(f'Payload input {input} must contain 3 values in '
             + 'the form USERGUID,DATE,VALUE')
     
-    return {
+    dict = str({
         'guid': split[0],
         'entry-date': split[1],
         'value': split[2] 
-    }
+    })
+
+    return base64.b64encode(dict.encode('utf-8'))
 
 if __name__ == '__main__':
 
@@ -141,15 +144,15 @@ if __name__ == '__main__':
     parser.add_argument('--indent', default = None, type = int, help = 'Indentation size on json pretty print.  Default None to be less verbose during dev/test.')
     args = parser.parse_args()
 
-    # parse simple input into a request payload
+    # parse input into a request body
     post_body = get_payload_from_input(args.body) \
         if args.body else {}
 
     event = {}
     with open('./test/api-gateway-http-api.json', 'r') as api_sample:
-        event = json.loads(api_sample)
+        event = json.load(api_sample)
 
-    logger.info(json.dumps(event))
+    logger.info(post_body)
 
     # verify path and response
     # response = request_handler(args.path, payload)
