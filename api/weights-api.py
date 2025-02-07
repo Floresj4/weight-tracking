@@ -128,31 +128,32 @@ def get_payload_from_input(input):
         raise Exception(f'Payload input {input} must contain 3 values in '
             + 'the form USERGUID,DATE,VALUE')
     
-    dict = str({
+    post_body = str({
         'guid': split[0],
         'entry-date': split[1],
         'value': split[2] 
     })
 
-    return base64.b64encode(dict.encode('utf-8'))
+    return base64.b64encode(post_body.encode('utf-8'))
 
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(prog = 'Weight Tracking Access', description='Database interactions by request routes.')
-    parser.add_argument('path', default = '/', type = str, help = 'Path to execute. e.g., /year/2023')
+    parser.add_argument('url', default = '/', type = str, help = 'Url endpoint to execute. e.g., /year/2023')
     parser.add_argument('--body', type = str, help = 'Comma-separate values of post data - USERGUID,DATE,VALUE e.g., 9842-1232-2321-0923,2025-01-01,175.0')
     parser.add_argument('--indent', default = None, type = int, help = 'Indentation size on json pretty print.  Default None to be less verbose during dev/test.')
     args = parser.parse_args()
-
-    # parse input into a request body
-    post_body = get_payload_from_input(args.body) \
-        if args.body else {}
 
     event = {}
     with open('./test/api-gateway-http-api.json', 'r') as api_sample:
         event = json.load(api_sample)
 
-    logger.info(post_body)
+    # parse input into a request body
+    post_body = get_payload_from_input(args.body) \
+        if args.body else {}
+    
+    event['rawPath'] = args.url
+    event['body'] = post_body
 
     # verify path and response
     # response = request_handler(args.path, payload)
