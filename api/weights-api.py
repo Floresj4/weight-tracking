@@ -134,7 +134,10 @@ def get_payload_from_input(input):
         'value': split[2] 
     })
 
-    return base64.b64encode(post_body.encode('utf-8'))
+    encoded_bytes = post_body.encode('utf-8')
+    return base64.b64encode(encoded_bytes) \
+        .decode('utf-8')
+
 
 def get_event_from_inputs(args):
     '''
@@ -171,8 +174,7 @@ if __name__ == '__main__':
 
     event = get_event_from_inputs(args)
 
-    # verify path and response
-    # response = request_handler(event, {})
+    response = request_handler(event, {})
     json.dump(event, sys.stdout
               , indent = args.indent
               , default = str)
