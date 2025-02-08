@@ -43,14 +43,14 @@ path_data_by_year = re.compile(r'\/year\/(\d{4})')
 def request_handler(event: str, context: dict):
 
     path = event['rawPath']
-    queryString = event['rawQueryString']
+    query_params = event['queryStringParameters']
     post_body = event['body']
 
     if(match_result := path_data_new.fullmatch(path)):
         put_entry(post_body)
     
     elif(match_result := path_data_by_year.fullmatch(path)):
-        get_data_by_year(path)
+        get_data_by_year(query_params)
 
 
 def put_entry(encoded_body):
@@ -58,20 +58,17 @@ def put_entry(encoded_body):
     Put a single entry into the table
     '''
     decoded_body = base64.b64decode(encoded_body).decode('utf-8')
+    decoded_body = json.loads(decoded_body)
     logger.info(f'put_entry: {decoded_body}')
 
-    json.loads(decoded_body)
-
-    # decoded_body = json.loads(decoded_body)
-
-    # table = dynamodb.Table('Weights')
-    # table.put_item(
-    #     Item = {
-    #         'guid': decoded_body['guid'],
-    #         'entry-date': decoded_body['entry-date'],
-    #         'value': decoded_body['value']
-    #     }
-    # )
+    table = dynamodb.Table('Weights')
+    table.put_item(
+        Item = {
+            'guid': decoded_body['guid'],
+            'entry-date': decoded_body['entry-date'],
+            'value': decoded_body['value']
+        }
+    )
 
 
 def get_available_years():
@@ -106,21 +103,22 @@ def get_data_by_year_month(match_result):
     pass
 
 
-def get_data_by_year(match_result):
+def get_data_by_year(query_params):
     '''
     Collect data for a given year
 
     e.g., /year/2021
     '''
-
-    logger.info(f'get_data_by_year: {match_result}')
+    logger.info(f'get_data_by_year: {query_params}')
 
     table = dynamodb.Table('Weights')
-    response = table.query(
-        KeyConditionExpression = Key('pk').eq('id#1') \
-            & Key('sk').begins_with('cart#'),
-        FilterExpression = Attr('name').eq('SomeName')
-    )
+    # response = table.query(
+    #     KeyConditionExpression = Key('pk').eq(query_params['guid']) \
+    #         & Key('sk').begins_with(query_params['entry-date']),
+    #     FilterExpression = Attr('name').eq('value')
+    # )
+
+    return []
 
 
 def get_payload_from_input(input):
@@ -158,14 +156,17 @@ def get_event_from_inputs(args):
     parsed_url = urllib.parse.urlparse(args.url)
     query_params = urllib.parse.parse_qs(parsed_url.query)
 
+    # parse_qs returns a dict{ key: value[] }
+    single_value_query_params = {k: v[0] for k, v in query_params.items() if len(v) == 1}
+
     # parse input into a request body
     post_body = get_payload_from_input(args.body) \
         if args.body else {}
     
     # update event properties
-    event['rawPath'] = args.url
+    event['rawPath'] = parsed_url.path
     event['rawQueryString'] = parsed_url.query
-    event['queryStringParameters'] = query_params
+    event['queryStringParameters'] = single_value_query_params
     event['body'] = post_body
     return event
 
@@ -181,6 +182,6 @@ if __name__ == '__main__':
     event = get_event_from_inputs(args)
 
     response = request_handler(event, {})
-    # json.dump(event, sys.stdout
-    #           , indent = args.indent
-    #           , default = str)
+    json.dump(response, sys.stdout
+              , indent = args.indent
+              , default = str)
