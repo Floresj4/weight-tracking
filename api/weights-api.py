@@ -60,14 +60,18 @@ def put_entry(encoded_body):
     decoded_body = base64.b64decode(encoded_body).decode('utf-8')
     logger.info(f'put_entry: {decoded_body}')
 
-    table = dynamodb.Table('Weights')
-    table.put_item(
-        Item = {
-            'guid': decoded_body['guid'],
-            'entry-date': decoded_body['entry-date'],
-            'value': decoded_body['value']
-        }
-    )
+    json.loads(decoded_body)
+
+    # decoded_body = json.loads(decoded_body)
+
+    # table = dynamodb.Table('Weights')
+    # table.put_item(
+    #     Item = {
+    #         'guid': decoded_body['guid'],
+    #         'entry-date': decoded_body['entry-date'],
+    #         'value': decoded_body['value']
+    #     }
+    # )
 
 
 def get_available_years():
@@ -129,7 +133,8 @@ def get_payload_from_input(input):
         raise Exception(f'Payload input {input} must contain 3 values in '
             + 'the form USERGUID,DATE,VALUE')
     
-    post_body = str({
+    # stringify the post body
+    post_body = json.dumps({
         'guid': split[0],
         'entry-date': split[1],
         'value': split[2] 
@@ -176,6 +181,6 @@ if __name__ == '__main__':
     event = get_event_from_inputs(args)
 
     response = request_handler(event, {})
-    json.dump(event, sys.stdout
-              , indent = args.indent
-              , default = str)
+    # json.dump(event, sys.stdout
+    #           , indent = args.indent
+    #           , default = str)
