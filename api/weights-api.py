@@ -44,26 +44,28 @@ def request_handler(event: str, context: dict):
 
     path = event['rawPath']
     queryString = event['rawQueryString']
+    post_body = event['body']
 
     if(match_result := path_data_new.fullmatch(path)):
-        put_entry(req_payload)
+        put_entry(post_body)
     
     elif(match_result := path_data_by_year.fullmatch(path)):
         get_data_by_year(path)
 
 
-def put_entry(payload):
+def put_entry(encoded_body):
     '''
     Put a single entry into the table
     '''
-    logger.info(f'put_entry: {payload}')
+    decoded_body = base64.b64decode(encoded_body).decode('utf-8')
+    logger.info(f'put_entry: {decoded_body}')
 
     table = dynamodb.Table('Weights')
     table.put_item(
         Item = {
-            'guid': payload['guid'],
-            'entry-date': payload['entry-date'],
-            'value': payload['value']
+            'guid': decoded_body['guid'],
+            'entry-date': decoded_body['entry-date'],
+            'value': decoded_body['value']
         }
     )
 
@@ -115,7 +117,6 @@ def get_data_by_year(match_result):
             & Key('sk').begins_with('cart#'),
         FilterExpression = Attr('name').eq('SomeName')
     )
-
 
 
 def get_payload_from_input(input):
