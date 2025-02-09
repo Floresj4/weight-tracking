@@ -121,8 +121,11 @@ def get_data_by_year(query_params):
             & Key('entry-date').begins_with(query_params['entry-date'])
     )
 
-    return response
+    # return if exists
+    if 'Items' in response:
+        return response['Items']
 
+    return { 'Items': [] }
 
 def get_payload_from_input(input):
     '''
