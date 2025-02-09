@@ -47,10 +47,12 @@ def request_handler(event: str, context: dict):
     post_body = event['body']
 
     if(match_result := path_data_new.fullmatch(path)):
-        put_entry(post_body)
+        response = put_entry(post_body)
     
     elif(match_result := path_data_by_year.fullmatch(path)):
-        get_data_by_year(query_params)
+        response = get_data_by_year(query_params)
+    
+    return response
 
 
 def put_entry(encoded_body):
@@ -69,6 +71,8 @@ def put_entry(encoded_body):
             'value': decoded_body['value']
         }
     )
+
+    return 'Ok'
 
 
 def get_available_years():
@@ -112,13 +116,12 @@ def get_data_by_year(query_params):
     logger.info(f'get_data_by_year: {query_params}')
 
     table = dynamodb.Table('Weights')
-    # response = table.query(
-    #     KeyConditionExpression = Key('pk').eq(query_params['guid']) \
-    #         & Key('sk').begins_with(query_params['entry-date']),
-    #     FilterExpression = Attr('name').eq('value')
-    # )
+    response = table.query(
+        KeyConditionExpression = Key('guid').eq(query_params['guid']) \
+            & Key('entry-date').begins_with(query_params['entry-date'])
+    )
 
-    return []
+    return response
 
 
 def get_payload_from_input(input):
