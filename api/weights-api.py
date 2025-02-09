@@ -50,8 +50,10 @@ def request_handler(event: str, context: dict):
         response = put_entry(post_body)
     
     elif(match_result := path_data_by_year.fullmatch(path)):
-        response = get_data_by_year(query_params)
+        response = get_data_by_year(path, query_params)
     
+    elif(match_result := path_data_by_year_month.fullmatch(path)):
+        response = get_data_by_year_month(query_params)
     return response
 
 
@@ -107,18 +109,20 @@ def get_data_by_year_month(match_result):
     pass
 
 
-def get_data_by_year(query_params):
+def get_data_by_year(path, query_params):
     '''
     Collect data for a given year
-
     e.g., /year/2021
     '''
-    logger.info(f'get_data_by_year: {query_params}')
+    logger.info(f'get_data_by_year: {path}, {query_params}')
+
+    guid = query_params['guid']
+    year = path.split('/')[2]
 
     table = dynamodb.Table('Weights')
     response = table.query(
-        KeyConditionExpression = Key('guid').eq(query_params['guid']) \
-            & Key('entry-date').begins_with(query_params['entry-date'])
+        KeyConditionExpression = Key('guid').eq(guid) \
+            & Key('entry-date').begins_with(year)
     )
 
     # return if exists
@@ -126,6 +130,7 @@ def get_data_by_year(query_params):
         return response['Items']
 
     return { 'Items': [] }
+
 
 def get_payload_from_input(input):
     '''
