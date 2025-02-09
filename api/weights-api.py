@@ -35,7 +35,7 @@ logger = initialize_logger()
 
 path_data_new = re.compile(r'\/new')
 path_data_available_years = re.compile(r'\/years')
-path_data_by_year_month = re.compile(r'\/year\/(\d{4})\/month\/(\d{2})')
+path_data_by_year_month = re.compile(r'\/year\/(\d{4})\/month\/(\d{1,2})')
 path_data_by_year_trend = re.compile(r'\/year\/(\d{4})\/trend')
 path_data_by_year_monthly_avg = re.compile(r'\/year\/(\d{4})\/avg')
 path_data_by_year = re.compile(r'\/year\/(\d{4})')
@@ -46,6 +46,7 @@ def request_handler(event: str, context: dict):
     query_params = event['queryStringParameters']
     post_body = event['body']
 
+    response = {}
     if(match_result := path_data_new.fullmatch(path)):
         response = put_entry(post_body)
     
@@ -53,7 +54,8 @@ def request_handler(event: str, context: dict):
         response = get_data_by_year(path, query_params)
     
     elif(match_result := path_data_by_year_month.fullmatch(path)):
-        response = get_data_by_year_month(query_params)
+        response = get_data_by_year_month(path, query_params)
+    
     return response
 
 
@@ -100,13 +102,30 @@ def get_data_monthly_avg_by_year(match_result):
     pass
 
 
-def get_data_by_year_month(match_result):
+def get_data_by_year_month(path, query_params):
     '''
     Collect data for a single month and year.
-
     e.g., /year/2022/month/02
     '''
-    pass
+    logger.info(f'get_data_by_year: {path}, {query_params}')
+
+    path_parts = path.split('/')
+    guid = query_params['guid']
+    year = path_parts[2]
+    month = path_parts[4].zfill(2)
+    year_month = f'{year}-{month}'
+
+    table = dynamodb.Table('Weights')
+    response = table.query(
+        KeyConditionExpression = Key('guid').eq(guid) \
+            & Key('entry-date').begins_with(year_month)
+    )
+
+    # return if exists
+    if 'Items' in response:
+        return response['Items']
+
+    return { 'Items': [] }
 
 
 def get_data_by_year(path, query_params):
