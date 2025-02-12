@@ -14,7 +14,7 @@ E.g.,
 
 ```
 python weights-api.py /new --body 'abc,2025-01-01,23' 
-python weights-api.py /year/2025?quid=abc --indent 4
+python weights-api.py /year/2025?guid=abc --indent 4
 python weights-api.py /year/2022/month/02?guid=abc --indent 4
 ```
 
