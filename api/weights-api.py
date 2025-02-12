@@ -56,6 +56,9 @@ def request_handler(event: str, context: dict):
     elif(match_result := path_data_by_year_month.fullmatch(path)):
         response = get_data_by_year_month(path, query_params)
     
+    elif(match_result := path_data_available_years.fullmatch(path)):
+        response = get_available_years(path, query_params)
+    
     return response
 
 
@@ -79,11 +82,25 @@ def put_entry(encoded_body):
     return 'Ok'
 
 
-def get_available_years():
+def get_available_years(path: str, query_params: dict):
     '''
     Collect availible years to select from
     '''
-    pass
+    logger.info(f'get_available_years: {path}, {query_params}')
+
+    guid = query_params['guid']
+
+    table = dynamodb.Table('WeightUsers')    
+    response = table.query(
+        KeyConditionExpression = Key('guid').eq(guid),
+        ProjectionExpression = 'entry-years'
+    )
+
+    # return if exists
+    if 'Items' in response:
+        return response['Items']
+
+    return { 'Items': [] }
 
 
 def get_data_by_year_trend(match_result):
