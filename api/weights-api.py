@@ -93,7 +93,10 @@ def get_available_years(path: str, query_params: dict):
     table = dynamodb.Table('WeightUsers')    
     response = table.query(
         KeyConditionExpression = Key('guid').eq(guid),
-        ProjectionExpression = 'entry-years'
+        ProjectionExpression = '#attr1',
+        ExpressionAttributeNames = {
+            '#attr1': 'entry-years'
+        }
     )
 
     # return if exists
