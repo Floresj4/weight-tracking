@@ -1,0 +1,46 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudFormation template to deploy a Lambda function
+
+Resources:
+  MyLambdaExecutionRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: 'Allow'
+            Principal:
+              Service: 'lambda.amazonaws.com'
+            Action: 'sts:AssumeRole'
+      Policies:
+        - PolicyName: 'LambdaExecutionPolicy'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: 'Allow'
+                Action:
+                  - 'logs:CreateLogGroup'
+                  - 'logs:CreateLogStream'
+                  - 'logs:PutLogEvents'
+                Resource: 'arn:aws:logs:*:*:*'
+
+  MyLambdaFunction:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      Handler: 'index.handler'
+      Role: !GetAtt MyLambdaExecutionRole.Arn
+      Code:
+        ZipFile: |
+          def handler(event, context):
+              print("Hello, World!")
+              return {
+                  'statusCode': 200,
+                  'body': 'Hello, World!'
+              }
+      Runtime: 'python3.8'
+      Timeout: 10
+
+Outputs:
+  LambdaFunctionArn:
+    Description: 'ARN of the deployed Lambda function'
+    Value: !GetAtt MyLambdaFunction.Arn
