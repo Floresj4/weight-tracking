@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: CloudFormation template to deploy a Lambda function
 
 Resources:
-  MyLambdaExecutionRole:
+  WeightsLambdaRole:
     Type: 'AWS::IAM::Role'
     Properties:
       AssumeRolePolicyDocument:
@@ -24,7 +24,7 @@ Resources:
                   - 'logs:PutLogEvents'
                 Resource: 'arn:aws:logs:*:*:*'
 
-  MyLambdaFunction:
+  WeightsLambdaFunction:
     Type: 'AWS::Lambda::Function'
     Properties:
       Handler: 'index.handler'
@@ -43,4 +43,4 @@ Resources:
 Outputs:
   LambdaFunctionArn:
     Description: 'ARN of the deployed Lambda function'
-    Value: !GetAtt MyLambdaFunction.Arn
+    Value: !GetAtt WeightsLambdaFunction.Arn
