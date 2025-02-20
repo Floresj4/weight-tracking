@@ -1,6 +1,14 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: CloudFormation template to deploy a Lambda function
 
+Parameters:
+  S3BucketName:
+    Description: 'Lambda source bucket'
+    Type: 'String'
+  S3Key:
+    Description: 'Lambda source path'
+    Type: 'String'
+
 Resources:
   WeightsLambdaRole:
     Type: 'AWS::IAM::Role'
@@ -30,13 +38,8 @@ Resources:
       Handler: 'index.handler'
       Role: !GetAtt MyLambdaExecutionRole.Arn
       Code:
-        ZipFile: |
-          def handler(event, context):
-              print("Hello, World!")
-              return {
-                  'statusCode': 200,
-                  'body': 'Hello, World!'
-              }
+        S3Bucket: !Ref S3BucketName
+        S3Key: !Ref S3Key
       Runtime: 'python3.8'
       Timeout: 10
 
