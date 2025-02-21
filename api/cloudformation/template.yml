@@ -10,6 +10,7 @@ Parameters:
     Type: 'String'
 
 Resources:
+
   WeightsLambdaRole:
     Type: 'AWS::IAM::Role'
     Properties:
@@ -35,8 +36,8 @@ Resources:
   WeightsLambdaFunction:
     Type: 'AWS::Lambda::Function'
     Properties:
-      Handler: 'index.handler'
-      Role: !GetAtt MyLambdaExecutionRole.Arn
+      Handler: 'weights-api.request_handler'
+      Role: !GetAtt WeightsLambdaRole.Arn
       Code:
         S3Bucket: !Ref S3BucketName
         S3Key: !Ref S3Key
