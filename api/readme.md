@@ -18,6 +18,14 @@ python weights-api.py /year/2025?guid=abc --indent 4
 python weights-api.py /year/2022/month/02?guid=abc --indent 4
 ```
 
+## Packaging
+
+zip -qjr weights-api.zip ./api/weights-api.py
+
+## Deployment
+
+aws s3 cp ./weights-api.zip s3://<bucket>/<prefix>
+
 <br/>
 
 - [Weight Tracking](../)
