@@ -11,3 +11,5 @@ target/
 
 batch-weights/
 dynamo/**/*.db
+
+*.zip
