@@ -26,6 +26,8 @@ zip -qjr weights-api.zip ./api/weights-api.py
 
 aws s3 cp ./weights-api.zip s3://<bucket>/<prefix>
 
+aws cloudformation create-stack --stack-name lambda-stack --template-body file://api/cloudformation/template.yml --parameters ParameterKey=S3BucketName,ParameterValue=<bucket>> ParameterKey=S3Key,ParameterValue=<prefix> --capabilities CAPABILITY_IAM
+
 <br/>
 
 - [Weight Tracking](../)
