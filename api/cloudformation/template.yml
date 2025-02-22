@@ -36,6 +36,7 @@ Resources:
   WeightsLambdaFunction:
     Type: 'AWS::Lambda::Function'
     Properties:
+      FunctionName: WeightsApi
       Handler: 'weights-api.request_handler'
       Role: !GetAtt WeightsLambdaRole.Arn
       Code:
