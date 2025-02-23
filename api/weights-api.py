@@ -14,16 +14,11 @@ config = Config(
    read_timeout = 3.0
 )
 
-session = boto3.Session()
-dynamodb = session.resource('dynamodb',
-                          config = config,
-                          endpoint_url = "http://localhost:8000/")
 
 def initialize_logger(name: str = __name__):
     '''
     initialize logger
     '''
-
     FORMAT = '[%(levelname)s]:%(asctime)s %(message)s'
     logging.basicConfig(format = FORMAT)
     logger = logging.getLogger(name)
@@ -32,6 +27,27 @@ def initialize_logger(name: str = __name__):
 
 
 logger = initialize_logger()
+
+def get_dynamodb():
+    '''
+    get a session based dynamodb instance connecting to a local
+    instance when configured
+    '''
+    session = boto3.Session()
+
+    endpoint_url = os.getenv('ENDPOINT_URL', None)
+    if not endpoint_url:
+        logger.info('Configuring dynamodb')
+        dynamodb = session.resource('dynamodb', config = config)
+    else:
+        logger.info('Configuring dynamodb to local endpoint')
+        dynamodb = session.resource('dynamodb', config = config,
+                endpoint_url = "http://localhost:8000/")
+    
+    return dynamodb
+
+
+dynamodb = get_dynamodb()
 
 path_data_new = re.compile(r'\/new')
 path_data_available_years = re.compile(r'\/years')
