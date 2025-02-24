@@ -9,12 +9,6 @@ import boto3
 from boto3.dynamodb.conditions import Key, Attr
 
 
-config = Config(
-   connect_timeout = 3.0,
-   read_timeout = 3.0
-)
-
-
 def initialize_logger(name: str = __name__):
     '''
     initialize logger
@@ -25,8 +19,9 @@ def initialize_logger(name: str = __name__):
     logger.setLevel(os.getenv('LOGGING_LEVEL', 'DEBUG'))
     return logger
 
-
+# initialize logger
 logger = initialize_logger()
+
 
 def get_dynamodb():
     '''
@@ -35,6 +30,12 @@ def get_dynamodb():
     use the dynamo service directly
     '''
     session = boto3.Session()
+
+    # initialize session config
+    config = Config(
+    connect_timeout = 3.0,
+    read_timeout = 3.0
+    )
 
     endpoint_url = os.getenv('ENDPOINT_URL', None)
     if not endpoint_url:
@@ -49,6 +50,7 @@ def get_dynamodb():
 
 # initialize dynamodb
 dynamodb = get_dynamodb()
+
 
 path_data_new = re.compile(r'\/new')
 path_data_available_years = re.compile(r'\/years')
