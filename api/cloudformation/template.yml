@@ -33,6 +33,13 @@ Resources:
                   - 'logs:CreateLogStream'
                   - 'logs:PutLogEvents'
                 Resource: 'arn:aws:logs:*:*:*'
+              - Effect: "Allow"
+                Action:
+                  - "dynamodb:ListTables"
+                  - "dynamodb:Query"
+                  - "dynamodb:Scan"
+                  - "dynamodb:GetItem"
+                Resource: !Sub 'arn:aws:dynamodb:us-east-1:${AWS::AccountId}:table/*'
 
   WeightsLambdaFunction:
     Type: 'AWS::Lambda::Function'
