@@ -31,7 +31,8 @@ logger = initialize_logger()
 def get_dynamodb():
     '''
     get a session based dynamodb instance connecting to a local
-    instance when configured
+    instance when configured through environment variable, otherwise
+    use the dynamo service directly
     '''
     session = boto3.Session()
 
@@ -46,7 +47,7 @@ def get_dynamodb():
     
     return dynamodb
 
-
+# initialize dynamodb
 dynamodb = get_dynamodb()
 
 path_data_new = re.compile(r'\/new')
