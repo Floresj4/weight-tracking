@@ -28,6 +28,8 @@ aws s3 cp ./weights-api.zip s3://<bucket>/<prefix>
 
 aws cloudformation create-stack --stack-name weight-tracking-api --template-body file://api/cloudformation/template.yml --parameters ParameterKey=S3BucketName,ParameterValue=<bucket>> ParameterKey=S3Key,ParameterValue=<prefix> --capabilities CAPABILITY_NAMED_IAM
 
+aws cloudformation update-stack --stack-name weight-tracking-api --template-body file://api/cloudformation/template.yml --parameters ParameterKey=S3BucketName,ParameterValue=<bucket>> ParameterKey=S3Key,ParameterValue=<prefix> --capabilities CAPABILITY_NAMED_IAM
+
 <br/>
 
 - [Weight Tracking](../)
