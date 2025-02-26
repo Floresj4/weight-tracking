@@ -30,7 +30,9 @@ aws cloudformation create-stack --stack-name weights-tracking-stack --template-b
 
 aws cloudformation update-stack --stack-name weights-tracking-stack --template-body file://api/cloudformation/template.yml --parameters ParameterKey=S3BucketName,ParameterValue=floresj4-weight-tracking ParameterKey=S3Key,ParameterValue=lambda/weights/api.zip --capabilities CAPABILITY_NAMED_IAM
 
-Does update-function of the lambda api cause stack drift?
+## Update(s)
+
+aws lambda update-function-code --function-name weights-lambda --s3-bucket <bucket> --s3-key <prefix>
 
 <br/>
 
