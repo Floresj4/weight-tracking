@@ -20,7 +20,10 @@ python weights-api.py /year/2022/month/02?guid=abc --indent 4
 
 ## Packaging
 
-zip -qjr weights-api.zip ./api/weights-api.py
+Creating the zip archive to deploy to S3.
+
+`zip -qjr weights-api.zip ./api/weights-api.py`
+
 
 ## Deployment
 
