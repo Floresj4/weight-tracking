@@ -35,7 +35,7 @@ Create the cloudformation stack with IAM role and Lambda function.
 
 `aws cloudformation create-stack --stack-name weights-tracking-stack --template-body file://api/cloudformation/template.yml --parameters ParameterKey=S3BucketName,ParameterValue=<bucket> ParameterKey=S3Key,ParameterValue=<prefix> --capabilities CAPABILITY_NAMED_IAM`
 
-aws cloudformation update-stack --stack-name weights-tracking-stack --template-body file://api/cloudformation/template.yml --parameters ParameterKey=S3BucketName,ParameterValue=<bucket> ParameterKey=S3Key,ParameterValue=<prefix> --capabilities CAPABILITY_NAMED_IAM
+`aws cloudformation update-stack --stack-name weights-tracking-stack --template-body file://api/cloudformation/template.yml --parameters ParameterKey=S3BucketName,ParameterValue=<bucket> ParameterKey=S3Key,ParameterValue=<prefix> --capabilities CAPABILITY_NAMED_IAM`
 
 ## Update(s)
 
