@@ -41,7 +41,9 @@ Update the cloudformation stack.
 
 ## Update(s)
 
-aws lambda update-function-code --function-name weights-lambda --s3-bucket <bucket> --s3-key <prefix>
+Update lambda function source.
+
+`aws lambda update-function-code --function-name weights-lambda --s3-bucket <bucket> --s3-key <prefix>`
 
 <br/>
 
