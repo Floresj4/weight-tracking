@@ -27,7 +27,7 @@ Creating the zip archive to deploy to S3.
 
 ## Deployment
 
-Update the archive to S3.
+Upload the archive to S3.
 
 `aws s3 cp ./weights-api.zip s3://<bucket>/<prefix>`
 
