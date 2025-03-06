@@ -37,7 +37,7 @@ def get_dynamodb():
     read_timeout = 3.0
     )
 
-    endpoint_url = os.getenv('ENDPOINT_URL', None)
+    endpoint_url = os.getenv('LOCAL_ENDPOINT', None)
     if not endpoint_url:
         logger.info('Configuring dynamodb')
         dynamodb = session.resource('dynamodb', config = config)
@@ -53,11 +53,11 @@ dynamodb = get_dynamodb()
 
 
 path_data_new = re.compile(r'\/new')
-path_data_available_years = re.compile(r'\/years')
+path_data_available_years = re.compile(r'\/weights/years')
 path_data_by_year_month = re.compile(r'\/year\/(\d{4})\/month\/(\d{1,2})')
 path_data_by_year_trend = re.compile(r'\/year\/(\d{4})\/trend')
 path_data_by_year_monthly_avg = re.compile(r'\/year\/(\d{4})\/avg')
-path_data_by_year = re.compile(r'\/year\/(\d{4})')
+path_data_by_year = re.compile(r'\/weights/year\/(\d{4})')
 
 def request_handler(event: str, context: dict):
 
