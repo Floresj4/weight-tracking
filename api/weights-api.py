@@ -57,7 +57,7 @@ path_data_available_years = re.compile(r'\/years')
 path_data_by_year_month = re.compile(r'\/year\/(\d{4})\/month\/(\d{1,2})')
 path_data_by_year_trend = re.compile(r'\/year\/(\d{4})\/trend')
 path_data_by_year_monthly_avg = re.compile(r'\/year\/(\d{4})\/avg')
-path_data_by_year = re.compile(r'\/year\/(\d{4})')
+path_data_by_year = re.compile(r'\/\S+\/year\/(\d{4})')
 
 def request_handler(event: str, context: dict):
 
@@ -177,7 +177,7 @@ def get_data_by_year(path, query_params):
     logger.info(f'get_data_by_year: {path}, {query_params}')
 
     guid = query_params['guid']
-    year = path.split('/')[2]
+    year = path.split('/')[3]
 
     table = dynamodb.Table('Weights')
     response = table.query(
