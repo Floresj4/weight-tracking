@@ -10,7 +10,11 @@ List the options available for execution.
 
 `python weights-api.py --help`
 
-Example executions.  A `/stage/` is required with each execution to align with API Gateway deployment stages ensuring this function will work properly when deployed. 
+A `LOCAL_ENDPOINT` environment variable allows execution against a local containerized DynamoDb instance for development.
+
+`export LOCAL_ENDPOINT=true`
+
+Example executions.  A `/stage/` is required with each execution to align with API Gateway deployment stages ensuring this function will work properly when deployed.
 
 ```
 python weights-api.py /stage/new --body 'abc,2025-01-01,23' 
