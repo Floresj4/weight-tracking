@@ -10,12 +10,12 @@ List the options available for execution.
 
 `python weights-api.py --help`
 
-E.g.,
+Example executions.  A `/stage/` is required with each execution to align with API Gateway deployment stages ensuring this function will work properly when deployed. 
 
 ```
-python weights-api.py /new --body 'abc,2025-01-01,23' 
-python weights-api.py /year/2025?guid=abc --indent 4
-python weights-api.py /year/2022/month/02?guid=abc --indent 4
+python weights-api.py /stage/new --body 'abc,2025-01-01,23' 
+python weights-api.py /stage/year/2025?guid=abc --indent 4
+python weights-api.py /stage/year/2022/month/02?guid=abc --indent 4
 ```
 
 ## Packaging
