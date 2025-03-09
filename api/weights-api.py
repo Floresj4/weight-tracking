@@ -52,17 +52,17 @@ def get_dynamodb():
 dynamodb = get_dynamodb()
 
 
-path_data_new = re.compile(r'\/new')
-path_data_available_years = re.compile(r'\/years')
-path_data_by_year_month = re.compile(r'\/year\/(\d{4})\/month\/(\d{1,2})')
-path_data_by_year_trend = re.compile(r'\/year\/(\d{4})\/trend')
-path_data_by_year_monthly_avg = re.compile(r'\/year\/(\d{4})\/avg')
+# \S+ to match the deployment stage
+path_data_new = re.compile(r'\/\S+\/new')
+path_data_available_years = re.compile(r'\/\S+\/years')
+path_data_by_year_month = re.compile(r'\/\S+\/year\/(\d{4})\/month\/(\d{1,2})')
+path_data_by_year_trend = re.compile(r'\/\S+\/year\/(\d{4})\/trend')
+path_data_by_year_monthly_avg = re.compile(r'\/\S+\/year\/(\d{4})\/avg')
 path_data_by_year = re.compile(r'\/\S+\/year\/(\d{4})')
 
 def request_handler(event: str, context: dict):
 
     path = event['rawPath']
-    resource_path = path.split(',')
     query_params = event['queryStringParameters']
 
     # post body may not be present
@@ -139,7 +139,7 @@ def get_data_monthly_avg_by_year(match_result):
     '''
     Collect monthly averages by year
 
-    e.g., /year/2022?avg
+    e.g., /stage/year/2022?avg
     '''
     pass
 
@@ -147,15 +147,16 @@ def get_data_monthly_avg_by_year(match_result):
 def get_data_by_year_month(path, query_params):
     '''
     Collect data for a single month and year.
-    e.g., /year/2022/month/02
+    e.g., /stage/year/2022/month/02
     '''
-    logger.info(f'get_data_by_year: {path}, {query_params}')
+    logger.info(f'get_data_by_year_month: {path}, {query_params}')
 
     path_parts = path.split('/')
-    guid = query_params['guid']
-    year = path_parts[2]
-    month = path_parts[4].zfill(2)
+    year = path_parts[3]
+    month = path_parts[5].zfill(2)
     year_month = f'{year}-{month}'
+
+    guid = query_params['guid']
 
     table = dynamodb.Table('Weights')
     response = table.query(
@@ -173,7 +174,7 @@ def get_data_by_year_month(path, query_params):
 def get_data_by_year(path, query_params):
     '''
     Collect data for a given year
-    e.g., /year/2021
+    e.g., /stage/year/2021
     '''
     logger.info(f'get_data_by_year: {path}, {query_params}')
 
