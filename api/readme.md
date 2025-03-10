@@ -4,6 +4,14 @@ Database interactions by request routes.
 
 <br/>
 
+## Setup
+
+This project uses the DynamoDB docker image to develop and test table structures and API development. 
+
+From the docker directory execute to start the container image with local storage enabled.
+
+`docker compose up`
+
 ## Execution
 
 List the options available for execution.
