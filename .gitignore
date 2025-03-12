@@ -13,3 +13,4 @@ batch-weights/
 dynamo/**/*.db
 
 *.zip
+*.pem
