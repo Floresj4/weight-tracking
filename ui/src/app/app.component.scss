@@ -1,3 +1,7 @@
 .main-container {
-    
+    display: grid;
+    grid-template-columns: repeat(12 1fr);
+    column-gap: 5px;
+    grid-template-rows: repeat(24 1fr);
+    row-gap: 5px;
 }
