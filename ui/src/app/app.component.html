@@ -1,103 +1,17 @@
 <div class="main-container">
+  <div class="header">
+      <h3>Weight Tracking</h3>
+  </div>
 
-  <div class="header-container">
-    <div>
-      <h1>Weight Tracking {{ selectedYear }}</h1>
-    </div>
-    
-    <div class="year-select">
-      <p-dropdown 
-        [options]="selectableYears" 
-        [(ngModel)]="selectedYear" 
-        optionLabel="label"
-        optionValue="value"
-        (onChange)="getEntriesForSelectedYear($event)">
-      </p-dropdown>
-    </div>
+  <div class="info-a">
+      <h4>Info A</h4>
+  </div>
   
+  <div class="info-b">
+      <h4>Info B</h4>
   </div>
-
-  <!-- <div class="trend-presentation-container">
-
-    <div class="presentation-container">
-      <p-chart 
-        type="line" 
-        [data]="presentation" 
-        [options]="options"
-        height="350"></p-chart>
-    </div>
-
-    <div class="trend-container">
-
-      <div class="trend-value-container">
-        <h2>Min</h2>
-        <h3>{{ getValue(weightMin) }}</h3>
-        <p>{{ getDate(weightMin) }}</p>
-      </div>
-      
-      <div class="trend-value-container">
-        <h2>Max</h2>
-        <h3>{{ getValue(weightMax) }}</h3>
-        <p>{{ getDate(weightMax) }}</p>
-      </div>
-
-      <div class="trend-value-container">
-        <h2>Avg</h2>
-        <h3>{{ weightAvg }}</h3>
-      </div>
-
-    </div>
+  
+  <div class="info-c">
+      <h4>Info C</h4>
   </div>
-
-  <div *ngIf="isDataLoaded; else dataLoading">
-
-    <p-table #weightsTable
-      [value]="weights"
-      rowGroupMode="rowspan"
-      groupRowsBy="month"
-      [paginator]="true"
-      [rows]="20"
-      [globalFilterFields]="['date', 'month']"
-      [tableStyle]="{ 'min-width': '50rem' }"
-      styleClass="p-datatable-sm p-datatable-striped">
-
-      <ng-template pTemplate="caption">
-        <div class="weights-table-caption">
-          <button pButton label="clear"
-            class="p-button-outlined"
-            icon="pi pi-filter-slashed"
-            (click)="clear(weightsTable)">
-          </button>
-
-          <i class="pi pi-search"></i>
-          <input pInputText 
-            type="text"
-            (input)="applyGlobalFilter($event, 'contains')"
-            placeholder="Search" />
-        </div>
-      </ng-template>
-
-      <ng-template pTemplate="header">
-        <tr>
-          <th>Month</th>
-          <th>Date</th>
-          <th>Value</th>
-        </tr>
-      </ng-template>
-
-      <ng-template pTemplate="body" let-weight let-rowgroup="rowgroup" let-rowspan="rowspan">
-        <tr>
-          <td *ngIf="rowgroup" [attr.rowspan]="rowspan"> {{ getMonth(weight.month) }} </td>
-          <td>{{ weight.date }}</td>
-          <td>{{ weight.value }}</td>
-        </tr>
-      </ng-template>
-    </p-table>
-
-  </div>
-
-  <ng-template #dataLoading>
-    Loading...
-  </ng-template> -->
-
 </div>

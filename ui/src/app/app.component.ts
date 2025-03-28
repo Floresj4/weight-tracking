@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DataService } from './services/data.service';
 import { Weight, WeightAnnual, WeightPresentation } from './model/weight.model';
 

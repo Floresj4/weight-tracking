@@ -1,11 +1,35 @@
-.main-container {
-    display: grid;
-    grid-template-columns: repeat(12 1fr);
-    column-gap: 5px;
-    grid-template-rows: repeat(24 1fr);
-    row-gap: 5px;
+div {
+    border: 1px solid #aaa;
 }
 
-.header-container {
-    grid-column: 3 / span 8;
-}
+.main-container {
+    display: grid;
+    grid-template-columns: repeat(6 1fr);
+    column-gap: 10px;
+    grid-template-rows: repeat(10 1fr);
+    row-gap: 10px;
+ }
+
+ .header {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end:3
+ }
+
+ .info-a, .info-b, .info-c {
+    grid-row-start: 3;
+    grid-row-end: 4;
+ }
+
+ .info-a {
+    grid-column: 1 / span 2;
+ }
+
+ .info-b {
+    grid-column: 3 / span 2;
+ }
+
+ .info-c {
+    grid-column: 5 / span 2;
+ }
