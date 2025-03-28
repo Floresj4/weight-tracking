@@ -1,6 +1,19 @@
 <div class="main-container">
+
   <div class="header">
+    <div>
       <h3>Weight Tracking</h3>
+    </div>
+    
+    <div class="year-select">
+      <p-dropdown 
+        [options]="selectableYears" 
+        [(ngModel)]="selectedYear" 
+        optionLabel="label"
+        optionValue="value"
+        (onChange)="getEntriesForSelectedYear($event)">
+      </p-dropdown>
+    </div>
   </div>
 
   <div class="info-a">
