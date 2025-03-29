@@ -66,8 +66,9 @@ export class AppComponent {
 
     // setup options for graph/presentation
     this.options = {
-        maintainAspectRatio: false,
-        aspectRatio: 0.6,
+        responsive: true,
+        maintainAspectRatio: true,
+        // aspectRatio: 0.6,
         plugins: {
             legend: {
                 labels: {
