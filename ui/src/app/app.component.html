@@ -25,8 +25,7 @@
     </p-chart>
   </div> -->
 
-  <div class="table-container"
-    *ngIf="isDataLoaded; else dataLoading">
+  <div class="table-container">
   
     <p-table #weightsTable
       [value]="weights"
@@ -36,7 +35,8 @@
       [rows]="20"
       [globalFilterFields]="['date', 'month']"
       [tableStyle]="{ 'min-width': '50rem' }"
-      styleClass="p-datatable-sm p-datatable-striped">
+      styleClass="p-datatable-sm p-datatable-striped"
+      *ngIf="isDataLoaded; else dataLoading">
 
       <ng-template pTemplate="caption">
         <div class="weights-table-caption">
@@ -71,9 +71,6 @@
       </ng-template>
     </p-table>
 
-  </div>
-
-  <div class="table-container">
     <ng-template #dataLoading>
       Loading...
     </ng-template>
