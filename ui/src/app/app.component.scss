@@ -1,10 +1,10 @@
 div {
-    // border: 1px solid #aaa;
+    border: 1px solid #aaa;
 }
 
 .main-container {
     display: grid;
-    grid-template-columns: repeat(6 1fr);
+    grid-template-columns: repeat(8 1fr);
     column-gap: 10px;
     grid-template-rows: repeat(10 1fr);
     row-gap: 10px;
@@ -15,16 +15,17 @@ div {
     grid-column-end: 6;
     grid-row-start: 1;
     grid-row-end:2;
+
     display: flex;
     justify-content: space-between;
  }
 
- .graph-container {
-    grid-column-start: 2;
-    grid-column-end: 6;
-    grid-row-start: 2;
-    grid-row-end:3;
- }
+//  .graph-container {
+//     grid-column-start: 2;
+//     grid-column-end: 6;
+//     grid-row-start: 2;
+//     grid-row-end:3;
+//  }
 
  .table-container {
     grid-column-start: 2;
@@ -33,19 +34,19 @@ div {
     grid-row-end: 3;
  }
 
- .info-a, .info-b, .info-c {
-    grid-row-start: 3;
-    grid-row-end: 4;
- }
+//  .info-a, .info-b, .info-c {
+//     grid-row-start: 3;
+//     grid-row-end: 4;
+//  }
 
- .info-a {
-    grid-column: 1 / span 2;
- }
+//  .info-a {
+//     grid-column: 2 / span 1;
+//  }
 
- .info-b {
-    grid-column: 3 / span 2;
- }
+//  .info-b {
+//     grid-column: 3 / span 1;
+//  }
 
- .info-c {
-    grid-column: 5 / span 2;
- }
+//  .info-c {
+//     grid-column: 4 / span 1;
+//  }
