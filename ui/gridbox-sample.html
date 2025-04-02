@@ -16,13 +16,11 @@
         row-gap: 5px;
      }
      .header {
-        /* grid-column-start: 2;
-        grid-column-end: 6; */
         grid-column: 2 / span 6;
         grid-row-start: 1;
         grid-row-end:2
      }
-     .info-a, .info-b {
+     .info-a, .info-b, .info-c {
         grid-row-start: 3;
         grid-row-end: 4;
      }
@@ -33,13 +31,11 @@
         grid-column: 4 / span 2;
      }
      .info-c {
-        grid-row-start: 4;
-        grid-row-end: 5;
-        grid-column: 3 / span 2;
+        grid-column: 6 / span 2;
      }
      .box {
-        grid-column: span 4;
-        grid-row: span 1;
+        grid-row-start: 4;
+        grid-column: 2 / span 3;
      }
 </style>
     </head>
@@ -50,43 +46,41 @@
             <h3>Container</h3>
         </div>
 
-        <div class="box">
-            <p>Box</p>
-        </div>
-        <div class="box">
-            <p>Box</p>
-        </div>
-        <div class="box">
-            <p>Box</p>
-        </div>
-        <div class="box">
-            <p>Box</p>
-        </div>
-        <div class="box">
-            <p>Box</p>
-        </div>
-        <div class="box">
-            <p>Box</p>
-        </div>
-        <div class="box">
-            <p>Box</p>
-        </div>
-        <div class="box">
-            <p>Box</p>
-        </div>
-        
-
-        <!-- <div class="info-a">
+        <div class="info-a">
             <h4>Info A</h4>
         </div>
-
         <div class="info-b">
             <h4>Info B</h4>
-
-        </div> -->
-
-        <!-- <div class="info-c">
+        </div>
+        <div class="info-c">
             <h4>Info C</h4>
+        </div>
+
+        <div class="box">
+            <p>Box A</p>
+        </div>
+
+        <div class="box">
+            <p>Box CA</p>
+        </div>
+
+        <!-- <div class="box">
+            <p>Box</p>
+        </div>
+        <div class="box">
+            <p>Box</p>
+        </div>
+        <div class="box">
+            <p>Box</p>
+        </div>
+        <div class="box">
+            <p>Box</p>
+        </div>
+        <div class="box">
+            <p>Box</p>
+        </div>
+        <div class="box">
+            <p>Box</p>
         </div> -->
     </div>
 </body>
