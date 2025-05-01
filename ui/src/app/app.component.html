@@ -25,9 +25,18 @@
     </p-chart>
   </div> -->
 
-  <div class="stats-container stats-min">{{ weightMin.value }}</div>
-  <div class="stats-container stats-max">{{ weightMax.value }}</div>
-  <div class="stats-container stats-avg">{{ weightAvg }}</div>
+  <div class="stats-container stats-min">
+    <div class="value">{{ weightMin.value }}</div>
+    <div class="label">Low</div>
+  </div>
+  <div class="stats-container stats-max">
+    <div class="value">{{ weightMax.value }}</div>
+    <div class="label">High</div>
+  </div>
+  <div class="stats-container stats-avg">
+    <div class="value">{{ weightAvg }}</div>
+    <div class="label">Avg</div>
+  </div>
 
   <div class="table-container">
   
