@@ -66,8 +66,8 @@ Resources:
     Type: AWS::ApiGateway::Method
     Properties:
       HttpMethod: GET
-      ResourceId: !GetAtt MyAPI.RootResourceId
-      RestApiId: !Ref MyAPI
+      ResourceId: !GetAtt ProxyApi.RootResourceId
+      RestApiId: !Ref ProxyApi
       AuthorizationType: NONE
       Integration:
         Credentials: !GetAtt InvokeFunctionRole.Arn
