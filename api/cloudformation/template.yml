@@ -62,6 +62,18 @@ Resources:
       EndpointConfiguration:
         Types:
           - REGIONAL
+  Method:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: GET
+      ResourceId: !GetAtt MyAPI.RootResourceId
+      RestApiId: !Ref MyAPI
+      AuthorizationType: NONE
+      Integration:
+        Credentials: !GetAtt InvokeFunctionRole.Arn
+        Type: AWS_PROXY
+        Uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${MyLambdaFunction.Arn}/invocations
+        IntegrationHttpMethod: POST
 
 Outputs:
   LambdaFunctionArn:
