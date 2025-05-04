@@ -83,6 +83,27 @@ Resources:
       RestApiId: !Ref ProxyApi
       StageName: test
 
+  InvokeFunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+              - apigateway.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Policies:
+        - PolicyName: 'InvokeLambdaProxyPolicy'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: lambda:InvokeFunction
+                Resource: !GetAtt WeightsLambdaFunction.Arn
+
 Outputs:
   LambdaFunctionArn:
     Description: 'ARN of the deployed Lambda function'
