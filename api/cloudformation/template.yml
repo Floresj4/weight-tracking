@@ -75,6 +75,13 @@ Resources:
         Uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${MyLambdaFunction.Arn}/invocations
         IntegrationHttpMethod: POST
 
+  Deployment:
+    DependsOn: Method
+    Type: AWS::ApiGateway::Deployment
+    Properties:
+      RestApiId: !Ref ProxyApi
+      StageName: test
+
 Outputs:
   LambdaFunctionArn:
     Description: 'ARN of the deployed Lambda function'
