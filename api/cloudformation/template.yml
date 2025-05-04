@@ -63,7 +63,7 @@ Resources:
         Types:
           - REGIONAL
 
-  Method:
+  ProxyRestMethod:
     Type: AWS::ApiGateway::Method
     Properties:
       HttpMethod: GET
@@ -77,7 +77,7 @@ Resources:
         IntegrationHttpMethod: POST
 
   Deployment:
-    DependsOn: Method
+    DependsOn: ProxyRestMethod
     Type: AWS::ApiGateway::Deployment
     Properties:
       RestApiId: !Ref ProxyRestApi
@@ -103,6 +103,17 @@ Resources:
               - Effect: Allow
                 Action: lambda:InvokeFunction
                 Resource: !GetAtt WeightsLambdaFunction.Arn
+
+  ProxyHttpApi:
+    Type: AWS::ApiGatewayV2::Api
+    Properties:
+      Name: 'cloudformation-weights-rest-api'
+      CredentialsArn: !GetAtt InvokeFunctionRole.Arn
+      DisableExecuteApiEndpoint: false
+      FailOnWarnings: true
+      IpAddressType: ipv4
+      ProtocolType: HTTP
+      Target: AWS_PROXY
 
 Outputs:
   LambdaFunctionArn:
