@@ -122,6 +122,16 @@ Resources:
       IntegrationUri: !GetAtt WeightsLambdaFunction.Arn
       PayloadFormatVersion: '2.0'
 
+  ProxyHttpRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ProxyHttpApi
+      RouteKey: "GET /hello"
+      Target: !Join 
+        - "/"
+        - - "integrations"
+          - !Ref ProxyHttpLambdaIntegration
+
 Outputs:
   LambdaFunctionArn:
     Description: 'ARN of the deployed Lambda function'
