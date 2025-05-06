@@ -126,7 +126,7 @@ Resources:
     Type: AWS::ApiGatewayV2::Route
     Properties:
       ApiId: !Ref ProxyHttpApi
-      RouteKey: "GET /hello"
+      RouteKey: "ANY /{weights+}"
       Target: !Join 
         - "/"
         - - "integrations"
