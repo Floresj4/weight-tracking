@@ -107,13 +107,20 @@ Resources:
   ProxyHttpApi:
     Type: AWS::ApiGatewayV2::Api
     Properties:
-      Name: 'cloudformation-weights-rest-api'
+      Name: 'cloudformation-weights-http-api'
       CredentialsArn: !GetAtt InvokeFunctionRole.Arn
       DisableExecuteApiEndpoint: false
-      FailOnWarnings: true
       IpAddressType: ipv4
       ProtocolType: HTTP
-      Target: AWS_PROXY
+      Target: !GetAtt WeightsLambdaFunction.Arn
+
+  ProxyHttpLambdaIntegration:
+    Type: AWS::ApiGatewayV2::Integration
+    Properties:
+      ApiId: !Ref ProxyHttpApi
+      IntegrationType: AWS_PROXY
+      IntegrationUri: !GetAtt WeightsLambdaFunction.Arn
+      PayloadFormatVersion: '2.0'
 
 Outputs:
   LambdaFunctionArn:
