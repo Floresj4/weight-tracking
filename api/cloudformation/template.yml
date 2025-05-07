@@ -55,34 +55,6 @@ Resources:
       Runtime: 'python3.8'
       Timeout: 10
 
-  ProxyRestApi:
-    Type: AWS::ApiGateway::RestApi
-    Properties:
-      Name: 'cloudformation-weights-rest-api'
-      EndpointConfiguration:
-        Types:
-          - REGIONAL
-
-  ProxyRestMethod:
-    Type: AWS::ApiGateway::Method
-    Properties:
-      HttpMethod: GET
-      ResourceId: !GetAtt ProxyRestApi.RootResourceId
-      RestApiId: !Ref ProxyRestApi
-      AuthorizationType: NONE
-      Integration:
-        Credentials: !GetAtt InvokeFunctionRole.Arn
-        Type: AWS_PROXY
-        Uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${WeightsLambdaFunction.Arn}/invocations
-        IntegrationHttpMethod: POST
-
-  Deployment:
-    DependsOn: ProxyRestMethod
-    Type: AWS::ApiGateway::Deployment
-    Properties:
-      RestApiId: !Ref ProxyRestApi
-      StageName: test
-
   InvokeFunctionRole:
     Type: AWS::IAM::Role
     Properties:
@@ -115,7 +87,6 @@ Resources:
     Type: AWS::ApiGatewayV2::Api
     Properties:
       Name: 'cloudformation-weights-http-api'
-      CredentialsArn: !GetAtt InvokeFunctionRole.Arn
       DisableExecuteApiEndpoint: false
       IpAddressType: ipv4
       ProtocolType: HTTP
@@ -145,6 +116,15 @@ Resources:
       ApiId: !Ref ProxyHttpApi
       StageName: dev
       AutoDeploy: true
+      AccessLogSettings:
+        DestinationArn: !GetAtt MyLogGroup.Arn
+        Format: '{"requestId":"$context.requestId","status":"$context.status","ip":"$context.identity.sourceIp","requestTime":"$context.requestTime"}'
+
+  MyLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: "/aws/apigateway/my-api"
+      RetentionInDays: 7
 
 Outputs:
   LambdaFunctionArn:
