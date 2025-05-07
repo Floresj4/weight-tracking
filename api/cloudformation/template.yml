@@ -117,13 +117,13 @@ Resources:
       StageName: dev
       AutoDeploy: true
       AccessLogSettings:
-        DestinationArn: !GetAtt MyLogGroup.Arn
+        DestinationArn: !GetAtt ProxyApiLogGroup.Arn
         Format: '{"requestId":"$context.requestId","status":"$context.status","ip":"$context.identity.sourceIp","requestTime":"$context.requestTime"}'
 
-  MyLogGroup:
+  ProxyApiLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
-      LogGroupName: "/aws/apigateway/my-api"
+      LogGroupName: '/aws/apigateway/cloudformation-weights-http-api'
       RetentionInDays: 7
 
 Outputs:
