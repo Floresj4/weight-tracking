@@ -104,6 +104,13 @@ Resources:
                 Action: lambda:InvokeFunction
                 Resource: !GetAtt WeightsLambdaFunction.Arn
 
+  LambdaInvokePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: "lambda:InvokeFunction"
+      FunctionName: !Ref WeightsLambdaFunction
+      Principal: "apigateway.amazonaws.com"
+
   ProxyHttpApi:
     Type: AWS::ApiGatewayV2::Api
     Properties:
@@ -131,6 +138,13 @@ Resources:
         - "/"
         - - "integrations"
           - !Ref ProxyHttpLambdaIntegration
+
+  ProxyHttpDevelopmentStage:
+    Type: AWS::ApiGatewayV2::Stage
+    Properties:
+      ApiId: !Ref ProxyHttpApi
+      StageName: dev
+      AutoDeploy: true
 
 Outputs:
   LambdaFunctionArn:
