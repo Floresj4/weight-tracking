@@ -91,6 +91,14 @@ Resources:
       IpAddressType: ipv4
       ProtocolType: HTTP
       Target: !GetAtt WeightsLambdaFunction.Arn
+      CorsConfiguration:
+        AllowMethods:
+          - GET
+          - POST
+        AllowOrigins:
+          - "*"
+        AllowHeaders:
+          - "Authorization"
 
   ProxyHttpLambdaIntegration:
     Type: AWS::ApiGatewayV2::Integration
@@ -115,7 +123,7 @@ Resources:
     Properties:
       ApiId: !Ref ProxyHttpApi
       StageName: dev
-      AutoDeploy: true
+      AutoDeploy: false
       AccessLogSettings:
         DestinationArn: !GetAtt ProxyApiLogGroup.Arn
         Format: '{"requestId":"$context.requestId","status":"$context.status","ip":"$context.identity.sourceIp","requestTime":"$context.requestTime"}'
