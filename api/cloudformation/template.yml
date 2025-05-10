@@ -55,50 +55,11 @@ Resources:
       Runtime: 'python3.8'
       Timeout: 10
 
-  InvokeFunctionRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service:
-              - apigateway.amazonaws.com
-            Action:
-              - 'sts:AssumeRole'
-      Policies:
-        - PolicyName: 'InvokeLambdaProxyPolicy'
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: Allow
-                Action: lambda:InvokeFunction
-                Resource: !GetAtt WeightsLambdaFunction.Arn
-
-  LambdaInvokePermission:
-    Type: AWS::Lambda::Permission
-    Properties:
-      Action: "lambda:InvokeFunction"
-      FunctionName: !Ref WeightsLambdaFunction
-      Principal: "apigateway.amazonaws.com"
-
   ProxyHttpApi:
     Type: AWS::ApiGatewayV2::Api
     Properties:
       Name: 'cloudformation-weights-http-api'
-      DisableExecuteApiEndpoint: false
-      IpAddressType: ipv4
       ProtocolType: HTTP
-      Target: !GetAtt WeightsLambdaFunction.Arn
-      CorsConfiguration:
-        AllowMethods:
-          - GET
-          - POST
-        AllowOrigins:
-          - "*"
-        AllowHeaders:
-          - "Authorization"
 
   ProxyHttpLambdaIntegration:
     Type: AWS::ApiGatewayV2::Integration
@@ -117,24 +78,3 @@ Resources:
         - "/"
         - - "integrations"
           - !Ref ProxyHttpLambdaIntegration
-
-  ProxyHttpDevelopmentStage:
-    Type: AWS::ApiGatewayV2::Stage
-    Properties:
-      ApiId: !Ref ProxyHttpApi
-      StageName: dev
-      AutoDeploy: false
-      AccessLogSettings:
-        DestinationArn: !GetAtt ProxyApiLogGroup.Arn
-        Format: '{"requestId":"$context.requestId","status":"$context.status","ip":"$context.identity.sourceIp","requestTime":"$context.requestTime"}'
-
-  ProxyApiLogGroup:
-    Type: AWS::Logs::LogGroup
-    Properties:
-      LogGroupName: '/aws/apigateway/cloudformation-weights-http-api'
-      RetentionInDays: 7
-
-Outputs:
-  LambdaFunctionArn:
-    Description: 'ARN of the deployed Lambda function'
-    Value: !GetAtt WeightsLambdaFunction.Arn
