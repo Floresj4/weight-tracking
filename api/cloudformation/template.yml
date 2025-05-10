@@ -78,3 +78,10 @@ Resources:
         - "/"
         - - "integrations"
           - !Ref ProxyHttpLambdaIntegration
+
+  ProxyHttpDevStage:
+    Type: AWS::ApiGatewayV2::Stage
+    Properties:
+      ApiId: !Ref ProxyHttpApi
+      StageName: dev
+      AutoDeploy: true
