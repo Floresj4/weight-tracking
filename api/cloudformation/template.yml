@@ -85,3 +85,11 @@ Resources:
       ApiId: !Ref ProxyHttpApi
       StageName: dev
       AutoDeploy: true
+
+  LambdaInvokePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: "lambda:InvokeFunction"
+      FunctionName: !Ref WeightsLambdaFunction
+      Principal: "apigateway.amazonaws.com"
+      SourceArn: "arn:aws:execute-api:us-east-1:343453992921:hj0vvso6u5/*/*"
