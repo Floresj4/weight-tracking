@@ -92,4 +92,5 @@ Resources:
       Action: "lambda:InvokeFunction"
       FunctionName: !Ref WeightsLambdaFunction
       Principal: "apigateway.amazonaws.com"
-      SourceArn: "arn:aws:execute-api:us-east-1:343453992921:hj0vvso6u5/*/*"
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ProxyHttpApi}/*/*"
+
