@@ -63,7 +63,8 @@ path_data_by_year = re.compile(r'\/\S+\/year\/(\d{4})')
 def request_handler(event: str, context: dict):
 
     path = event['rawPath']
-    query_params = event['queryStringParameters']
+    query_params = event['queryStringParameters'] \
+        if 'queryStringParameters' in event else {}
 
     # post body may not be present
     post_body = event['body'] if 'body' in event else {}
