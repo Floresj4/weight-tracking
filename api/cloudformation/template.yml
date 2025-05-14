@@ -55,6 +55,14 @@ Resources:
       Runtime: 'python3.8'
       Timeout: 10
 
+  WeightsLambdaCloudWatchLogGroup:
+    Type: AWS::Logs::LogGroup
+    DependsOn: WeightsLambdaFunction
+    Properties:
+      LogGroupClass: INFREQUENT_ACCESS
+      LogGroupName: !Sub 'aws/lambda/${WeightsLambdaFunction}'
+      RetentionInDays: 7
+
   ProxyHttpApi:
     Type: AWS::ApiGatewayV2::Api
     Properties:
