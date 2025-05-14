@@ -60,7 +60,7 @@ Resources:
     DependsOn: WeightsLambdaFunction
     Properties:
       LogGroupClass: INFREQUENT_ACCESS
-      LogGroupName: !Sub 'aws/lambda/${WeightsLambdaFunction}'
+      LogGroupName: !Sub '/aws/lambda/${WeightsLambdaFunction}'
       RetentionInDays: 7
 
   ProxyHttpApi:
