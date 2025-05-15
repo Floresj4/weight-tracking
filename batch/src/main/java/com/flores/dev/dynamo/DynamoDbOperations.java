@@ -51,9 +51,7 @@ public class DynamoDbOperations {
 	public static final String ATTRIBUTE_VALUE = "value";
 
 	private static final String LOCAL_DB_ENDPOINT = "http://localhost:8000";
-
 	private static final String AMAZON_AWS_ACCESS_KEY = "Sample";
-
 	private static final String AMAZON_AWS_SECRET_KEY = "Sample";
 
 	public static CreateTableRequest createWeightTableRequest() {
