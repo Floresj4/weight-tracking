@@ -91,6 +91,14 @@ public class DynamoDbOperations {
 				.build();	
 	}
 	
+	public static CreateTableRequest createWeightsUserTableRequest() {
+		log.info("Creating Weights Users table request");
+		
+		String tableName = "WeightsUsers";
+		return CreateTableRequest.builder()
+				.build();
+	}
+	
 	public static void main(String args[]) throws Exception {
 
 		DynamoDbClient client = DynamoDbClient.builder()
