@@ -91,8 +91,26 @@ public class DynamoDbOperations {
 				.build();	
 	}
 	
+	public static final String ATTRIBUTE_FIRST_NAME = "first-name";
+	public static final String ATTRIBUTE_LAST_NAME = "last-name";
+	
 	public static CreateTableRequest createWeightsUserTableRequest() {
 		log.info("Creating Weights Users table request");
+		
+		AttributeDefinition guidAttribute = AttributeDefinition.builder()
+				.attributeType(ScalarAttributeType.S)
+				.attributeName(ATTRIBUTE_GUID)
+				.build();
+		
+		AttributeDefinition firstNameAttribute = AttributeDefinition.builder()
+				.attributeType(ScalarAttributeType.S)
+				.attributeName(ATTRIBUTE_FIRST_NAME)
+				.build();
+		
+		AttributeDefinition lastNameAttribute = AttributeDefinition.builder()
+				.attributeType(ScalarAttributeType.S)
+				.attributeName(ATTRIBUTE_LAST_NAME)
+				.build();
 		
 		String tableName = "WeightsUsers";
 		return CreateTableRequest.builder()
