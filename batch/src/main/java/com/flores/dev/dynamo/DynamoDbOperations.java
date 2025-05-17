@@ -112,8 +112,21 @@ public class DynamoDbOperations {
 				.attributeName(ATTRIBUTE_LAST_NAME)
 				.build();
 		
+		//define table primary key attributes
+		KeySchemaElement partitionKey = KeySchemaElement.builder()
+				.keyType(KeyType.HASH)
+				.attributeName(ATTRIBUTE_GUID)
+				.build();
+		
 		String tableName = "WeightsUsers";
 		return CreateTableRequest.builder()
+				.attributeDefinitions(guidAttribute, firstNameAttribute, lastNameAttribute)
+				.keySchema(partitionKey)
+				.provisionedThroughput(ProvisionedThroughput.builder()
+						.readCapacityUnits(5L)
+						.writeCapacityUnits(5L)
+						.build())
+				.tableName(tableName)
 				.build();
 	}
 	
