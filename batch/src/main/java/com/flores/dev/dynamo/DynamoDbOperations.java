@@ -45,54 +45,15 @@ import software.amazon.awssdk.services.dynamodb.waiters.DynamoDbWaiter;
 public class DynamoDbOperations {
 
 	public static final Random RANDOM = new Random(System.currentTimeMillis());
-	
-	public static final String ATTRIBUTE_GUID = "guid";
-	public static final String ATTRIBUTE_ENTRY_DATE = "entry-date";
-	public static final String ATTRIBUTE_VALUE = "value";
 
 	private static final String LOCAL_DB_ENDPOINT = "http://localhost:8000";
 	private static final String AMAZON_AWS_ACCESS_KEY = "Sample";
 	private static final String AMAZON_AWS_SECRET_KEY = "Sample";
-
-	public static CreateTableRequest createWeightTableRequest() {
-		log.info("Creating Weight table request");
-
-		//define table attributes
-		AttributeDefinition guidAttribute = AttributeDefinition.builder()
-				.attributeType(ScalarAttributeType.S)
-				.attributeName(ATTRIBUTE_GUID)
-				.build();
-		
-		AttributeDefinition dateAttribute = AttributeDefinition.builder()
-				.attributeType(ScalarAttributeType.S)
-				.attributeName(ATTRIBUTE_ENTRY_DATE)
-				.build();
-
-		//define table primary key attributes
-		KeySchemaElement partitionKey = KeySchemaElement.builder()
-				.keyType(KeyType.HASH)
-				.attributeName(ATTRIBUTE_GUID)
-				.build();
-		
-		KeySchemaElement sortKey = KeySchemaElement.builder()
-				.keyType(KeyType.RANGE)
-				.attributeName(ATTRIBUTE_ENTRY_DATE)
-				.build();
-		
-		String tableName = "Weights";
-		return CreateTableRequest.builder()
-				.attributeDefinitions(guidAttribute, dateAttribute)
-				.keySchema(partitionKey, sortKey)
-				.provisionedThroughput(ProvisionedThroughput.builder()
-						.readCapacityUnits(5L)
-						.writeCapacityUnits(5L)
-						.build())
-				.tableName(tableName)
-				.build();	
-	}
 	
 	public static void main(String args[]) throws Exception {
 
+		DynamoOperations operations = new WeightEntryOperations();
+		
 		DynamoDbClient client = DynamoDbClient.builder()
 				.credentialsProvider(StaticCredentialsProvider
 						.create(AwsBasicCredentials.create(AMAZON_AWS_ACCESS_KEY, 
@@ -117,7 +78,7 @@ public class DynamoDbOperations {
 			catch(ResourceNotFoundException e) {
 				log.info("Table {} does not exist.  Creating...", tableName);
 				
-				CreateTableRequest createTableRequest = createWeightTableRequest();
+				CreateTableRequest createTableRequest = operations.createTable();
 				CreateTableResponse createTableResponse = client.createTable(createTableRequest);
 				
 				//wait until DynamoDb is finished
