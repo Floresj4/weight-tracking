@@ -1,9 +1,19 @@
 package com.flores.dev.dynamo;
 
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
 
-public interface DynamoOperations {
+public abstract class DynamoOperations {
 
-	public CreateTableRequest createTable();
+	private final DynamoDbClient client;
 	
+	public DynamoOperations(DynamoDbClient client) {
+		this.client = client;
+	}
+	
+	public abstract CreateTableRequest createTable();
+	
+	public DynamoDbClient getClient() {
+		return this.client;
+	}
 }
