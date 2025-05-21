@@ -17,16 +17,22 @@ import software.amazon.awssdk.services.dynamodb.waiters.DynamoDbWaiter;
 public abstract class DynamoOperations {
 
 	private final DynamoDbClient client;
+
+	private String tableName;
 	
 	public DynamoOperations(DynamoDbClient client) {
 		this.client = client;
 	}
+
+	public abstract CreateTableRequest getCreateTableRequest();
 	
-	public abstract CreateTableRequest createTable();
-	
-	public CreateTableResponse createTableOperation() {
+	public String getTableName() {
+		return tableName;
+	}
+
+	public CreateTableResponse createTable() {
 		try {
-			String tableName = "Weights";
+			String tableName = getTableName();
 			DescribeTableRequest describeTableRequest = DescribeTableRequest.builder()
 					.tableName(tableName)
 					.build();
@@ -41,7 +47,7 @@ public abstract class DynamoOperations {
 			catch(ResourceNotFoundException e) {
 				log.info("Table {} does not exist.  Creating...", tableName);
 				
-				CreateTableRequest createTableRequest = createTable();
+				CreateTableRequest createTableRequest = getCreateTableRequest();
 				CreateTableResponse createTableResponse = client.createTable(createTableRequest);
 				
 				//wait until DynamoDb is finished
