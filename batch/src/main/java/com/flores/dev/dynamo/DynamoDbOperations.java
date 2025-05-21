@@ -17,7 +17,6 @@ import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-import software.amazon.awssdk.services.dynamodb.model.AttributeDefinition;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.BatchWriteItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.BatchWriteItemResponse;
@@ -29,15 +28,13 @@ import software.amazon.awssdk.services.dynamodb.model.DescribeTableResponse;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.GetItemResponse;
-import software.amazon.awssdk.services.dynamodb.model.KeySchemaElement;
-import software.amazon.awssdk.services.dynamodb.model.KeyType;
-import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
 import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.PutItemResponse;
 import software.amazon.awssdk.services.dynamodb.model.PutRequest;
 import software.amazon.awssdk.services.dynamodb.model.ResourceNotFoundException;
 import software.amazon.awssdk.services.dynamodb.model.ReturnConsumedCapacity;
-import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
+import software.amazon.awssdk.services.dynamodb.model.TableDescription;
+import software.amazon.awssdk.services.dynamodb.model.TableStatus;
 import software.amazon.awssdk.services.dynamodb.model.WriteRequest;
 import software.amazon.awssdk.services.dynamodb.waiters.DynamoDbWaiter;
 
@@ -52,8 +49,6 @@ public class DynamoDbOperations {
 	
 	public static void main(String args[]) throws Exception {
 
-		DynamoOperations operations = new WeightEntryOperations();
-		
 		DynamoDbClient client = DynamoDbClient.builder()
 				.credentialsProvider(StaticCredentialsProvider
 						.create(AwsBasicCredentials.create(AMAZON_AWS_ACCESS_KEY, 
@@ -62,53 +57,12 @@ public class DynamoDbOperations {
 				.endpointOverride(new URI(LOCAL_DB_ENDPOINT))
 				.build();
 		
-		try {
-			String tableName = "Weights";
-			DescribeTableRequest describeTableRequest = DescribeTableRequest.builder()
-					.tableName(tableName)
-					.build();
-
-			try {
-				//check if the table exists first
-				DescribeTableResponse describeTableResponse = client.describeTable(describeTableRequest);
-				
-				Instant creationDate = describeTableResponse.table().creationDateTime();
-				log.info("{} table created {}", tableName, creationDate);
-			}
-			catch(ResourceNotFoundException e) {
-				log.info("Table {} does not exist.  Creating...", tableName);
-				
-				CreateTableRequest createTableRequest = operations.createTable();
-				CreateTableResponse createTableResponse = client.createTable(createTableRequest);
-				
-				//wait until DynamoDb is finished
-				DynamoDbWaiter waiter = client.waiter();
-				WaiterResponse<DescribeTableResponse> waiterResponse = waiter.waitUntilTableExists(describeTableRequest);
-				waiterResponse.matched()
-						.response()
-						.ifPresent(System.out::println);;
-				
-				String newTableName = createTableResponse.tableDescription()
-						.tableName();
-
-				log.info("{} created.", newTableName);
-			}
-			
-			String userGuid = UUID.randomUUID()
-					.toString();
-
-			String entryDate = "2024-01-04";
-			
-			putSingleItem(client, tableName, userGuid, entryDate);
-
-			getSingleItem(client, tableName, userGuid, entryDate);
-			
-			batchItemRequest(client, tableName, userGuid);
-			
-		}
-		catch(DynamoDbException e) {
-			log.error(e.getMessage());
-		}
+		DynamoOperations operations = new WeightEntryOperations(client);
+		
+		CreateTableResponse response = operations.createTable();
+		TableDescription description = response.tableDescription();
+		TableStatus status = description.tableStatus();
+		log.info("Table status after creation request: {}", status);
 	}
 
 	public static void batchItemRequest(DynamoDbClient client, String tableName, String userGuid) {
