@@ -1,6 +1,7 @@
 package com.flores.dev.dynamo;
 
 import lombok.extern.slf4j.Slf4j;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeDefinition;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
 import software.amazon.awssdk.services.dynamodb.model.KeySchemaElement;
@@ -9,13 +10,17 @@ import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
 import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
 
 @Slf4j
-public class WeightEntryOperations implements DynamoOperations {
+public class WeightEntryOperations extends DynamoOperations {
 
 	public static final String ATTRIBUTE_GUID = "guid";
 	public static final String ATTRIBUTE_ENTRY_DATE = "entry-date";
 	public static final String ATTRIBUTE_VALUE = "value";
 	
-	public CreateTableRequest createTable() {
+	public WeightEntryOperations(DynamoDbClient client) {
+		super(client);
+	}
+
+	public CreateTableRequest getCreateTableRequest() {
 		log.info("Creating Weight table request");
 
 		//define table attributes
@@ -50,6 +55,11 @@ public class WeightEntryOperations implements DynamoOperations {
 						.build())
 				.tableName(tableName)
 				.build();	
+	}
+
+	@Override
+	public String getTableName() {
+		return "Weights";
 	}
 
 }
