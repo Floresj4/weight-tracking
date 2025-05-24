@@ -18,16 +18,8 @@ public abstract class DynamoOperations {
 
 	private final DynamoDbClient client;
 
-	private String tableName;
-	
 	public DynamoOperations(DynamoDbClient client) {
 		this.client = client;
-	}
-
-	public abstract CreateTableRequest getCreateTableRequest();
-	
-	public String getTableName() {
-		return tableName;
 	}
 
 	public CreateTableResponse createTable() {
@@ -71,6 +63,10 @@ public abstract class DynamoOperations {
 	public DynamoDbClient getClient() {
 		return this.client;
 	}
+
+	public abstract CreateTableRequest getCreateTableRequest();
+	
+	public abstract String getTableName();
 
 //	String userGuid = UUID.randomUUID()
 //			.toString();
