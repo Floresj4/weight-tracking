@@ -1,42 +1,15 @@
 package com.flores.dev.dynamo;
 
 import java.net.URI;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
-import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
-import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
-import software.amazon.awssdk.core.waiters.WaiterResponse;
+import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
-import software.amazon.awssdk.services.dynamodb.model.BatchWriteItemRequest;
-import software.amazon.awssdk.services.dynamodb.model.BatchWriteItemResponse;
-import software.amazon.awssdk.services.dynamodb.model.ConsumedCapacity;
-import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableResponse;
-import software.amazon.awssdk.services.dynamodb.model.DescribeTableRequest;
-import software.amazon.awssdk.services.dynamodb.model.DescribeTableResponse;
-import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
-import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
-import software.amazon.awssdk.services.dynamodb.model.GetItemResponse;
-import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
-import software.amazon.awssdk.services.dynamodb.model.PutItemResponse;
-import software.amazon.awssdk.services.dynamodb.model.PutRequest;
-import software.amazon.awssdk.services.dynamodb.model.ResourceNotFoundException;
-import software.amazon.awssdk.services.dynamodb.model.ReturnConsumedCapacity;
 import software.amazon.awssdk.services.dynamodb.model.TableDescription;
 import software.amazon.awssdk.services.dynamodb.model.TableStatus;
-import software.amazon.awssdk.services.dynamodb.model.WriteRequest;
-import software.amazon.awssdk.services.dynamodb.waiters.DynamoDbWaiter;
 
 @Slf4j
 public class DynamoDbOperations {
@@ -44,15 +17,11 @@ public class DynamoDbOperations {
 	public static final Random RANDOM = new Random(System.currentTimeMillis());
 
 	private static final String LOCAL_DB_ENDPOINT = "http://localhost:8000";
-	private static final String AMAZON_AWS_ACCESS_KEY = "Sample";
-	private static final String AMAZON_AWS_SECRET_KEY = "Sample";
 	
 	public static void main(String args[]) throws Exception {
-
+				
 		DynamoDbClient client = DynamoDbClient.builder()
-				.credentialsProvider(StaticCredentialsProvider
-						.create(AwsBasicCredentials.create(AMAZON_AWS_ACCESS_KEY, 
-								AMAZON_AWS_SECRET_KEY)))
+				.credentialsProvider(DefaultCredentialsProvider.create())
 				.region(Region.US_EAST_1)
 				.endpointOverride(new URI(LOCAL_DB_ENDPOINT))
 				.build();
