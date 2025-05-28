@@ -28,12 +28,7 @@ public class WeightsUsersOperations extends DynamoOperations {
 				.attributeType(ScalarAttributeType.S)
 				.attributeName(ATTRIBUTE_GUID)
 				.build();
-		
-		AttributeDefinition firstNameAttribute = AttributeDefinition.builder()
-				.attributeType(ScalarAttributeType.S)
-				.attributeName(ATTRIBUTE_FIRST_NAME)
-				.build();
-		
+
 		AttributeDefinition lastNameAttribute = AttributeDefinition.builder()
 				.attributeType(ScalarAttributeType.S)
 				.attributeName(ATTRIBUTE_LAST_NAME)
@@ -45,10 +40,15 @@ public class WeightsUsersOperations extends DynamoOperations {
 				.attributeName(ATTRIBUTE_GUID)
 				.build();
 		
+		KeySchemaElement sortKey = KeySchemaElement.builder()
+				.keyType(KeyType.RANGE)
+				.attributeName(ATTRIBUTE_LAST_NAME)
+				.build();
+		
 		String tableName = "WeightsUsers";
 		return CreateTableRequest.builder()
-				.attributeDefinitions(guidAttribute, firstNameAttribute, lastNameAttribute)
-				.keySchema(partitionKey)
+				.attributeDefinitions(guidAttribute, lastNameAttribute)
+				.keySchema(partitionKey, sortKey)
 				.provisionedThroughput(ProvisionedThroughput.builder()
 						.readCapacityUnits(5L)
 						.writeCapacityUnits(5L)
