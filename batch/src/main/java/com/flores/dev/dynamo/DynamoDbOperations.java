@@ -26,12 +26,12 @@ public class DynamoDbOperations {
 				.endpointOverride(new URI(LOCAL_DB_ENDPOINT))
 				.build();
 		
-		DynamoOperations operations = new WeightEntryOperations(client);
+		DynamoOperations operations = new WeightsUsersOperations(client);
 		
 		CreateTableResponse response = operations.createTable();
 		TableDescription description = response.tableDescription();
-		TableStatus status = description.tableStatus();
-		log.info("Table status after creation request: {}", status);
+//		TableStatus status = description.tableStatus();
+//		log.info("Table status after creation request: {}", status);
 	}
 
 //	public static void batchItemRequest(DynamoDbClient client, String tableName, String userGuid) {
