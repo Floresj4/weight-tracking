@@ -1,12 +1,20 @@
 package com.flores.dev.dynamo;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import lombok.extern.slf4j.Slf4j;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeDefinition;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+import software.amazon.awssdk.services.dynamodb.model.ConsumedCapacity;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
 import software.amazon.awssdk.services.dynamodb.model.KeySchemaElement;
 import software.amazon.awssdk.services.dynamodb.model.KeyType;
 import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
+import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
+import software.amazon.awssdk.services.dynamodb.model.PutItemResponse;
+import software.amazon.awssdk.services.dynamodb.model.ReturnConsumedCapacity;
 import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
 
 @Slf4j
@@ -59,5 +67,37 @@ public class WeightsUsersOperations extends DynamoOperations {
 	
 	public String getTableName() {
 		return "WeightsUsers";
+	}
+
+//	public static void putSingleItem(DynamoDbClient client, String tableName, String userGuid, String entryDate) {
+//	//create a single item to put
+//	Map<String, AttributeValue> item = getItemMap(userGuid, entryDate, "159.0");			
+//	PutItemRequest putItemRequest = PutItemRequest.builder()
+//			.returnConsumedCapacity(ReturnConsumedCapacity.TOTAL)
+//			.tableName(tableName)
+//			.item(item)
+//			.build();
+//
+//	PutItemResponse putItemResponse = client.putItem(putItemRequest);
+//	ConsumedCapacity consumedCapacity = putItemResponse.consumedCapacity();
+//	log.info("PutItem complete.  Comsumed capacity: {}", consumedCapacity);
+//	}
+
+	public static Map<String, AttributeValue> getItemMap(String userGuid, String firstname, String lastname) {
+		Map<String, AttributeValue> item = new HashMap<>();
+
+		item.put(ATTRIBUTE_GUID, AttributeValue.builder()
+				.s(userGuid)
+				.build());
+		
+		item.put(ATTRIBUTE_FIRST_NAME, AttributeValue.builder()
+				.s(firstname)
+				.build());
+
+		item.put(ATTRIBUTE_LAST_NAME, AttributeValue.builder()
+				.s(lastname)
+				.build());
+		
+		return item;
 	}
 }
