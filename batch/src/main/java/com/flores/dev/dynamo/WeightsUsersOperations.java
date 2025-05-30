@@ -11,8 +11,6 @@ import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
 import software.amazon.awssdk.services.dynamodb.model.KeySchemaElement;
 import software.amazon.awssdk.services.dynamodb.model.KeyType;
 import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
-import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
-import software.amazon.awssdk.services.dynamodb.model.ReturnConsumedCapacity;
 import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
 
 @Slf4j
@@ -83,13 +81,5 @@ public class WeightsUsersOperations extends DynamoOperations {
 				.build());
 		
 		return item;
-	}
-
-	public PutItemRequest getPutItemRequest(Map<String, AttributeValue> item) {
-		return PutItemRequest.builder()
-				.returnConsumedCapacity(ReturnConsumedCapacity.TOTAL)
-				.tableName(getTableName())
-				.item(item)
-				.build();
 	}
 }

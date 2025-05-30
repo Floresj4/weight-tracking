@@ -1,16 +1,20 @@
 package com.flores.dev.dynamo;
 
 import java.time.Instant;
+import java.util.Map;
 
 import lombok.extern.slf4j.Slf4j;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableResponse;
 import software.amazon.awssdk.services.dynamodb.model.DescribeTableRequest;
 import software.amazon.awssdk.services.dynamodb.model.DescribeTableResponse;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
+import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.ResourceNotFoundException;
+import software.amazon.awssdk.services.dynamodb.model.ReturnConsumedCapacity;
 import software.amazon.awssdk.services.dynamodb.waiters.DynamoDbWaiter;
 
 @Slf4j
@@ -65,17 +69,15 @@ public abstract class DynamoOperations {
 	}
 
 	public abstract CreateTableRequest getCreateTableRequest();
+
+	public PutItemRequest getPutItemRequest(Map<String, AttributeValue> item) {
+		return PutItemRequest.builder()
+				.returnConsumedCapacity(ReturnConsumedCapacity.TOTAL)
+				.tableName(getTableName())
+				.item(item)
+				.build();
+	}
 	
 	public abstract String getTableName();
 
-//	String userGuid = UUID.randomUUID()
-//			.toString();
-//
-//	String entryDate = "2024-01-04";
-//	
-//	putSingleItem(client, tableName, userGuid, entryDate);
-//
-//	getSingleItem(client, tableName, userGuid, entryDate);
-//	
-//	batchItemRequest(client, tableName, userGuid);
 }
