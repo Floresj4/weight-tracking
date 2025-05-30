@@ -3,6 +3,11 @@ package com.flores.dev.dynamo;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.Parameter;
+import com.beust.jcommander.Parameters;
+
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeDefinition;
@@ -81,5 +86,33 @@ public class WeightsUsersOperations extends DynamoOperations {
 				.build());
 		
 		return item;
+	}
+	
+	public void putItem(String args[]) {
+		WeightsUsersCommand command = new WeightsUsersCommand();
+		
+		//parse commandline arguments
+		JCommander.newBuilder()
+		.addCommand(command)
+		.build()
+		.parse(args);
+		
+		String guid = command.getGuid();
+		String firstname = command.getFirstname();
+		String lastname = command.getLastname();
+	}
+	
+	@Data
+	@Parameters(separators = "=")
+	public static class WeightsUsersCommand {
+
+		@Parameter(names = "guid")
+		private String guid;
+		
+		@Parameter(names = "firstname")
+		private String firstname;
+		
+		@Parameter(names = "lastname")
+		private String lastname;
 	}
 }
