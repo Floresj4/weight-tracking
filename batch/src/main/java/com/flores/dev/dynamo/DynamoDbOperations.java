@@ -1,7 +1,6 @@
 package com.flores.dev.dynamo;
 
 import java.net.URI;
-import java.util.Random;
 
 import lombok.extern.slf4j.Slf4j;
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
@@ -9,17 +8,15 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableResponse;
 import software.amazon.awssdk.services.dynamodb.model.TableDescription;
-import software.amazon.awssdk.services.dynamodb.model.TableStatus;
 
 @Slf4j
 public class DynamoDbOperations {
 
-	public static final Random RANDOM = new Random(System.currentTimeMillis());
-
 	private static final String LOCAL_DB_ENDPOINT = "http://localhost:8000";
 	
 	public static void main(String args[]) throws Exception {
-				
+
+		log.info("Initializing DynamoDb client");
 		DynamoDbClient client = DynamoDbClient.builder()
 				.credentialsProvider(DefaultCredentialsProvider.create())
 				.region(Region.US_EAST_1)
@@ -30,8 +27,9 @@ public class DynamoDbOperations {
 		
 		CreateTableResponse response = operations.createTable();
 		TableDescription description = response.tableDescription();
-//		TableStatus status = description.tableStatus();
-//		log.info("Table status after creation request: {}", status);
+		log.info("Table description: {}", description.tableStatus());
+		
+		operations.putItem(args);
 	}
 
 //	public static void batchItemRequest(DynamoDbClient client, String tableName, String userGuid) {
@@ -99,31 +97,7 @@ public class DynamoDbOperations {
 //		log.info("Returned {}", responseItem);
 //	}
 //	
-//	public static void putSingleItem(DynamoDbClient client, String tableName, String userGuid, String entryDate) {
-//		//create a single item to put
-//		Map<String, AttributeValue> item = getItemMap(userGuid, entryDate, "159.0");			
-//		PutItemRequest putItemRequest = PutItemRequest.builder()
-//				.returnConsumedCapacity(ReturnConsumedCapacity.TOTAL)
-//				.tableName(tableName)
-//				.item(item)
-//				.build();
-//
-//		PutItemResponse putItemResponse = client.putItem(putItemRequest);
-//		ConsumedCapacity consumedCapacity = putItemResponse.consumedCapacity();
-//		log.info("PutItem complete.  Comsumed capacity: {}", consumedCapacity);
-//	}
-//	
-//	public static Map<String, AttributeValue> getItemMap(String userGuid) {
-//		String date = LocalDate.of(
-//				RANDOM.nextInt(2022, 2024),
-//				RANDOM.nextInt(1, 12),
-//				RANDOM.nextInt(1, 28))
-//				.toString();
-//		
-//		String value = String.valueOf(RANDOM.nextInt(150, 200));
-//		
-//		return getItemMap(userGuid, date, value);
-//	}
+
 //	
 //	public static Map<String, AttributeValue> getItemMap(String userGuid, String entryDate, String value) {
 //		Map<String, AttributeValue> item = new HashMap<>();
