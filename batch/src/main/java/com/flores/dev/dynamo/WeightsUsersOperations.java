@@ -16,6 +16,7 @@ import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
 import software.amazon.awssdk.services.dynamodb.model.KeySchemaElement;
 import software.amazon.awssdk.services.dynamodb.model.KeyType;
 import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
+import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
 
 @Slf4j
@@ -97,9 +98,12 @@ public class WeightsUsersOperations extends DynamoOperations {
 		.build()
 		.parse(args);
 		
-		String guid = command.getGuid();
-		String firstname = command.getFirstname();
-		String lastname = command.getLastname();
+		//get parsed arguments and make put map
+		Map<String, AttributeValue> putItemMap = getItemMap(command.getGuid(), 
+				command.getFirstname(), 
+				command.getLastname());
+		
+		PutItemRequest putRequest = getPutItemRequest(putItemMap);
 	}
 	
 	@Data
