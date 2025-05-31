@@ -13,6 +13,7 @@ import software.amazon.awssdk.services.dynamodb.model.DescribeTableRequest;
 import software.amazon.awssdk.services.dynamodb.model.DescribeTableResponse;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
+import software.amazon.awssdk.services.dynamodb.model.PutItemResponse;
 import software.amazon.awssdk.services.dynamodb.model.ResourceNotFoundException;
 import software.amazon.awssdk.services.dynamodb.model.ReturnConsumedCapacity;
 import software.amazon.awssdk.services.dynamodb.waiters.DynamoDbWaiter;
@@ -70,6 +71,16 @@ public abstract class DynamoOperations {
 
 	public abstract CreateTableRequest getCreateTableRequest();
 
+	public abstract Map<String, AttributeValue> getItemMap(String[] args);
+	
+	public PutItemResponse putItem(String[] args) {
+	
+		Map<String, AttributeValue> itemMap = getItemMap(args);
+		PutItemRequest putItemRequest = getPutItemRequest(itemMap);
+
+		return client.putItem(putItemRequest);
+	}
+	
 	public PutItemRequest getPutItemRequest(Map<String, AttributeValue> item) {
 		return PutItemRequest.builder()
 				.returnConsumedCapacity(ReturnConsumedCapacity.TOTAL)
