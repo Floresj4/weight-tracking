@@ -17,6 +17,7 @@ import software.amazon.awssdk.services.dynamodb.model.KeySchemaElement;
 import software.amazon.awssdk.services.dynamodb.model.KeyType;
 import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
 import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
+import software.amazon.awssdk.services.dynamodb.model.PutItemResponse;
 import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
 
 @Slf4j
@@ -71,25 +72,7 @@ public class WeightsUsersOperations extends DynamoOperations {
 		return "WeightsUsers";
 	}
 
-	public static Map<String, AttributeValue> getItemMap(String userGuid, String firstname, String lastname) {
-		Map<String, AttributeValue> item = new HashMap<>();
-
-		item.put(ATTRIBUTE_GUID, AttributeValue.builder()
-				.s(userGuid)
-				.build());
-
-		item.put(ATTRIBUTE_FIRST_NAME, AttributeValue.builder()
-				.s(firstname)
-				.build());
-
-		item.put(ATTRIBUTE_LAST_NAME, AttributeValue.builder()
-				.s(lastname)
-				.build());
-		
-		return item;
-	}
-	
-	public void putItem(String args[]) {
+	public Map<String, AttributeValue> getItemMap(String args[]) {
 		WeightsUsersCommand command = new WeightsUsersCommand();
 		
 		//parse commandline arguments
@@ -97,26 +80,35 @@ public class WeightsUsersOperations extends DynamoOperations {
 		.addCommand(command)
 		.build()
 		.parse(args);
+
+		Map<String, AttributeValue> item = new HashMap<>();
+
+		item.put(ATTRIBUTE_GUID, AttributeValue.builder()
+				.s(command.getGuid())
+				.build());
+
+		item.put(ATTRIBUTE_FIRST_NAME, AttributeValue.builder()
+				.s(command.getFirstname())
+				.build());
+
+		item.put(ATTRIBUTE_LAST_NAME, AttributeValue.builder()
+				.s(command.getLastname())
+				.build());
 		
-		//get parsed arguments and make put map
-		Map<String, AttributeValue> putItemMap = getItemMap(command.getGuid(), 
-				command.getFirstname(), 
-				command.getLastname());
-		
-		PutItemRequest putRequest = getPutItemRequest(putItemMap);
+		return item;
 	}
 	
 	@Data
 	@Parameters(separators = "=")
 	public static class WeightsUsersCommand {
 
-		@Parameter(names = "guid")
+		@Parameter(names = "guid", required = true)
 		private String guid;
 		
-		@Parameter(names = "firstname")
+		@Parameter(names = "firstname", required = true)
 		private String firstname;
 		
-		@Parameter(names = "lastname")
+		@Parameter(names = "lastname", required = true)
 		private String lastname;
 	}
 }
