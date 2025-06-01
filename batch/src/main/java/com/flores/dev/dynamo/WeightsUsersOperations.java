@@ -16,8 +16,6 @@ import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
 import software.amazon.awssdk.services.dynamodb.model.KeySchemaElement;
 import software.amazon.awssdk.services.dynamodb.model.KeyType;
 import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
-import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
-import software.amazon.awssdk.services.dynamodb.model.PutItemResponse;
 import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
 
 @Slf4j
@@ -73,6 +71,7 @@ public class WeightsUsersOperations extends DynamoOperations {
 	}
 
 	public Map<String, AttributeValue> getItemMap(String args[]) {
+		log.info("Parsing WeightUserCommand arguments for item map");
 		WeightsUsersCommand command = new WeightsUsersCommand();
 		
 		//parse commandline arguments
