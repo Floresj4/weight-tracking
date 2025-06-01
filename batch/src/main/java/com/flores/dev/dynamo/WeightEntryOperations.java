@@ -1,8 +1,14 @@
 package com.flores.dev.dynamo;
 
+import java.util.Map;
+
+import com.beust.jcommander.Parameters;
+
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeDefinition;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
 import software.amazon.awssdk.services.dynamodb.model.KeySchemaElement;
 import software.amazon.awssdk.services.dynamodb.model.KeyType;
@@ -60,6 +66,19 @@ public class WeightEntryOperations extends DynamoOperations {
 	@Override
 	public String getTableName() {
 		return "Weights";
+	}
+
+	@Override
+	public Map<String, AttributeValue> getItemMap(String[] args) {
+		return null;
+	}
+	
+	@Data
+	@Parameters(separators = "=")
+	public static class WeightentryCommand {
+		private String guid;
+		private String date;
+		private double value;
 	}
 
 }
