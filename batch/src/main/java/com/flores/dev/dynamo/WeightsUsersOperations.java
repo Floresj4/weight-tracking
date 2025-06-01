@@ -109,5 +109,8 @@ public class WeightsUsersOperations extends DynamoOperations {
 		
 		@Parameter(names = "lastname", required = true)
 		private String lastname;
+		
+		@Parameter(names = "years")
+		private int[] years;
 	}
 }
