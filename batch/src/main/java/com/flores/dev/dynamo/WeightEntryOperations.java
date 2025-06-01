@@ -1,7 +1,11 @@
 package com.flores.dev.dynamo;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Map;
 
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 
 import lombok.Data;
@@ -70,15 +74,50 @@ public class WeightEntryOperations extends DynamoOperations {
 
 	@Override
 	public Map<String, AttributeValue> getItemMap(String[] args) {
-		return null;
+		log.info("Parsing WeightEntryCommand arguments for item map");
+		WeightEntryCommand command = new WeightEntryCommand();
+		
+		JCommander.newBuilder()
+		.addCommand(command)
+		.build()
+		.parse(args);
+		
+		Map<String, AttributeValue> item = new HashMap<>();
+		item.put(ATTRIBUTE_GUID, AttributeValue.builder()
+				.s(command.getGuid())
+				.build());
+		
+		item.put(ATTRIBUTE_ENTRY_DATE, AttributeValue.builder()
+				.s(command.getDate())
+				.build());
+
+		item.put(ATTRIBUTE_VALUE, AttributeValue.builder()
+				.n(command.getValue())
+				.build());
+
+		return item;
 	}
 	
 	@Data
 	@Parameters(separators = "=")
-	public static class WeightentryCommand {
+	public static class WeightEntryCommand {
+		
+		@Parameter(names = "guid", required = true)
 		private String guid;
-		private String date;
+		
+		@Parameter(names = "date", required = true)
+		private LocalDate date;
+		
+		@Parameter(names = "value", required = true)
 		private double value;
+		
+		public String getDate() {
+			return date.toString();
+		}
+		
+		public String getValue() {
+			return String.valueOf(value);
+		}
 	}
 
 }

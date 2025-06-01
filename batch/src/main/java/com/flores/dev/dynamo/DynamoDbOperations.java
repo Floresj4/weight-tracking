@@ -97,26 +97,4 @@ public class DynamoDbOperations {
 //		log.info("Returned {}", responseItem);
 //	}
 //	
-
-//	
-//	public static Map<String, AttributeValue> getItemMap(String userGuid, String entryDate, String value) {
-//		Map<String, AttributeValue> item = new HashMap<>();
-//
-//		AttributeValue guid = AttributeValue.builder()
-//				.s(userGuid)
-//				.build();
-//		
-//		item.put(ATTRIBUTE_GUID, guid);
-//		AttributeValue entryDateAttr = AttributeValue.builder()
-//				.s(entryDate)
-//				.build();
-//
-//		item.put(ATTRIBUTE_ENTRY_DATE, entryDateAttr);
-//		AttributeValue valueAttr = AttributeValue.builder()
-//				.n(value)
-//				.build();
-//
-//		item.put(ATTRIBUTE_VALUE, valueAttr);
-//		return item;
-//	}
 }
