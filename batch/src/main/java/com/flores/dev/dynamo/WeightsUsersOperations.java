@@ -65,10 +65,6 @@ public class WeightsUsersOperations extends DynamoOperations {
 				.tableName(tableName)
 				.build();
 	}
-	
-	public String getTableName() {
-		return "WeightsUsers";
-	}
 
 	public Map<String, AttributeValue> getItemMap(String args[]) {
 		log.info("Parsing WeightUserCommand arguments for item map");
@@ -81,7 +77,6 @@ public class WeightsUsersOperations extends DynamoOperations {
 		.parse(args);
 
 		Map<String, AttributeValue> item = new HashMap<>();
-
 		item.put(ATTRIBUTE_GUID, AttributeValue.builder()
 				.s(command.getGuid())
 				.build());
@@ -95,6 +90,18 @@ public class WeightsUsersOperations extends DynamoOperations {
 				.build());
 		
 		return item;
+	}
+
+	public String getSortKeyName() {
+		return ATTRIBUTE_LAST_NAME;				
+	}
+	
+	public String getTableName() {
+		return "WeightsUsers";
+	}
+
+	public String getPartitionKeyName() {
+		return ATTRIBUTE_GUID;
 	}
 	
 	@Data
