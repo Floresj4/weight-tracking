@@ -68,33 +68,4 @@ public class DynamoDbOperations {
 //		
 //		log.info("BatchWriteItemRequest complete.  Consumed capacity: {}", capacity);
 //	}
-//	
-//	public static void getSingleItem(DynamoDbClient client, String tableName, String userGuid, String entryDate) {
-//		Map<String, AttributeValue> item = new HashMap<>();
-//
-//		AttributeValue guid = AttributeValue.builder()
-//				.s(userGuid)
-//				.build();
-//		
-//		item.put(ATTRIBUTE_GUID, guid);
-//		AttributeValue entryDateAttr = AttributeValue.builder()
-//				.s(entryDate)
-//				.build();
-//
-//		item.put(ATTRIBUTE_ENTRY_DATE, entryDateAttr);
-//		
-//		GetItemRequest getItemRequest = GetItemRequest.builder()
-//				.returnConsumedCapacity(ReturnConsumedCapacity.TOTAL)
-//				.tableName(tableName)
-//				.key(item)
-//				.build();
-//		
-//		GetItemResponse getItemResponse = client.getItem(getItemRequest);
-//		ConsumedCapacity consumedCapacity = getItemResponse.consumedCapacity();
-//		log.info("GetItem complete.  Comsumed capacity: {}", consumedCapacity);	
-//		
-//		Map<String, AttributeValue> responseItem = getItemResponse.item();
-//		log.info("Returned {}", responseItem);
-//	}
-//	
 }
