@@ -2,6 +2,10 @@ package com.flores.dev.dynamo;
 
 import java.net.URI;
 
+import com.beust.jcommander.Parameter;
+import com.beust.jcommander.Parameters;
+
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -30,6 +34,19 @@ public class DynamoDbOperations {
 		log.info("Table description: {}", description.tableStatus());
 		
 		operations.putItem(args);
+	}
+
+	public enum Operations {
+		USER,
+		ENTRIES;
+	}
+	
+	@Data
+	@Parameters(separators = "=")
+	public static class DynamoDbOperationsCommand {
+		
+		@Parameter(names = "operation", required = true)
+		private Operations operation;
 	}
 
 //	public static void batchItemRequest(DynamoDbClient client, String tableName, String userGuid) {

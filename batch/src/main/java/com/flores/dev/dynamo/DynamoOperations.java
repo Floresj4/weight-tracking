@@ -99,16 +99,23 @@ public abstract class DynamoOperations {
 		return client.putItem(putItemRequest);
 	}
 
-	public Map<String, AttributeValue> getItem(String partitionKey, String sortKey) {
-		Map<String, AttributeValue> item = new HashMap<>();
+	public Map<String, AttributeValue> getItem(String partitionKey) {
+		return getItem(partitionKey, null);
+	}
 
+	public Map<String, AttributeValue> getItem(String partitionKey, String sortKey) {
+		log.info("Get item partitionKey {} sortKey {}", partitionKey, sortKey);
+
+		Map<String, AttributeValue> item = new HashMap<>();
 		item.put(getPartitionKeyName(), AttributeValue.builder()
 				.s(partitionKey)
 				.build());
 		
-		item.put(getSortKeyName(), AttributeValue.builder()
-				.s(sortKey)
-				.build());
+		if(sortKey != null) {
+			item.put(getSortKeyName(), AttributeValue.builder()
+					.s(sortKey)
+					.build());
+		}
 
 		GetItemRequest getItemRequest = GetItemRequest.builder()
 				.returnConsumedCapacity(ReturnConsumedCapacity.TOTAL)
