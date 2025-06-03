@@ -1,6 +1,7 @@
 package com.flores.dev.dynamo;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
@@ -11,6 +12,8 @@ import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableResponse;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDbResponseMetadata;
+import software.amazon.awssdk.services.dynamodb.model.PutItemResponse;
 import software.amazon.awssdk.services.dynamodb.model.TableDescription;
 
 @Slf4j
@@ -18,22 +21,27 @@ public class DynamoDbOperations {
 
 	private static final String LOCAL_DB_ENDPOINT = "http://localhost:8000";
 	
-	public static void main(String args[]) throws Exception {
-
+	public static DynamoDbClient getDynamoDbClient() throws URISyntaxException {
 		log.info("Initializing DynamoDb client");
-		DynamoDbClient client = DynamoDbClient.builder()
+		return DynamoDbClient.builder()
 				.credentialsProvider(DefaultCredentialsProvider.create())
 				.region(Region.US_EAST_1)
 				.endpointOverride(new URI(LOCAL_DB_ENDPOINT))
 				.build();
-		
+	}
+	
+	public static void main(String args[]) throws Exception {
+
+		DynamoDbClient client = getDynamoDbClient();	
 		DynamoOperations operations = new WeightsUsersOperations(client);
-		
-		CreateTableResponse response = operations.createTable();
-		TableDescription description = response.tableDescription();
+
+		CreateTableResponse createResponse = operations.createTable();
+		TableDescription description = createResponse.tableDescription();
 		log.info("Table description: {}", description.tableStatus());
-		
-		operations.putItem(args);
+
+		PutItemResponse putResponse = operations.putItem(args);
+		DynamoDbResponseMetadata responseMetadata = putResponse.responseMetadata();
+		log.info("Response metadata: {}", responseMetadata.toString());
 	}
 
 	public enum Operations {
