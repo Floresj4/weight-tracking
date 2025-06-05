@@ -3,6 +3,7 @@ package com.flores.dev.dynamo;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 
@@ -18,22 +19,19 @@ import software.amazon.awssdk.services.dynamodb.model.TableDescription;
 
 @Slf4j
 public class DynamoDbOperations {
-
-	private static final String LOCAL_DB_ENDPOINT = "http://localhost:8000";
-	
-	public static DynamoDbClient getDynamoDbClient() throws URISyntaxException {
-		log.info("Initializing DynamoDb client");
-		return DynamoDbClient.builder()
-				.credentialsProvider(DefaultCredentialsProvider.create())
-				.region(Region.US_EAST_1)
-				.endpointOverride(new URI(LOCAL_DB_ENDPOINT))
-				.build();
-	}
 	
 	public static void main(String args[]) throws Exception {
 
-		DynamoDbClient client = getDynamoDbClient();	
-		DynamoOperations operations = new WeightsUsersOperations(client);
+		//parse entrypoint arguments before passing to the specific operation
+		DynamoDbOperationsCommand command = new DynamoDbOperationsCommand();
+		JCommander.newBuilder()
+		.addCommand(command)
+		.build()
+		.parse(args);
+
+		DynamoOperations operations = DynamoDbOperationFactory.getOperationHandler(
+				command.getOperation(),
+				command.isUseLocalConnection());
 
 		CreateTableResponse createResponse = operations.createTable();
 		TableDescription description = createResponse.tableDescription();
@@ -43,18 +41,17 @@ public class DynamoDbOperations {
 		DynamoDbResponseMetadata responseMetadata = putResponse.responseMetadata();
 		log.info("Response metadata: {}", responseMetadata.toString());
 	}
-
-	public enum Operations {
-		USER,
-		ENTRIES;
-	}
 	
 	@Data
 	@Parameters(separators = "=")
 	public static class DynamoDbOperationsCommand {
 		
 		@Parameter(names = "operation", required = true)
-		private Operations operation;
+		private SupportedOperations operation;
+		
+		@Parameter(names = "useLocalConnection", required = false,
+				description = "Use local DB connection")
+		private boolean useLocalConnection;
 	}
 
 //	public static void batchItemRequest(DynamoDbClient client, String tableName, String userGuid) {
