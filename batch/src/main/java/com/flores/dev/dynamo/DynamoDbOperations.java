@@ -1,17 +1,11 @@
 package com.flores.dev.dynamo;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableResponse;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbResponseMetadata;
 import software.amazon.awssdk.services.dynamodb.model.PutItemResponse;
