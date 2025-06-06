@@ -68,6 +68,16 @@ public class WeightEntryOperations extends DynamoOperations {
 	}
 
 	@Override
+	public String getPartitionKeyName() {
+		return ATTRIBUTE_GUID;
+	}
+	
+	@Override
+	public String getSortKeyName() {
+		return ATTRIBUTE_ENTRY_DATE;
+	}
+
+	@Override
 	public String getTableName() {
 		return "Weights";
 	}
