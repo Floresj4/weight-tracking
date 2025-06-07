@@ -19,6 +19,7 @@ public class DynamoDbOperations {
 		//parse entrypoint arguments before passing to the specific operation
 		DynamoDbOperationsCommand command = new DynamoDbOperationsCommand();
 		JCommander.newBuilder()
+		.acceptUnknownOptions(true)
 		.addCommand(command)
 		.build()
 		.parse(args);
