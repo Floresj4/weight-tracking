@@ -28,11 +28,13 @@ public final class DynamoDbOperationFactory {
 		
 		switch(operation) {
 			case ENTRIES:
+				log.info("Initializing Entry operations");
 				client = getDynamoDbClient(useLocalEndpoint);
 				operations = new WeightEntryOperations(client);
 				break;
 
 			case USERS:
+				log.info("Initializing User operations");
 				client = getDynamoDbClient(useLocalEndpoint);
 				operations = new WeightsUsersOperations(client);
 				break;
