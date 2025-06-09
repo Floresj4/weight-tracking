@@ -88,6 +88,7 @@ public class WeightEntryOperations extends DynamoOperations {
 		WeightEntryCommand command = new WeightEntryCommand();
 		
 		JCommander.newBuilder()
+		.acceptUnknownOptions(true)
 		.addCommand(command)
 		.build()
 		.parse(args);
