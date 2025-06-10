@@ -20,7 +20,7 @@ public class DynamoDbOperations {
 		DynamoDbOperationsCommand command = new DynamoDbOperationsCommand();
 		JCommander.newBuilder()
 		.acceptUnknownOptions(true)
-		.addCommand(command)
+		.addObject(command)
 		.build()
 		.parse(args);
 
@@ -41,10 +41,10 @@ public class DynamoDbOperations {
 	@Parameters(separators = "=")
 	public static class DynamoDbOperationsCommand {
 		
-		@Parameter(names = "operation", required = true)
+		@Parameter(names = { "operation" }, required = true)
 		private SupportedOperations operation;
 		
-		@Parameter(names = "useLocalConnection", required = false,
+		@Parameter(names = { "useLocalConnection" }, required = false,
 				description = "Use local DB connection")
 		private boolean useLocalConnection;
 	}
