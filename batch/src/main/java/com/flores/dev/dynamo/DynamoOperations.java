@@ -44,6 +44,10 @@ public abstract class DynamoOperations {
 				
 				Instant creationDate = describeTableResponse.table().creationDateTime();
 				log.info("{} table created {}", tableName, creationDate);
+				
+				return CreateTableResponse.builder()
+						.tableDescription(describeTableResponse.table())
+						.build();
 			}
 			catch(ResourceNotFoundException e) {
 				log.info("Table {} does not exist.  Creating...", tableName);
