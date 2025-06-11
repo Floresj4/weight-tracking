@@ -1,0 +1,17 @@
+<configuration>
+    <!-- Console appender -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Define log levels for specific packages -->
+    <logger name="com.flores" level="INFO"/>
+    <logger name="software.amazon.awssdk" level="WARN"/>
+    
+    <!-- Root logger configuration -->
+    <root level="WARN">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
