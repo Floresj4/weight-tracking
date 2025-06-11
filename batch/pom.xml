@@ -17,7 +17,7 @@
 	<properties>
 		<aws.java.sdk.version>2.27.21</aws.java.sdk.version>
 		<jcommander.version>2.0</jcommander.version>
-		<slf4j.version>1.7.28</slf4j.version>
+		<log4j2.version>2.23.1</log4j2.version>
 	</properties>
 
 	<dependencyManagement>
@@ -57,6 +57,11 @@
 			<groupId>org.jcommander</groupId>
 			<artifactId>jcommander</artifactId>
 			<version>${jcommander.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j2-impl</artifactId>
 		</dependency>
 
 		<dependency>
