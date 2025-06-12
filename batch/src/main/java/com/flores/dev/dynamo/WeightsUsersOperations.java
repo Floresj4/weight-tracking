@@ -72,7 +72,8 @@ public class WeightsUsersOperations extends DynamoOperations {
 		
 		//parse commandline arguments
 		JCommander.newBuilder()
-		.addCommand(command)
+		.acceptUnknownOptions(true)
+		.addObject(command)
 		.build()
 		.parse(args);
 
