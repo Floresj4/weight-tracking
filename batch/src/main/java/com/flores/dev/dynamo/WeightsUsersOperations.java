@@ -1,7 +1,11 @@
 package com.flores.dev.dynamo;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
@@ -24,6 +28,7 @@ public class WeightsUsersOperations extends DynamoOperations {
 	public static final String ATTRIBUTE_GUID = "guid";	
 	public static final String ATTRIBUTE_FIRST_NAME = "first-name";
 	public static final String ATTRIBUTE_LAST_NAME = "last-name";
+	public static final String ATTRIBUTE_YEARS = "years";
 	
 	public WeightsUsersOperations(DynamoDbClient client) {
 		super(client);
@@ -89,7 +94,20 @@ public class WeightsUsersOperations extends DynamoOperations {
 		item.put(ATTRIBUTE_LAST_NAME, AttributeValue.builder()
 				.s(command.getLastname())
 				.build());
-		
+
+		List<Integer> years = command.getYears();
+		if(years != null) {
+			
+			//convert to a sorted collection
+			Collection<String> numberSet = years.stream()
+					.map(String::valueOf)
+					.collect(Collectors.toCollection(TreeSet::new));
+			
+			item.put(ATTRIBUTE_YEARS, AttributeValue.builder()
+					.ns(numberSet)
+					.build());
+		}
+
 		return item;
 	}
 
@@ -119,6 +137,6 @@ public class WeightsUsersOperations extends DynamoOperations {
 		private String lastname;
 		
 		@Parameter(names = "years")
-		private int[] years;
+		private List<Integer> years;
 	}
 }
