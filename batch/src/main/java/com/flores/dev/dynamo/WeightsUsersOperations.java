@@ -1,5 +1,6 @@
 package com.flores.dev.dynamo;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -96,8 +97,8 @@ public class WeightsUsersOperations extends DynamoOperations {
 				.build());
 
 		List<Integer> years = command.getYears();
-		if(years != null) {
-			
+		if(!years.isEmpty()) {
+
 			//convert to a sorted collection
 			Collection<String> numberSet = years.stream()
 					.map(String::valueOf)
@@ -137,6 +138,6 @@ public class WeightsUsersOperations extends DynamoOperations {
 		private String lastname;
 		
 		@Parameter(names = "years")
-		private List<Integer> years;
+		private List<Integer> years = new ArrayList<>();
 	}
 }
