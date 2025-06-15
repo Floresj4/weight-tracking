@@ -12,11 +12,13 @@ import { ChartModule } from 'primeng/chart';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
+import { StatsComponent } from './components/stats/stats.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    StatsComponent,
   ],
   imports: [
     BrowserModule,
