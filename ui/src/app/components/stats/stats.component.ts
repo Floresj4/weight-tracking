@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-stats',
@@ -7,8 +7,11 @@ import { Component } from '@angular/core';
 })
 export class StatsComponent {
 
+  @Input()
   name?: string
-  value?: number
+
+  @Input()
+  value?: string
 
   StatsComponent() {
   }
