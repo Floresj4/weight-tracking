@@ -26,16 +26,15 @@
   </div> -->
 
   <div class="stats-container stats-min">
-    <div class="value">{{ weightMin.value }}</div>
-    <div class="label">Low</div>
+      <app-stats value="{{weightMin.value}}" name="Low"/>
   </div>
+
   <div class="stats-container stats-max">
-    <div class="value">{{ weightMax.value }}</div>
-    <div class="label">High</div>
+    <app-stats value="{{weightMax.value}}" name="High"/>
   </div>
+
   <div class="stats-container stats-avg">
-    <div class="value">{{ weightAvg }}</div>
-    <div class="label">Avg</div>
+    <app-stats value="{{weightAvg}}" name="Avg"/>
   </div>
 
   <div class="table-container">
