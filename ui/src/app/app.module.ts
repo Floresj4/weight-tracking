@@ -13,12 +13,14 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { StatsComponent } from './components/stats/stats.component';
+import { WeightFormComponent } from './components/weight-form/weight-form.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     StatsComponent,
+    WeightFormComponent,
   ],
   imports: [
     BrowserModule,
