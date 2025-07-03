@@ -16,4 +16,8 @@ const randomIndex = Math.floor(Math.random() * SAMPLE_ENTRY_DATA.length)
 })
 export class App {
   selectedEntry: WeightEntry = SAMPLE_ENTRY_DATA[randomIndex]
+
+  onNewEntry() {
+    console.log('click')
+  }
 }
