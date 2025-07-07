@@ -5,8 +5,6 @@ import { Header } from './component/header/header';
 import { SAMPLE_ENTRY_DATA } from './model/weight-entry.data';
 import { WeightEntry } from './model/weight-entry.model';
 
-const randomIndex = Math.floor(Math.random() * SAMPLE_ENTRY_DATA.length)
-
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -15,10 +13,16 @@ const randomIndex = Math.floor(Math.random() * SAMPLE_ENTRY_DATA.length)
   styleUrl: './app.component.scss'
 })
 export class App {
-  
-  selectedEntry = signal<WeightEntry>(SAMPLE_ENTRY_DATA[randomIndex])
+
+  randomIndex: number = 0
+  selectedEntry = signal<WeightEntry>(<WeightEntry>{})
+
+  constructor() {
+    this.onNewEntry()
+  }
 
   onNewEntry() {
-    console.log('click')
+    this.randomIndex = Math.floor(Math.random() * SAMPLE_ENTRY_DATA.length)
+    this.selectedEntry.set(SAMPLE_ENTRY_DATA[this.randomIndex])
   }
 }
