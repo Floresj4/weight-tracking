@@ -6,7 +6,8 @@
     <button (click)="onNewEntry()">New Entry</button>
 
     <div>Date</div><div>Value</div>
-    <div>{{ selectedEntry.date }}</div><div> {{ selectedEntry.value }}</div>
+    <div>{{ selectedEntry().date }}</div>
+    <div>{{ selectedEntry().value }}</div>
 </main>
 
 <router-outlet />

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './component/header/header';
 
@@ -15,7 +15,8 @@ const randomIndex = Math.floor(Math.random() * SAMPLE_ENTRY_DATA.length)
   styleUrl: './app.component.scss'
 })
 export class App {
-  selectedEntry: WeightEntry = SAMPLE_ENTRY_DATA[randomIndex]
+  
+  selectedEntry = signal<WeightEntry>(SAMPLE_ENTRY_DATA[randomIndex])
 
   onNewEntry() {
     console.log('click')
