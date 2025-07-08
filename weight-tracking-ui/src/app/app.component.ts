@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './component/header/header';
 
-import { SAMPLE_ENTRY_DATA } from './model/weight-entry.data';
+import { SAMPLE_ENTRY_DATA } from './model/weight-entries.data';
 import { WeightEntry } from './model/weight-entry.model';
 
 @Component({
