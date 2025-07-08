@@ -5,6 +5,10 @@ import { Header } from './component/header/header';
 import { SAMPLE_ENTRY_DATA } from './model/weight-entries.data';
 import { WeightEntry } from './model/weight-entry.model';
 
+import { SAMPLE_USERS_DATA } from './model/users.data';
+import { User } from './model/user.model';
+
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -16,7 +20,8 @@ export class App {
 
   randomIndex: number = 0
   selectedEntry = signal<WeightEntry>(<WeightEntry>{})
-
+  selectedUser = signal<User>(<User>{})
+  
   constructor() {
     this.onNewEntry()
   }
