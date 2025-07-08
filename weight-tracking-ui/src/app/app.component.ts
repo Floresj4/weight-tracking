@@ -24,6 +24,8 @@ export class App {
   
   constructor() {
     this.onNewEntry()
+
+    this.selectedUser.set(SAMPLE_USERS_DATA[0])
   }
 
   onNewEntry() {
