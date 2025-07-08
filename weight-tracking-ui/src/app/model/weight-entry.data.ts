@@ -16,5 +16,9 @@ export const SAMPLE_ENTRY_DATA: WeightEntry[] = [
     {
         value: 159.2,
         date: '2001-01-22'
+    },
+    {
+        value: 158,
+        date: '2001-01-29'
     }
 ];
