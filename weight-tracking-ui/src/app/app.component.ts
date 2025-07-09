@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './component/header/header';
 
@@ -20,8 +20,10 @@ export class App {
 
   randomIndex: number = 0
   selectedEntry = signal<WeightEntry>(<WeightEntry>{})
-  selectedUser = signal<User>(<User>{})
   
+  selectedUser = signal<User>(<User>{})
+  imagePath = computed(() => '/' + this.selectedUser().avatar)
+
   constructor() {
     this.onNewEntry()
 
