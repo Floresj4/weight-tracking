@@ -1,6 +1,12 @@
 <app-header />
 
 <main>
+
+    <div>
+        <div class="avatar"> <img [src]="imagePath()"/></div>
+        <p>{{ selectedUser().name }}</p>
+    </div>
+
     <h2>Entries</h2>
 
     <button (click)="onNewEntry()">New Entry</button>
