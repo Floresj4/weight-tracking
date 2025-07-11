@@ -6,13 +6,14 @@ import { SAMPLE_ENTRY_DATA } from './model/weight-entries.data';
 import { WeightEntry } from './model/weight-entry.model';
 
 import { SAMPLE_USERS_DATA } from './model/users.data';
-import { User } from './model/user.model';
+import { UserModel} from './model/user.model';
+import { User } from "./components/user/user";
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Header],
+  imports: [RouterOutlet, Header, User],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -21,7 +22,7 @@ export class App {
   randomIndex: number = 0
   selectedEntry = signal<WeightEntry>(<WeightEntry>{})
   
-  selectedUser = signal<User>(<User>{})
+  selectedUser = signal<UserModel>(<UserModel>{})
   imagePath = computed(() => '/' + this.selectedUser().avatar)
 
   constructor() {

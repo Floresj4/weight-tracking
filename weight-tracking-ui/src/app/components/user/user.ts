@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+import { UserModel } from '../../model/user.model';
 
 @Component({
   selector: 'app-user',
@@ -9,4 +11,5 @@ import { Component } from '@angular/core';
 })
 export class User {
 
+    @Input() user!: UserModel
 }

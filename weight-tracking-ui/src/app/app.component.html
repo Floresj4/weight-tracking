@@ -3,8 +3,7 @@
 <main>
 
     <div>
-        <div> <img [src]="imagePath()" class="avatar"/></div>
-        <p>{{ selectedUser().name }}</p>
+        <app-user [user]="selectedUser()"/>
     </div>
 
     <h2>Entries</h2>
