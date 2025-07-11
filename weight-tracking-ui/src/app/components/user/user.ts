@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, computed, Input } from '@angular/core';
 
 import { UserModel } from '../../model/user.model';
 
@@ -12,4 +12,6 @@ import { UserModel } from '../../model/user.model';
 export class User {
 
     @Input() user!: UserModel
+
+    imagePath = computed(() => '/' + this.user.avatar )
 }
