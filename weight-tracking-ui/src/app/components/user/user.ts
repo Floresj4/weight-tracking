@@ -11,7 +11,6 @@ import { UserModel } from '../../model/user.model';
 })
 export class User {
 
-    // @Input({ required: true }) user!: UserModel
     user = input.required<UserModel>()
 
     imagePath = computed(() => '/' + this.user().avatar )
