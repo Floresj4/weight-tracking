@@ -23,7 +23,6 @@ export class App {
   selectedEntry = signal<WeightEntry>(<WeightEntry>{})
   
   selectedUser = signal<UserModel>(<UserModel>{})
-  imagePath = computed(() => '/' + this.selectedUser().avatar)
 
   constructor() {
     this.onNewEntry()
