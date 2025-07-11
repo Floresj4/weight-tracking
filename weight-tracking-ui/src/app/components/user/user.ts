@@ -1,4 +1,4 @@
-import { Component, computed, Input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 
 import { UserModel } from '../../model/user.model';
 
@@ -11,7 +11,8 @@ import { UserModel } from '../../model/user.model';
 })
 export class User {
 
-    @Input({ required: true }) user!: UserModel
+    // @Input({ required: true }) user!: UserModel
+    user = input.required<UserModel>()
 
-    imagePath = computed(() => '/' + this.user.avatar )
+    imagePath = computed(() => '/' + this.user().avatar )
 }
