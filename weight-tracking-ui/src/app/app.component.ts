@@ -34,4 +34,8 @@ export class App {
     this.randomIndex = Math.floor(Math.random() * SAMPLE_ENTRY_DATA.length)
     this.selectedEntry.set(SAMPLE_ENTRY_DATA[this.randomIndex])
   }
+
+  onSelectedUser(id: string) {
+    console.log("User selected: " + id)
+  }
 }

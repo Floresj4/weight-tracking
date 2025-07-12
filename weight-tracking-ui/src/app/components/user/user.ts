@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, Output, EventEmitter } from '@angular/core';
 
 import { UserModel } from '../../model/user.model';
 
@@ -14,4 +14,10 @@ export class User {
     user = input.required<UserModel>()
 
     imagePath = computed(() => '/' + this.user().avatar )
+
+    @Output() select: EventEmitter<string> = new EventEmitter<string>()
+
+    onSelect() {
+      this.select.emit(this.user().id)
+    }
 }
