@@ -3,7 +3,9 @@
 <main>
 
     <div>
-        <app-user [user]="selectedUser()"/>
+        <app-user 
+        [user]="selectedUser()"
+        (selected)="onSelectedUser($event)"/>
     </div>
 
     <h2>Entries</h2>

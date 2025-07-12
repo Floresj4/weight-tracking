@@ -15,9 +15,9 @@ export class User {
 
     imagePath = computed(() => '/' + this.user().avatar )
 
-    @Output() select: EventEmitter<string> = new EventEmitter<string>()
+    @Output() selected: EventEmitter<string> = new EventEmitter<string>()
 
     onSelect() {
-      this.select.emit(this.user().id)
+      this.selected.emit(this.user().id)
     }
 }
