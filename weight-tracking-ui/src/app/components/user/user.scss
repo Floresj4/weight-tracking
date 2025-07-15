@@ -1,6 +1,9 @@
 .user-container {
     display: flex;
     border: 1px solid #000;
+    align-items: center;
+    width: 200px;
+    border-radius: 10px;
 }
 
 .avatar {
