@@ -8,12 +8,13 @@ import { WeightEntry } from './model/weight-entry.model';
 import { SAMPLE_USERS_DATA } from './model/users.data';
 import { UserModel} from './model/user.model';
 import { User } from "./components/user/user";
+import { Weight } from "./components/weight/weight";
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Header, User],
+  imports: [RouterOutlet, Header, User, Weight],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
