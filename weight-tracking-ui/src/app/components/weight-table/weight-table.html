@@ -1,6 +1,12 @@
-<div class="weight-table-container">
+<div class="container">
     <div class="weight-table-header row">
         <div>Date</div>
         <div>Value</div>
     </div>
+    @for (entry of entriesList; track entry.date) {
+        <div class="row">
+            <div>{{ entry.date |  date: 'shortDate'}}</div>
+            <div>{{ entry.value }} lbs</div>
+        </div>
+    }
 </div>

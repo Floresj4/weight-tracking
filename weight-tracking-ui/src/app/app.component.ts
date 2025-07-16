@@ -19,7 +19,6 @@ import { User } from "./components/user/user";
 })
 export class App {
 
-  randomIndex: number = 0
   selectedEntry = signal<WeightEntry>(<WeightEntry>{})
 
   weightEntries: WeightEntry[] = SAMPLE_ENTRY_DATA;
@@ -27,14 +26,12 @@ export class App {
   selectedUser = signal<UserModel>(<UserModel>{})
 
   constructor() {
-    this.onNewEntry()
-
     this.selectedUser.set(SAMPLE_USERS_DATA[0])
   }
 
   onNewEntry() {
-    this.randomIndex = Math.floor(Math.random() * SAMPLE_ENTRY_DATA.length)
-    this.selectedEntry.set(SAMPLE_ENTRY_DATA[this.randomIndex])
+    console.log("New entry created")
+    this.weightEntries = SAMPLE_ENTRY_DATA
   }
 
   onSelectedUser(id: string) {
