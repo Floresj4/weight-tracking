@@ -1,20 +1,19 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './components/header/header';
 
 import { SAMPLE_ENTRY_DATA } from './model/weight-entries.data';
+import { WeightTable } from './components/weight-table/weight-table';
 import { WeightEntry } from './model/weight-entry.model';
 
 import { SAMPLE_USERS_DATA } from './model/users.data';
 import { UserModel} from './model/user.model';
 import { User } from "./components/user/user";
-import { Weight } from "./components/weight/weight";
-
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Header, User, Weight],
+  imports: [RouterOutlet, Header, User, WeightTable],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
