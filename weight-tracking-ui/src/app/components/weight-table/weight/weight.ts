@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { WeightEntry } from '../../model/weight-entry.model';
+import { WeightEntry } from '../../../model/weight-entry.model';
 import { CommonModule } from '@angular/common';
 
 @Component({

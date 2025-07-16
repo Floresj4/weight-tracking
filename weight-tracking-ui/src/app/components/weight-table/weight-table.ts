@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { Weight } from './weight/weight';
 
 @Component({
   selector: 'app-weight-table',
-  imports: [],
+  standalone: true,
+  imports: [ Weight],
   templateUrl: './weight-table.html',
   styleUrl: './weight-table.scss'
 })
