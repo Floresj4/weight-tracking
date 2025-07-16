@@ -2,15 +2,15 @@
 
 <main>
 
-    <div>
+    <div class="user-container">
         <app-user 
         [user]="selectedUser()"
         (selected)="onSelectedUser($event)"/>
+
+        <button (click)="onNewEntry()">New Entry</button>
     </div>
 
     <h2>Entries</h2>
-
-    <button (click)="onNewEntry()">New Entry</button>
 
     <div class="weight-table-container">
         <app-weight-table 
