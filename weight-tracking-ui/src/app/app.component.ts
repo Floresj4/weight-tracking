@@ -21,7 +21,9 @@ export class App {
 
   randomIndex: number = 0
   selectedEntry = signal<WeightEntry>(<WeightEntry>{})
-  
+
+  weightEntries: WeightEntry[] = SAMPLE_ENTRY_DATA;
+
   selectedUser = signal<UserModel>(<UserModel>{})
 
   constructor() {
