@@ -12,8 +12,11 @@
 
     <button (click)="onNewEntry()">New Entry</button>
 
-    <app-weight-table 
-        [entries]="weightEntries"/>
+    <div class="weight-table-container">
+        <app-weight-table 
+            [entries]="weightEntries"/>
+    </div>
+
 
 </main>
 
