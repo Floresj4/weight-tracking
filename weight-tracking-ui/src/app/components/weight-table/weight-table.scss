@@ -4,6 +4,10 @@
     border-radius: 10px;
 }
 
+.container > .row:not(:last-child) {
+    border-bottom: 1px solid #ccc;
+}
+
 .header {
     font-weight: bold;
 }
