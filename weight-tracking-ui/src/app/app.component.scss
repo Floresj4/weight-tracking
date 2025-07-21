@@ -1,17 +1,9 @@
-.user-container {
+header {
     display: flex;
-    width: 500px;
     justify-content: space-between;
+    align-items: center;
 }
 
 .weight-table-container {
     width: 500px;
-}
-
-button {
-    margin-left: 10px;
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    cursor: pointer;
 }

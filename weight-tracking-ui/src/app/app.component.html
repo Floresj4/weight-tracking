@@ -1,12 +1,12 @@
-<app-header />
+<header>
+    <app-header />
 
-<main>
-
-    <header class="user-container">
-        <app-user 
+    <app-user 
         [user]="selectedUser()"
         (selected)="onSelectedUser($event)"/>
-    </header>
+</header>
+
+<main>
 
     <h2>Entries</h2>
 
