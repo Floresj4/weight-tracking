@@ -29,6 +29,10 @@ export class App {
     this.selectedUser.set(SAMPLE_USERS_DATA[0])
   }
 
+  addEntry() {
+    console.log("Add entry clicked")
+  }
+
   onNewEntry() {
     console.log("New entry created")
     this.weightEntries = SAMPLE_ENTRY_DATA

@@ -4,6 +4,13 @@ header {
     align-items: center;
 }
 
-.weight-table-container {
+.weights-container {
     width: 500px;
+}
+
+.header-button-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
 }

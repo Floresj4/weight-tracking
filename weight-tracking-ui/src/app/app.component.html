@@ -8,12 +8,17 @@
 
 <main>
 
-    <h2>Entries</h2>
+    <section class="weights-container">
+        <div class="header-button-row">
+            <h2>Entries</h2>
+            <button (click)="addEntry()">Add Entry</button>
+        </div>
 
-    <div class="weight-table-container">
-        <app-weight-table 
-            [entries]="weightEntries"/>
-    </div>
+        <div class="weight-table-container">
+            <app-weight-table 
+                [entries]="weightEntries"/>
+        </div>
+    </section>
 
 
 </main>
