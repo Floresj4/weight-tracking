@@ -2,6 +2,9 @@
     width: 100%;
     border: 1px solid #ccc;
     border-radius: 10px;
+    height: 600px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .container > .row:not(:last-child) {
