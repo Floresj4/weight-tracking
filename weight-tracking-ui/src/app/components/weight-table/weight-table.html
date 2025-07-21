@@ -4,8 +4,9 @@
         <div>Value</div>
     </div>
 
-    @for (entry of entriesList; track entry.date) {
-        <div class="row">
+    @for (entry of entriesList; track entry.date; let i = $index) {
+        <div class="row"
+            [class.shaded]="i % 2 === 0">
             <div>{{ entry.date |  date: 'shortDate'}}</div>
             <div>{{ entry.value }} lbs</div>
         </div>
