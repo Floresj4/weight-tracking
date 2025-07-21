@@ -2,13 +2,11 @@
 
 <main>
 
-    <div class="user-container">
+    <header class="user-container">
         <app-user 
         [user]="selectedUser()"
         (selected)="onSelectedUser($event)"/>
-
-        <button (click)="onNewEntry()">New Entry</button>
-    </div>
+    </header>
 
     <h2>Entries</h2>
 
