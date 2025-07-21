@@ -1,10 +1,13 @@
 header {
     display: flex;
-    flex-direction: column;
     align-items: center;
 }
 
+* {
+    // border: 1px solid #000;
+}
+
 img.scale-logo {
-    width: 175px;
+    width: 100px;
     height: auto;
 }
