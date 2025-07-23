@@ -1,2 +1,18 @@
-<p>new-weight works!</p>
-<button (click)="onClose()">X</button>
+<section>
+
+    <div class="container">
+        <h2>New Weight Entry</h2>
+
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" />
+
+        <label for="weight">Weight:</label>
+        <input type="number" id="weight" name="weight" step="0.5" />
+    </div>
+ 
+    <div class="button-row">
+        <button (click)="onClose()">Cancel</button>
+        <button (click)="onSave()">Save</button>
+    </div>
+
+</section>

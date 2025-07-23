@@ -11,8 +11,11 @@ export class WeightEntryNew {
 
   close = output<void>()
 
+  onSave() {
+    this.close.emit();
+  }
+
   onClose() {
-    console.log("New entry form closed")
     this.close.emit()
   }
 }
