@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, output } from '@angular/core';
 
 @Component({
   selector: 'app-weight-new',
@@ -9,4 +9,10 @@ import { Component } from '@angular/core';
 })
 export class WeightEntryNew {
 
+  close = output<void>()
+
+  onClose() {
+    console.log("New entry form closed")
+    this.close.emit()
+  }
 }

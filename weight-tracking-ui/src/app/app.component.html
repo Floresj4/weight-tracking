@@ -21,7 +21,8 @@
     </section>
 
     @if(showNewEntry) {
-        <app-weight-new />
+        <app-weight-new 
+            (close)="onCloseNewEntry()"/>
     }
 
 </main>

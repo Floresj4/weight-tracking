@@ -36,6 +36,11 @@ export class App {
     this.showNewEntry = true
   }
 
+  onCloseNewEntry() {
+    console.log("Closing new entry form")
+    this.showNewEntry = false
+  }
+
   onSelectedUser(id: string) {
     console.log("User selected: " + id)
   }
