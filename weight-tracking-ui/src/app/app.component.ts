@@ -5,7 +5,7 @@ import { Header } from './components/header/header';
 import { SAMPLE_ENTRY_DATA } from './model/weight-entries.data';
 import { WeightTable } from './components/weight-table/weight-table';
 import { WeightEntry } from './model/weight-entry.model';
-import { WeightEntryNew } from './weight-entries/new-weight/weight-entry-new';
+import { WeightEntryNew } from './weight-entries/weight-entry-new/weight-entry-new';
 
 import { SAMPLE_USERS_DATA } from './model/users.data';
 import { UserModel} from './model/user.model';
@@ -32,13 +32,8 @@ export class App {
     this.selectedUser.set(SAMPLE_USERS_DATA[0])
   }
 
-  addEntry() {
-    console.log("Add entry clicked")
-  }
-
-  onNewEntry() {
-    console.log("New entry created")
-    this.weightEntries = SAMPLE_ENTRY_DATA
+  onAddNewEntry() {
+    this.showNewEntry = true
   }
 
   onSelectedUser(id: string) {
