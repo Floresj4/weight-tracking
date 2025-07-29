@@ -1,21 +1,21 @@
 <section>
     <dialog open>
+        <form>
+            <div class="input-container">
+                <h2>New Weight Entry</h2>
 
-        <div class="container">
-            <h2>New Weight Entry</h2>
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" />
 
-            <label for="date">Date:</label>
-            <input type="date" id="date" name="date" />
-
-            <label for="weight">Weight:</label>
-            <input type="number" id="weight" name="weight" step="0.5" />
-        </div>
-    
-        <div class="button-row">
-            <button (click)="onClose()">Cancel</button>
-            <button (click)="onSave()">Save</button>
-        </div>
-
+                <label for="weight">Weight:</label>
+                <input type="number" id="weight" name="weight" step="0.5" />
+            </div>
+        
+            <div class="button-container">
+                <button (click)="onClose()">Cancel</button>
+                <button (click)="onSave()">Save</button>
+            </div>
+        </form>
     </dialog>
 
 </section>
