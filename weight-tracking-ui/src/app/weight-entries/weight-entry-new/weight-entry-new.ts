@@ -1,5 +1,6 @@
-import { Component, output } from '@angular/core';
+import { Component, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { WeightEntry } from '../../model/weight-entry.model';
 
 @Component({
   selector: 'app-weight-new',
@@ -12,10 +13,17 @@ export class WeightEntryNew {
 
   close = output<void>()
 
-  enteredWeight: number | null = null;
-  enteredDate: string | null = null;
+  enteredWeight = signal(0)
+  enteredDate = signal('')
 
   onSave() {
+
+    const weight: WeightEntry = {
+      value: this.enteredWeight(),
+      date: new Date(this.enteredDate()).toUTCString()
+    }
+
+    console.log('Saving weight entry', weight)
     this.close.emit();
   }
 

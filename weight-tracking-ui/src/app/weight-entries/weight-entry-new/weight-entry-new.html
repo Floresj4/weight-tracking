@@ -7,18 +7,18 @@
             <p>
                 <label for="date">Date:</label>
                 <input type="date" 
+                    [(ngModel)]="enteredDate"
                     id="date" 
-                    name="date"
-                    [(ngModel)]="enteredDate" />
+                    name="date" />
             </p>
             
             <p>
                 <label for="weight">Weight:</label>
                 <input type="number" 
+                    [(ngModel)]="enteredWeight"
                     id="weight" 
                     name="weight" 
-                    step="0.1" 
-                    [(ngModel)]="enteredWeight"/>
+                    step="0.1" />
             </p>
         </div>
     
