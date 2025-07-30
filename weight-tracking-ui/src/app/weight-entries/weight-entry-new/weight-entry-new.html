@@ -3,12 +3,23 @@
     <form>
         <div class="input-container">
             <h2>New Weight Entry</h2>
-
-            <label for="date">Date:</label>
-            <input type="date" id="date" name="date" />
-
-            <label for="weight">Weight:</label>
-            <input type="number" id="weight" name="weight" step="0.5" />
+            
+            <p>
+                <label for="date">Date:</label>
+                <input type="date" 
+                    id="date" 
+                    name="date"
+                    [(ngModel)]="enteredDate" />
+            </p>
+            
+            <p>
+                <label for="weight">Weight:</label>
+                <input type="number" 
+                    id="weight" 
+                    name="weight" 
+                    step="0.1" 
+                    [(ngModel)]="enteredWeight"/>
+            </p>
         </div>
     
         <div class="button-container">

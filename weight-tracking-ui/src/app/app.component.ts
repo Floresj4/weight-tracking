@@ -37,7 +37,6 @@ export class App {
   }
 
   onCloseNewEntry() {
-    console.log("Closing new entry form")
     this.showNewEntry = false
   }
 
