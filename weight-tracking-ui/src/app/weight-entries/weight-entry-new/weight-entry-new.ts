@@ -16,7 +16,7 @@ export class WeightEntryNew {
   enteredWeight = signal(0)
   enteredDate = signal('')
 
-  onSave() {
+  onSubmit() {
 
     const weight: WeightEntry = {
       value: this.enteredWeight(),

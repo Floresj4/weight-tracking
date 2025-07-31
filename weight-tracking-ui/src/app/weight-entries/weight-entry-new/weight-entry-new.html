@@ -1,6 +1,6 @@
 <div class="backdrop" (click)="onClose()"></div>
 <dialog open>
-    <form>
+    <form (ngSubmit)="onSubmit()">
         <div class="input-container">
             <h2>New Weight Entry</h2>
             
@@ -24,7 +24,7 @@
     
         <div class="button-container">
             <button type='button' (click)="onClose()">Cancel</button>
-            <button type='submit' (click)="onSave()">Save</button>
+            <button type='submit'>Save</button>
         </div>
     </form>
 </dialog>
