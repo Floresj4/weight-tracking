@@ -23,7 +23,8 @@
     @if(showNewEntry) {
         <section class="new-entry-container">
             <app-weight-new 
-                (close)="onCloseNewEntry()"/>
+                (close)="onCloseNewEntry()"
+                (add)="onNewEntry($event)"/>
         </section>
     }
 

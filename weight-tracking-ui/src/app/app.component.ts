@@ -36,6 +36,12 @@ export class App {
     this.showNewEntry = true
   }
 
+  onNewEntry(entry: WeightEntry) {
+    this.showNewEntry = false
+    console.log("New entry added: ", entry);
+    this.weightEntries.unshift(entry)
+  }
+
   onCloseNewEntry() {
     this.showNewEntry = false
   }

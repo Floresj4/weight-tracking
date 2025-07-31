@@ -12,6 +12,7 @@ import { WeightEntry } from '../../model/weight-entry.model';
 export class WeightEntryNew {
 
   close = output<void>()
+  add = output<WeightEntry>()
 
   enteredWeight = signal(0)
   enteredDate = signal('')
@@ -23,8 +24,8 @@ export class WeightEntryNew {
       date: new Date(this.enteredDate()).toUTCString()
     }
 
-    console.log('Saving weight entry', weight)
-    this.close.emit();
+    console.log("New weight entry submitted: ", weight);
+    this.add.emit(weight);
   }
 
   onClose() {
