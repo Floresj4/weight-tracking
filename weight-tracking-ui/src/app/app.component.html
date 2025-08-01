@@ -20,19 +20,21 @@
         </div>
     </section>
 
-    <app-weight-stat 
-        label="Lowest"
-        [value]="lowestWeight"
-        [date]="lowestWeightDate" />
-    
-    <app-weight-stat 
-        label="Highest"
-        [value]="highestWeight"
-        [date]="highestWeightDate" />
+    <section class="stats-container">
+        <app-weight-stat 
+            label="Lowest"
+            [value]="lowestWeight"
+            [date]="lowestWeightDate" />
+        
+        <app-weight-stat 
+            label="Highest"
+            [value]="highestWeight"
+            [date]="highestWeightDate" />
 
-    <app-weight-stat 
-        label="Average"
-        [value]="averageWeight" />
+        <app-weight-stat 
+            label="Average"
+            [value]="averageWeight" />
+    </section>
 
     @if(showNewEntry) {
         <section class="new-entry-container">
