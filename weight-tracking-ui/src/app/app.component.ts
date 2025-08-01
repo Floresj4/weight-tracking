@@ -10,11 +10,12 @@ import { WeightEntryNew } from './weight-entries/weight-entry-new/weight-entry-n
 import { SAMPLE_USERS_DATA } from './model/users.data';
 import { UserModel} from './model/user.model';
 import { User } from "./components/user/user";
+import { WeightStat } from "./weight-entries/weight-stat/weight-stat";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Header, User, WeightTable, WeightEntryNew],
+  imports: [RouterOutlet, Header, User, WeightTable, WeightEntryNew, WeightStat],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -30,6 +31,26 @@ export class App {
 
   constructor() {
     this.selectedUser.set(SAMPLE_USERS_DATA[0])
+  }
+
+  get averageWeight(): number {
+    return 161.5
+  }
+
+  get lowestWeight(): number {
+    return 150
+  }
+
+  get lowestWeightDate(): string {
+    return "2023-01-15"
+  }
+
+  get highestWeight(): number {
+    return 166
+  }
+
+  get highestWeightDate(): string {
+    return "2023-03-22"
   }
 
   onAddNewEntry() {
