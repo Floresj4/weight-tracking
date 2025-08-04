@@ -9,7 +9,7 @@
 <main>
 
     <section class="weights-container">
-        <div class="header-button-row">
+        <div class="header-row">
             <h2>Entries</h2>
             <button (click)="onAddNewEntry()">Add Entry</button>
         </div>
@@ -21,7 +21,9 @@
     </section>
 
     <section class="stats-container">
-        <h2>Statistics</h2>
+        <div class="header-row">
+            <h2>Statistics</h2>
+        </div>
 
         <app-weight-stat 
             label="Lowest"

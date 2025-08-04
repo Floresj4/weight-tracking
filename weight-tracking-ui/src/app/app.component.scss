@@ -12,7 +12,7 @@ main {
     width: 500px;
 }
 
-.header-button-row {
+.header-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -22,6 +22,9 @@ main {
 .stats-container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.stats-container app-weight-stat {
+    margin-bottom: 10px;
 }
