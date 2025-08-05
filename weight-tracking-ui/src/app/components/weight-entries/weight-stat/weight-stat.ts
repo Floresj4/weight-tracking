@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { Card } from "../../components/shared/card/card";
+import { Card } from "../../../components/shared/card/card";
 
 @Component({
   selector: 'app-weight-stat',
