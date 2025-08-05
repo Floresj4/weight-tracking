@@ -2,15 +2,15 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './components/header/header';
 
-import { SAMPLE_ENTRY_DATA } from './model/weight-entries.data';
+import { SAMPLE_ENTRY_DATA } from 
 import { WeightTable } from './weight-entries/weight-table/weight-table';
-import { WeightEntry } from './model/weight-entry.model';
+import { WeightEntry } from './weight-entries/model/weight-entry.model';
 import { WeightEntryNew } from './weight-entries/weight-entry-new/weight-entry-new';
-
-import { SAMPLE_USERS_DATA } from './model/users.data';
-import { UserModel} from './model/user.model';
-import { User } from "./components/user/user";
 import { WeightStat } from "./weight-entries/weight-stat/weight-stat";
+
+import { SAMPLE_USERS_DATA } from './user/model/users.data';
+import { UserModel } from './components/user/user.model';
+import { User } from "./components/user/user";
 
 @Component({
   selector: 'app-root',
