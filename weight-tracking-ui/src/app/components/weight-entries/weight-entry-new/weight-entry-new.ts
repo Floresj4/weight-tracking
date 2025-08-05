@@ -1,6 +1,7 @@
 import { Component, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { WeightEntry } from '../../model/weight-entry.model';
+
+import { WeightEntry } from '../model/weight-entry.model';
 
 @Component({
   selector: 'app-weight-new',
