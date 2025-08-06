@@ -1,4 +1,5 @@
 import { WeightEntry } from "./weight-entry.model";
+import { WeightStat } from "./weight-stat.model";
 
 export const SAMPLE_ENTRY_DATA: WeightEntry[] = [
     {
@@ -450,3 +451,14 @@ export const SAMPLE_ENTRY_DATA: WeightEntry[] = [
         date: "2003-02-17"
     }
 ]
+
+export const SAMPLE_STAT_DATA: WeightStat[] = [{
+        value: 161.5,
+        date: "2023-06-01"
+    }, {
+        value: 150,
+        date: "2023-01-15"
+    }, {
+        value: 166,
+        date: "2023-03-22"
+    }]
