@@ -453,12 +453,14 @@ export const SAMPLE_ENTRY_DATA: WeightEntry[] = [
 ]
 
 export const SAMPLE_STAT_DATA: WeightStat[] = [{
-        value: 161.5,
-        date: "2023-06-01"
+        label: "Average",
+        value: 161.5
     }, {
+        label: "Lowest",
         value: 150,
         date: "2023-01-15"
     }, {
+        label: "Highest",
         value: 166,
         date: "2023-03-22"
     }]
