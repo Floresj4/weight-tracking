@@ -27,17 +27,16 @@
 
         <app-weight-stat 
             label="Lowest"
-            [value]="lowestWeight"
-            [date]="lowestWeightDate" />
+            [entry]="lowestWeight" />
         
         <app-weight-stat 
             label="Highest"
-            [value]="highestWeight"
-            [date]="highestWeightDate" />
+            [entry]="highestWeight" />
 
         <app-weight-stat 
             label="Average"
-            [value]="averageWeight" />
+            [entry]="averageWeight" />
+
     </section>
 
     @if(showNewEntry) {

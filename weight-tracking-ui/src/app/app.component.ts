@@ -2,9 +2,10 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './components/header/header';
 
-import { SAMPLE_ENTRY_DATA } from './components/weight-entries/model/weight-entries.data';
+import { SAMPLE_ENTRY_DATA, SAMPLE_STAT_DATA } from './components/weight-entries/model/weight-entries.data';
 import { WeightTable } from './components/weight-entries/weight-table/weight-table';
 import { WeightEntry } from './components/weight-entries/model/weight-entry.model';
+import { WeightStat as WeightStatModel } from './components/weight-entries/model/weight-stat.model';
 import { WeightEntryNew } from './components/weight-entries/weight-entry-new/weight-entry-new';
 import { WeightStat } from "./components/weight-entries/weight-stat/weight-stat";
 
@@ -24,6 +25,7 @@ export class App {
   selectedEntry = signal<WeightEntry>(<WeightEntry>{})
 
   weightEntries: WeightEntry[] = SAMPLE_ENTRY_DATA;
+  weightStats: WeightStatModel[] = SAMPLE_STAT_DATA;
 
   selectedUser = signal<UserModel>(<UserModel>{})
 
@@ -33,24 +35,16 @@ export class App {
     this.selectedUser.set(SAMPLE_USERS_DATA[0])
   }
 
-  get averageWeight(): number {
-    return 161.5
+  get averageWeight(): WeightStatModel {
+    return this.weightStats[0]
   }
 
-  get lowestWeight(): number {
-    return 150
+  get lowestWeight(): WeightStatModel {
+    return this.weightStats[1]
   }
 
-  get lowestWeightDate(): string {
-    return "2023-01-15"
-  }
-
-  get highestWeight(): number {
-    return 166
-  }
-
-  get highestWeightDate(): string {
-    return "2023-03-22"
+  get highestWeight(): WeightStatModel {
+    return this.weightStats[2]
   }
 
   onAddNewEntry() {

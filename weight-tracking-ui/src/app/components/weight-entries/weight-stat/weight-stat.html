@@ -1,9 +1,9 @@
 <app-card>
     <h3 class="header">{{ label() }}</h3>
 
-    <p class="value">{{ value() }}</p>
+    <p class="value">{{ entry().value }}</p>
 
-    @if (date()) {
-        <p class="date">{{ date() }}</p>
+    @if (entry().date) {
+        <p class="date">{{ entry().date }}</p>
     }
 </app-card>
