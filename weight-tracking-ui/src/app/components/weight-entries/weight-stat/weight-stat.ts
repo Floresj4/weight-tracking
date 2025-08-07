@@ -13,6 +13,6 @@ import { WeightStat as WeightStatModel } from '../model/weight-stat.model';
 })
 export class WeightStat {
 
-  label = input.required<string>()
   entry = input.required<WeightStatModel>()
+
 }
