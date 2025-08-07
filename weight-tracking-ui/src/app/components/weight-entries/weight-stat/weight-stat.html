@@ -4,6 +4,6 @@
     <p class="value">{{ entry().value }}</p>
 
     @if (entry().date) {
-        <p class="date">{{ entry().date }}</p>
+        <p class="date">{{ entry().date | date: 'longDate' }}</p>
     }
 </app-card>
