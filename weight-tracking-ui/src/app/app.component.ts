@@ -12,6 +12,7 @@ import { WeightStat } from "./components/weight-entries/weight-stat/weight-stat"
 import { SAMPLE_USERS_DATA } from './components/user/model/users.data';
 import { UserModel } from './components/user/model/user.model';
 import { User } from "./components/user/user";
+import { WeightEntryService } from './components/weight-entries/weight-entry.service';
 
 @Component({
   selector: 'app-root',
@@ -24,15 +25,16 @@ export class App {
 
   selectedEntry = signal<WeightEntry>(<WeightEntry>{})
 
-  weightEntries: WeightEntry[] = SAMPLE_ENTRY_DATA;
+  weightEntries: WeightEntry[] = []
   weightStats: WeightStatModel[] = SAMPLE_STAT_DATA;
 
   selectedUser = signal<UserModel>(<UserModel>{})
 
   showNewEntry: boolean = false;
 
-  constructor() {
+  constructor(private weightEntryService: WeightEntryService) {
     this.selectedUser.set(SAMPLE_USERS_DATA[0])
+    this.weightEntries = this.weightEntryService.getEntries();
   }
 
   get averageWeight(): WeightStatModel {
