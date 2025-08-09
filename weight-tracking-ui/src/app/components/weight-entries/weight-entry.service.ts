@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { WeightEntry } from "./model/weight-entry.model";
+import { WeightStat } from "./model/weight-stat.model";
 
 @Injectable({
   providedIn: 'root'
@@ -457,15 +458,17 @@ export class WeightEntryService {
         }
     ]
 
-    getAverageEntry(): WeightEntry {
+    getAverageEntry(): WeightStat {
         const numberOfEntries = this.SAMPLE_ENTRY_DATA.length
         const total = this.SAMPLE_ENTRY_DATA.reduce((sum, entry) => 
             sum + entry.value, 0);
 
-        const average = total / this.SAMPLE_ENTRY_DATA.length
+        let average = total / this.SAMPLE_ENTRY_DATA.length
+        average = parseFloat(average.toFixed(2))
+
         return { 
-            value: parseFloat(average.toFixed(2)), 
-            date: ''
+            label: 'Average',
+            value: average, 
         }
     }
 
@@ -473,15 +476,27 @@ export class WeightEntryService {
         return this.SAMPLE_ENTRY_DATA;
     }
 
-    getHighestEntry(): WeightEntry {
-        return this.SAMPLE_ENTRY_DATA.reduce((prev, curr) => 
+    getHighestEntry(): WeightStat {
+        const highest = this.SAMPLE_ENTRY_DATA.reduce((prev, curr) => 
             (prev.value > curr.value) 
                 ? prev : curr);
+
+        return {
+            label: 'Highest',
+            value: highest.value,
+            date: highest.date
+        }
     }
 
-    getLowestEntry(): WeightEntry {
-        return this.SAMPLE_ENTRY_DATA.reduce((prev, curr) => 
+    getLowestEntry(): WeightStat {
+        const lowest = this.SAMPLE_ENTRY_DATA.reduce((prev, curr) => 
             (prev.value < curr.value) 
                 ? prev : curr);
+
+        return {
+            label: 'Lowest',
+            value: lowest.value,
+            date: lowest.date
+        }
     }
 }
