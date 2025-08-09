@@ -457,7 +457,31 @@ export class WeightEntryService {
         }
     ]
 
+    getAverageEntry(): WeightEntry {
+        const numberOfEntries = this.SAMPLE_ENTRY_DATA.length
+        const total = this.SAMPLE_ENTRY_DATA.reduce((sum, entry) => 
+            sum + entry.value, 0);
+
+        const average = total / this.SAMPLE_ENTRY_DATA.length
+        return { 
+            value: parseFloat(average.toFixed(2)), 
+            date: ''
+        }
+    }
+
     getEntries(): WeightEntry[] {
         return this.SAMPLE_ENTRY_DATA;
+    }
+
+    getHighestEntry(): WeightEntry {
+        return this.SAMPLE_ENTRY_DATA.reduce((prev, curr) => 
+            (prev.value > curr.value) 
+                ? prev : curr);
+    }
+
+    getLowestEntry(): WeightEntry {
+        return this.SAMPLE_ENTRY_DATA.reduce((prev, curr) => 
+            (prev.value < curr.value) 
+                ? prev : curr);
     }
 }
