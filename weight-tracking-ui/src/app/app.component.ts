@@ -26,7 +26,6 @@ export class App {
   selectedEntry = signal<WeightEntry>(<WeightEntry>{})
 
   weightEntries: WeightEntry[] = []
-  weightStats: WeightStatModel[] = SAMPLE_STAT_DATA;
 
   selectedUser = signal<UserModel>(<UserModel>{})
 
@@ -38,15 +37,15 @@ export class App {
   }
 
   get averageWeight(): WeightStatModel {
-    return this.weightStats[0]
+    return this.weightEntryService.getAverageEntry();
   }
 
   get lowestWeight(): WeightStatModel {
-    return this.weightStats[1]
+    return this.weightEntryService.getLowestEntry()
   }
 
   get highestWeight(): WeightStatModel {
-    return this.weightStats[2]
+    return this.weightEntryService.getHighestEntry()
   }
 
   onAddNewEntry() {
@@ -55,7 +54,8 @@ export class App {
 
   onNewEntry(entry: WeightEntry) {
     this.showNewEntry = false
-    console.log("New entry added: ", entry);
+
+    console.log("New entry added: ", entry)
     this.weightEntries.unshift(entry)
   }
 
