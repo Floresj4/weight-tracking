@@ -7,7 +7,7 @@ import { WeightTable } from './components/weight-entries/weight-table/weight-tab
 import { WeightEntry } from './components/weight-entries/model/weight-entry.model';
 import { WeightStat as WeightStatModel } from './components/weight-entries/model/weight-stat.model';
 import { WeightEntryNew } from './components/weight-entries/weight-entry-new/weight-entry-new';
-import { WeightStat } from "./components/weight-entries/weight-stat/weight-stat";
+import { WeightStatComponent } from "./components/weight-entries/weight-stat/weight-stat.component";
 
 import { SAMPLE_USERS_DATA } from './components/user/model/users.data';
 import { UserModel } from './components/user/model/user.model';
@@ -17,7 +17,7 @@ import { WeightEntryService } from './components/weight-entries/weight-entry.ser
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Header, User, WeightTable, WeightEntryNew, WeightStat],
+  imports: [RouterOutlet, Header, User, WeightTable, WeightEntryNew, WeightStatComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

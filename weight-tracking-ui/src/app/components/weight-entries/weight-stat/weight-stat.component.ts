@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
-import { Card } from "../../../components/shared/card/card";
+import { Card } from "../../shared/card/card";
 
 import { WeightStat as WeightStatModel } from '../model/weight-stat.model';
 
@@ -9,10 +9,10 @@ import { WeightStat as WeightStatModel } from '../model/weight-stat.model';
   selector: 'app-weight-stat',
   standalone: true,
   imports: [Card, DatePipe],
-  templateUrl: './weight-stat.html',
-  styleUrl: './weight-stat.scss'
+  templateUrl: './weight-stat.component.html',
+  styleUrl: './weight-stat.component.scss'
 })
-export class WeightStat {
+export class WeightStatComponent {
 
   entry = input.required<WeightStatModel>()
 
