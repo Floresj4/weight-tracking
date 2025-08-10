@@ -7,8 +7,8 @@ import { CommonModule } from '@angular/common';
   selector: 'app-weight-table',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './weight-table.html',
-  styleUrl: './weight-table.scss'
+  templateUrl: './weight-table.component.html',
+  styleUrl: './weight-table.component.scss'
 })
 export class WeightTable {
 

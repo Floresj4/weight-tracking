@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { Header } from './components/header/header';
 
 import { SAMPLE_ENTRY_DATA, SAMPLE_STAT_DATA } from './components/weight-entries/model/weight-entries.data';
-import { WeightTable } from './components/weight-entries/weight-table/weight-table';
+import { WeightTable } from './components/weight-entries/weight-table/weight-table.component';
 import { WeightEntry } from './components/weight-entries/model/weight-entry.model';
 import { WeightStat as WeightStatModel } from './components/weight-entries/model/weight-stat.model';
 import { WeightEntryNew } from './components/weight-entries/weight-entry-new/weight-entry-new';
