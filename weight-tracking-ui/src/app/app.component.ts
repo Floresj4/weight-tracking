@@ -22,8 +22,6 @@ import { UserService } from './components/user/user.service';
 })
 export class App {
 
-  selectedEntry = signal<WeightEntry>(<WeightEntry>{})
-
   weightEntries: WeightEntry[] = []
 
   selectedUser = signal<UserModel>(<UserModel>{})
