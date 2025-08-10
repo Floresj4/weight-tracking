@@ -2,17 +2,16 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './components/header/header';
 
-import { SAMPLE_ENTRY_DATA, SAMPLE_STAT_DATA } from './components/weight-entries/model/weight-entries.data';
 import { WeightTable } from './components/weight-entries/weight-table/weight-table.component';
 import { WeightEntry } from './components/weight-entries/model/weight-entry.model';
 import { WeightStat as WeightStatModel } from './components/weight-entries/model/weight-stat.model';
 import { WeightEntryNew } from './components/weight-entries/weight-entry-new/weight-entry-new';
 import { WeightStatComponent } from "./components/weight-entries/weight-stat/weight-stat.component";
 
-import { SAMPLE_USERS_DATA } from './components/user/model/users.data';
 import { UserModel } from './components/user/model/user.model';
 import { User } from "./components/user/user";
 import { WeightEntryService } from './components/weight-entries/weight-entry.service';
+import { UserService } from './components/user/user.service';
 
 @Component({
   selector: 'app-root',
@@ -31,9 +30,14 @@ export class App {
 
   showNewEntry: boolean = false;
 
-  constructor(private weightEntryService: WeightEntryService) {
-    this.selectedUser.set(SAMPLE_USERS_DATA[0])
-    this.weightEntries = this.weightEntryService.getEntries();
+  constructor(private userService: UserService,
+    private weightEntryService: WeightEntryService) {
+
+    const user = this.userService.getUserById("1")
+    if(user) {
+      this.selectedUser.set(user)
+      this.weightEntries = this.weightEntryService.getEntries();
+    }
   }
 
   get averageWeight(): WeightStatModel {
