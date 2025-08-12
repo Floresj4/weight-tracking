@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Header } from './components/header/header';
+import { Header } from './components/header/header.component';
 
 import { WeightTable } from './components/weight-entries/weight-table/weight-table.component';
 import { WeightEntry } from './components/weight-entries/model/weight-entry.model';
