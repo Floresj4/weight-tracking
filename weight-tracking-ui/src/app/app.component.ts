@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Header } from './components/header/header.component';
+import { HeaderComponent } from './components/header/header.component';
 
 import { WeightTable } from './components/weight-entries/weight-table/weight-table.component';
 import { WeightEntry } from './components/weight-entries/model/weight-entry.model';
@@ -16,7 +16,7 @@ import { UserService } from './components/user/user.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Header, UserComponent, WeightTable, WeightEntryNew, WeightStatComponent],
+  imports: [RouterOutlet, HeaderComponent, UserComponent, WeightTable, WeightEntryNew, WeightStatComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
