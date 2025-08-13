@@ -9,14 +9,14 @@ import { WeightEntryNew } from './components/weight-entries/weight-entry-new/wei
 import { WeightStatComponent } from "./components/weight-entries/weight-stat/weight-stat.component";
 
 import { UserModel } from './components/user/model/user.model';
-import { User } from "./components/user/user";
+import { UserComponent } from "./components/user/user.component";
 import { WeightEntryService } from './components/weight-entries/weight-entry.service';
 import { UserService } from './components/user/user.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Header, User, WeightTable, WeightEntryNew, WeightStatComponent],
+  imports: [RouterOutlet, Header, UserComponent, WeightTable, WeightEntryNew, WeightStatComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

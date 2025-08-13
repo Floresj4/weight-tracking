@@ -6,10 +6,10 @@ import { UserModel } from './model/user.model';
   selector: 'app-user',
   standalone: true,
   imports: [],
-  templateUrl: './user.html',
-  styleUrl: './user.scss'
+  templateUrl: './user.component.html',
+  styleUrl: './user.component.scss'
 })
-export class User {
+export class UserComponent {
 
     user = input.required<UserModel>()
 
