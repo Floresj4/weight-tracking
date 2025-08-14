@@ -4,8 +4,8 @@ import { Component } from '@angular/core';
   selector: 'app-card',
   standalone: true,
   imports: [],
-  templateUrl: './card.html',
-  styleUrl: './card.scss'
+  templateUrl: './card.component.html',
+  styleUrl: './card.component.scss'
 })
 export class Card {
 
