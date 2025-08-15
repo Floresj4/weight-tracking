@@ -5,7 +5,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { WeightTable } from './components/weight-entries/weight-table/weight-table.component';
 import { WeightEntry } from './components/weight-entries/model/weight-entry.model';
 import { WeightStat as WeightStatModel } from './components/weight-entries/model/weight-stat.model';
-import { WeightEntryNew } from './components/weight-entries/weight-entry-new/weight-entry-new';
+import { WeightEntryNew } from './components/weight-entries/weight-entry-new/weight-entry-new.component';
 import { WeightStatComponent } from "./components/weight-entries/weight-stat/weight-stat.component";
 
 import { UserModel } from './components/user/model/user.model';

@@ -7,8 +7,8 @@ import { WeightEntry } from '../model/weight-entry.model';
   selector: 'app-weight-new',
   standalone: true,
   imports: [ FormsModule],
-  templateUrl: './weight-entry-new.html',
-  styleUrl: './weight-entry-new.scss'
+  templateUrl: './weight-entry-new.component.html',
+  styleUrl: './weight-entry-new.component.scss'
 })
 export class WeightEntryNew {
 
