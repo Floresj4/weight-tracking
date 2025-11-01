@@ -7,6 +7,8 @@ import { WeightStat } from "./model/weight-stat.model";
 })
 export class WeightEntryService {
 
+    private WEIGHT_ENTRIES_KEY: string = 'weightEntries'
+
     SAMPLE_ENTRY_DATA: WeightEntry[] = [
         {
             value: 160,
@@ -458,6 +460,11 @@ export class WeightEntryService {
         }
     ]
 
+    addEntry(entry: WeightEntry) {
+        this.SAMPLE_ENTRY_DATA.push(entry);
+        this.saveEntries(this.SAMPLE_ENTRY_DATA)
+    }
+
     getAverageEntry(): WeightStat {
         const numberOfEntries = this.SAMPLE_ENTRY_DATA.length
         const total = this.SAMPLE_ENTRY_DATA.reduce((sum, entry) => 
@@ -498,5 +505,10 @@ export class WeightEntryService {
             value: lowest.value,
             date: lowest.date
         }
+    }
+
+    private saveEntries(entries: WeightEntry[]) {
+        localStorage.setItem(this.WEIGHT_ENTRIES_KEY, 
+            JSON.stringify(entries))
     }
 }
