@@ -1,6 +1,6 @@
 import { Component, computed, input, output } from '@angular/core';
 
-import { UserModel } from './model/user.model';
+import { User } from './model/user.model';
 
 @Component({
   selector: 'app-user',
@@ -11,7 +11,7 @@ import { UserModel } from './model/user.model';
 })
 export class UserComponent {
 
-    user = input.required<UserModel>()
+    user = input.required<User>()
 
     imagePath = computed(() => '/' + this.user().avatar )
 

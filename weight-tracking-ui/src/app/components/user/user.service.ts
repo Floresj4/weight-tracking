@@ -1,13 +1,13 @@
 import { Injectable } from "@angular/core";
 
-import { UserModel } from "./model/user.model";
+import { User } from "./model/user.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-    private SAMPLE_USERS_DATA: UserModel[] = [
+    private SAMPLE_USERS_DATA: User[] = [
         {
             id: "1",
             name: "Jason",
@@ -15,11 +15,11 @@ export class UserService {
        }
     ]
 
-    getUsers(): UserModel[] {
+    getUsers(): User[] {
         return this.SAMPLE_USERS_DATA;
     }
 
-    getUserById(id: string): UserModel | undefined {
+    getUserById(id: string): User | undefined {
         return this.SAMPLE_USERS_DATA.find(user => user.id === id);
     }
 }

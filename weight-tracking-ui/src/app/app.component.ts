@@ -8,7 +8,7 @@ import { WeightStat as WeightStatModel } from './components/weight-entries/model
 import { WeightEntryNew } from './components/weight-entries/weight-entry-new/weight-entry-new.component';
 import { WeightStatComponent } from "./components/weight-entries/weight-stat/weight-stat.component";
 
-import { UserModel } from './components/user/model/user.model';
+import { User } from './components/user/model/user.model';
 import { UserComponent } from "./components/user/user.component";
 import { WeightEntryService } from './components/weight-entries/weight-entry.service';
 import { UserService } from './components/user/user.service';
@@ -24,7 +24,7 @@ export class App {
 
   weightEntries: WeightEntry[] = []
 
-  selectedUser = signal<UserModel>(<UserModel>{})
+  selectedUser = signal<User>(<User>{})
 
   showNewEntry: boolean = false;
 
